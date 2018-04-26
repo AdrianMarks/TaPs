@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  HistoryReceiptsViewController.swift
 //  Iota Tap
 //
 //  Created by Redkite - Adrian Marks on 22/03/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class HistoryReceiptsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

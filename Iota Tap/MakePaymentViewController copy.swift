@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  MakePaymentViewController.swift
 //  Iota Tap
 //
 //  Created by Redkite - Adrian Marks on 22/03/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class MakePaymentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
