@@ -11,14 +11,6 @@ import IotaKit
 import SwiftKeychainWrapper
 import CoreBluetooth
 
-enum TAPConstants {
-    static let kAvatar = "avatar"
-    static let kSeed = "seed"
-    static let kIndex = "index"
-    static let kBTStatus = "bluetooth"
-    static let kAddress = "address"
-}
-
 class AccountViewController: UIViewController, UITextFieldDelegate {
 
     //Keychain Data
@@ -57,7 +49,6 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     
     //Data
     var avatarCaptureController = AvatarCaptureController()
-    var peripheralManager = PeripheralManagerHandler()
     
     //UI
     @IBOutlet weak var passcodeSwitch: UISwitch!
@@ -68,7 +59,6 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var avatarView: UIView!
     @IBOutlet weak var smallAvatarView: UIImageView!
-    
     
     //UI Actions
     @IBAction func cameraButton(_ sender: UIButton) {
@@ -115,33 +105,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     @IBAction func seedChanged(_ sender: Any) {
         savedSeed = seed.text
         
-        //For now generate an address here and store the value - THIS WILL MOVE LATER
-        if seed.text?.count == 81 {
-            //obtain a new address to which funds will be sent
-            let iota = Iota(node: "https://redkite-iota.com:443" )
-            iota.accountData(seed: savedSeed!, { (account) in
-                print("address count - \(account.addresses.count)")
-                self.savedAddress = IotaAPIUtils.newAddress(seed: self.savedSeed!, index: account.addresses.count, checksum: true)
-                print("The account is \(account)")
-                print("The new address is - \(String(describing: self.savedAddress))")
-                
-                dataToSend = ((self.savedAddress)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
-                transferCharacteristic = addressCharacteristic
-                
-                print("Data to Send - \(String(describing: dataToSend))")
-                
-                // Reset the index
-                sendDataIndex = 0;
-                
-                // Start sending
-                self.peripheralManager.sendData()
-                
-            }, error: { (error) in
-                print("API call to retrieve the no of addresses failed with error -\(error)")
-            }, log: { (log) in
-                print(log) }
-            )
-        }
+        accountManagement.retrieveAddress()
     
     }
     

@@ -11,7 +11,7 @@ import CoreBluetooth
 import IotaKit
 
 class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
-   
+
     //Keychain Data
     fileprivate var savedAvatarName: String? {
         get {
@@ -45,12 +45,16 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
         super.init()
         
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-
+        print("Peripheral Manager Initialised")
+    }
+    
+    public func initialise() {
+        
     }
 
     //MARK: Core Bluetooth Peripheral Manager functions
     //Called when the peripheral manager changes state
-    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+    public func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         
         switch peripheral.state {
         case .unknown:
@@ -66,10 +70,11 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
         case .poweredOn:
             print("peripheral.state is .poweredOn")
             
+            receiptCharacteristic.value = nil
             nameCharacteristic.value = nil
             imageCharacteristic.value = nil
             addressCharacteristic.value = nil
-            service.characteristics = [ nameCharacteristic, addressCharacteristic, imageCharacteristic]
+            service.characteristics = [ receiptCharacteristic, nameCharacteristic, addressCharacteristic, imageCharacteristic]
             peripheralManager?.add(service)
             
             //Check if bluetooth status is and if so start advertising
@@ -82,7 +87,7 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
     }
     
     //Called when the peripheral adds a service
-    func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
+    public func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
         if let error = error {
             print("error: \(error)")
             return
@@ -92,7 +97,7 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
     }
     
     //Called when the peripheral starts advertising its presence
-    func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
+    public func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
         if let error = error {
             print("Failed… error: \(error)")
             return
@@ -200,15 +205,15 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
     /** This callback comes in when the PeripheralManager is ready to send the next chunk of data.
      *  This is to ensure that packets will arrive in the order they are sent
      */
-    func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
+    public func peripheralManagerIsReady(toUpdateSubscribers peripheral: CBPeripheralManager) {
         // Start sending again
         sendData()
     }
     
     //Check when someone subscribe to our characteristic.
-    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
+    public func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         
-        print("Device \(central) subscribe to characteristic - \(characteristic.uuid)")
+        print("Device \(central) subscribed to characteristic - \(characteristic.uuid)")
         
         //******* Check Charateristic and set dataToSend and transferCharacteristic accordingly ******
         if characteristic.uuid.isEqual(imageCharacteristic_UUID) {
@@ -249,12 +254,24 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             // Start sending
             sendData()
         }
+        else if characteristic.uuid.isEqual(receiptCharacteristic_UUID) {
+            dataToSend = "EOM".data(using: String.Encoding.utf8)!
+            transferCharacteristic = receiptCharacteristic
+            
+            print("Data to Send - \(String(describing: dataToSend))")
+            
+            // Reset the index
+            sendDataIndex = 0
+            
+            // Start sending
+            sendData()
+        }
         
     }
     
     
     //Log when someone unsubscribes from our characteristic.
-    func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
+    public func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
         print("Device \(central) unsubscribed from characteristic - \(characteristic.uuid)")
     }
     

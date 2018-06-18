@@ -15,10 +15,20 @@ public var sendDataIndex: Int?
 public var sendShortDataIndex: Int?
 public var node = "https://redkite-iota.com:443"
 
+enum TAPConstants {
+    static let kAvatar = "avatar"
+    static let kSeed = "seed"
+    static let kIndex = "index"
+    static let kBTStatus = "bluetooth"
+    static let kAddress = "address"
+    static let kBalance = "balance"
+}
+
 let kService_UUID = "F643B47F-E2CD-412F-B4D1-7077600A8D77"
 let imageCharacteristic_uuid = "19607F25-FDEC-42C7-A8E9-5817F936E231"
 let nameCharacteristic_uuid = "DFFD3395-C909-4555-8634-98B06BAEEDF0"
 let addressCharacteristic_uuid = "C1F206AB-3675-4E13-890D-4A6C1F218607"
+let receiptCharacteristic_uuid = "60BD4755-F29E-41F0-87A8-3BDE05B4A13C"
 
 let advertisementData = "TaPs Device"
 
@@ -27,6 +37,7 @@ let Service_UUID = CBUUID(string: kService_UUID)
 let nameCharacteristic_UUID = CBUUID(string: nameCharacteristic_uuid)
 let imageCharacteristic_UUID = CBUUID(string: imageCharacteristic_uuid)
 let addressCharacteristic_UUID = CBUUID(string: addressCharacteristic_uuid)
+let receiptCharacteristic_UUID = CBUUID(string: receiptCharacteristic_uuid)
 
 let service = CBMutableService(type: Service_UUID, primary: true)
 
@@ -47,6 +58,12 @@ let imageCharacteristic = CBMutableCharacteristic(
 
 let addressCharacteristic = CBMutableCharacteristic(
     type: addressCharacteristic_UUID,
+    properties: properties,
+    value: nil,
+    permissions: permissions)
+
+let receiptCharacteristic = CBMutableCharacteristic(
+    type: receiptCharacteristic_UUID,
     properties: properties,
     value: nil,
     permissions: permissions)

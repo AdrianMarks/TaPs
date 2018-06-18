@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     fileprivate var retrievedPIN = KeychainWrapper.standard.string(forKey: ALConstants.kPincode)
     fileprivate var retrievedAvatarName = KeychainWrapper.standard.string(forKey: TAPConstants.kAvatar)
     fileprivate var retrievedSeed = KeychainWrapper.standard.string(forKey: TAPConstants.kSeed)
+    fileprivate var retrievedAddress = KeychainWrapper.standard.string(forKey: TAPConstants.kAddress)
     
     //View controller functinos
     override func viewDidLoad() {
@@ -35,6 +36,7 @@ class HomeViewController: UIViewController {
         print("Retrieved Avatar Name is \(retrievedAvatarName ?? "set to nil" )")
         print("Retrieved Seed is \(retrievedSeed ?? "set to nil" )")
         print("Retrieved Seed LENGTH is \(retrievedSeed?.count ?? 0 )")
+        print("Retrieved Address is \(retrievedAddress ?? "set to nil" )")
         
         Thread.sleep(forTimeInterval: 3.0)
         

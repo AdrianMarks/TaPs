@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		213D166120D141FE00ECB6A2 /* ReceiptsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D166020D141FE00ECB6A2 /* ReceiptsViewController.swift */; };
+		213D166320D1421600ECB6A2 /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D166220D1421600ECB6A2 /* PaymentsViewController.swift */; };
+		213D166520D1426C00ECB6A2 /* CentralManagerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D166420D1426C00ECB6A2 /* CentralManagerHandler.swift */; };
+		213D170B20D1502300ECB6A2 /* AccountManagementHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D170A20D1502300ECB6A2 /* AccountManagementHandler.swift */; };
+		21702C5620C1135300A7B3E4 /* PayeesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21702C5520C1135300A7B3E4 /* PayeesViewController.swift */; };
+		38AA4FBE8977DC1597A19FC8 /* Pods_TaPs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 956FED37C605A15AFEAC7C71 /* Pods_TaPs.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		3F228F6C208F501200BFA437 /* ReadWriteFileFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F228F6B208F501200BFA437 /* ReadWriteFileFS.swift */; };
 		3F244F4520639AE700D69338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F244F4420639AE700D69338 /* AppDelegate.swift */; };
-		3F244F4920639AE700D69338 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F244F4820639AE700D69338 /* HistoryViewController.swift */; };
 		3F244F4C20639AE700D69338 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F244F4A20639AE700D69338 /* Main.storyboard */; };
 		3F244F4E20639AE700D69338 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F244F4D20639AE700D69338 /* Assets.xcassets */; };
 		3F3D463720A457CD00FAE483 /* TextUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D463620A457CD00FAE483 /* TextUtility.swift */; };
-		3F4F005920B43759008436F1 /* PayeesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F005820B43759008436F1 /* PayeesViewController.swift */; };
+		3F4F009C20B706AE008436F1 /* TaPs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F009A20B706AE008436F1 /* TaPs.xcdatamodeld */; };
+		3F4F009E20B86B7D008436F1 /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F009D20B86B7D008436F1 /* CoreDataHandler.swift */; };
 		3F5A46A02077A87D0054B218 /* AvatarCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */; };
 		3F73C4DE2063E6B2004E262E /* MakePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F73C4DD2063E6B2004E262E /* MakePaymentViewController.swift */; };
 		3F86764620665A2C00A925FF /* AppLocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F86764320665A2C00A925FF /* AppLocker.swift */; };
@@ -24,22 +30,37 @@
 		3FC0B0A32093904300F20DB7 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B0A22093904300F20DB7 /* AppData.swift */; };
 		3FC0B0A520939F4E00F20DB7 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B0A420939F4E00F20DB7 /* AccountViewController.swift */; };
 		3FD700F620A2113700C07C07 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD700F520A2113700C07C07 /* HomeViewController.swift */; };
-		E22C4330859F391B464931F4 /* Pods_Iota_Tap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0888F0C08663225B4C54FE /* Pods_Iota_Tap.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		213D170920D14E1D00ECB6A2 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		0C0888F0C08663225B4C54FE /* Pods_Iota_Tap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Iota_Tap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B7E8A1B6F5BE2E6DEA3E906 /* Pods-Iota Tap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Iota Tap.release.xcconfig"; path = "Pods/Target Support Files/Pods-Iota Tap/Pods-Iota Tap.release.xcconfig"; sourceTree = "<group>"; };
+		213D166020D141FE00ECB6A2 /* ReceiptsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptsViewController.swift; sourceTree = "<group>"; };
+		213D166220D1421600ECB6A2 /* PaymentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
+		213D166420D1426C00ECB6A2 /* CentralManagerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralManagerHandler.swift; sourceTree = "<group>"; };
+		213D170A20D1502300ECB6A2 /* AccountManagementHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementHandler.swift; sourceTree = "<group>"; };
+		21702C5520C1135300A7B3E4 /* PayeesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayeesViewController.swift; sourceTree = "<group>"; };
 		3F228F6B208F501200BFA437 /* ReadWriteFileFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteFileFS.swift; sourceTree = "<group>"; };
 		3F244F4120639AE700D69338 /* TaPs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaPs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F244F4420639AE700D69338 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3F244F4820639AE700D69338 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		3F244F4B20639AE700D69338 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F244F4D20639AE700D69338 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F244F5220639AE700D69338 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F244F5820639BB600D69338 /* TaPs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaPs.entitlements; sourceTree = "<group>"; };
 		3F3D463620A457CD00FAE483 /* TextUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtility.swift; sourceTree = "<group>"; };
-		3F4F005820B43759008436F1 /* PayeesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PayeesViewController.swift; path = /Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/PayeesViewController.swift; sourceTree = "<absolute>"; };
+		3F4F009B20B706AE008436F1 /* temp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = temp.xcdatamodel; sourceTree = "<group>"; };
+		3F4F009D20B86B7D008436F1 /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarCaptureController.swift; sourceTree = "<group>"; };
 		3F73C4DD2063E6B2004E262E /* MakePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakePaymentViewController.swift; sourceTree = "<group>"; };
 		3F86764320665A2C00A925FF /* AppLocker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLocker.swift; sourceTree = "<group>"; };
@@ -50,7 +71,9 @@
 		3FC0B0A22093904300F20DB7 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		3FC0B0A420939F4E00F20DB7 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		3FD700F520A2113700C07C07 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		FD4D75BD64B42437AC2905CC /* Pods-Iota Tap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Iota Tap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Iota Tap/Pods-Iota Tap.debug.xcconfig"; sourceTree = "<group>"; };
+		956FED37C605A15AFEAC7C71 /* Pods_TaPs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaPs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA5672D4B9B7D8599E22A6FE /* Pods-TaPs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaPs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaPs/Pods-TaPs.debug.xcconfig"; sourceTree = "<group>"; };
+		E5E2AC02A93715B80A57EA2B /* Pods-TaPs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaPs.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaPs/Pods-TaPs.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E22C4330859F391B464931F4 /* Pods_Iota_Tap.framework in Frameworks */,
+				38AA4FBE8977DC1597A19FC8 /* Pods_TaPs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,8 +91,8 @@
 		05A5065621213CD943970D12 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FD4D75BD64B42437AC2905CC /* Pods-Iota Tap.debug.xcconfig */,
-				2B7E8A1B6F5BE2E6DEA3E906 /* Pods-Iota Tap.release.xcconfig */,
+				BA5672D4B9B7D8599E22A6FE /* Pods-TaPs.debug.xcconfig */,
+				E5E2AC02A93715B80A57EA2B /* Pods-TaPs.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -77,7 +100,7 @@
 		3060C0D5BB7759998CBABD17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0C0888F0C08663225B4C54FE /* Pods_Iota_Tap.framework */,
+				956FED37C605A15AFEAC7C71 /* Pods_TaPs.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,16 +130,21 @@
 				3F244F5820639BB600D69338 /* TaPs.entitlements */,
 				3FC0B0A22093904300F20DB7 /* AppData.swift */,
 				3F244F4420639AE700D69338 /* AppDelegate.swift */,
+				3F4F009D20B86B7D008436F1 /* CoreDataHandler.swift */,
+				213D170A20D1502300ECB6A2 /* AccountManagementHandler.swift */,
+				213D166420D1426C00ECB6A2 /* CentralManagerHandler.swift */,
+				3F9B32D220A837D70003A727 /* PeripheralManagerHandler.swift */,
 				3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */,
+				3FB60BDD20B2EF76006C6EAD /* DropDownUnitsButton.swift */,
 				3F3D463620A457CD00FAE483 /* TextUtility.swift */,
 				3F228F6B208F501200BFA437 /* ReadWriteFileFS.swift */,
-				3F9B32D220A837D70003A727 /* PeripheralManagerHandler.swift */,
+				21702C5520C1135300A7B3E4 /* PayeesViewController.swift */,
 				3F73C4DD2063E6B2004E262E /* MakePaymentViewController.swift */,
-				3F4F005820B43759008436F1 /* PayeesViewController.swift */,
-				3FB60BDD20B2EF76006C6EAD /* DropDownUnitsButton.swift */,
-				3F244F4820639AE700D69338 /* HistoryViewController.swift */,
-				3FD700F520A2113700C07C07 /* HomeViewController.swift */,
+				213D166220D1421600ECB6A2 /* PaymentsViewController.swift */,
+				213D166020D141FE00ECB6A2 /* ReceiptsViewController.swift */,
 				3FC0B0A420939F4E00F20DB7 /* AccountViewController.swift */,
+				3FD700F520A2113700C07C07 /* HomeViewController.swift */,
+				3F4F009A20B706AE008436F1 /* TaPs.xcdatamodeld */,
 				3F244F4A20639AE700D69338 /* Main.storyboard */,
 				3F244F4D20639AE700D69338 /* Assets.xcassets */,
 				3F244F5220639AE700D69338 /* Info.plist */,
@@ -154,6 +182,7 @@
 				3F244F3E20639AE700D69338 /* Frameworks */,
 				3F244F3F20639AE700D69338 /* Resources */,
 				C03E83FB99FA0909070BCDF0 /* [CP] Embed Pods Frameworks */,
+				213D170920D14E1D00ECB6A2 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -234,7 +263,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Iota Tap-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-TaPs-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -247,7 +276,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Iota Tap/Pods-Iota Tap-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-TaPs/Pods-TaPs-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AvatarCapture/AvatarCapture.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/IotaKit/IotaKit.framework",
@@ -262,7 +291,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Iota Tap/Pods-Iota Tap-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TaPs/Pods-TaPs-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -272,19 +301,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F4F005920B43759008436F1 /* PayeesViewController.swift in Sources */,
+				3F4F009E20B86B7D008436F1 /* CoreDataHandler.swift in Sources */,
+				213D166120D141FE00ECB6A2 /* ReceiptsViewController.swift in Sources */,
 				3FC0B0A32093904300F20DB7 /* AppData.swift in Sources */,
-				3F244F4920639AE700D69338 /* HistoryViewController.swift in Sources */,
 				3FB60BDE20B2EF76006C6EAD /* DropDownUnitsButton.swift in Sources */,
 				3FC0B0A520939F4E00F20DB7 /* AccountViewController.swift in Sources */,
 				3F3D463720A457CD00FAE483 /* TextUtility.swift in Sources */,
+				3F4F009C20B706AE008436F1 /* TaPs.xcdatamodeld in Sources */,
 				3F244F4520639AE700D69338 /* AppDelegate.swift in Sources */,
 				3F5A46A02077A87D0054B218 /* AvatarCaptureController.swift in Sources */,
 				3F73C4DE2063E6B2004E262E /* MakePaymentViewController.swift in Sources */,
 				3F9B32D320A837D80003A727 /* PeripheralManagerHandler.swift in Sources */,
+				21702C5620C1135300A7B3E4 /* PayeesViewController.swift in Sources */,
 				3F228F6C208F501200BFA437 /* ReadWriteFileFS.swift in Sources */,
 				3F86764820665A2C00A925FF /* UI.swift in Sources */,
+				213D166320D1421600ECB6A2 /* PaymentsViewController.swift in Sources */,
 				3F86764620665A2C00A925FF /* AppLocker.swift in Sources */,
+				213D170B20D1502300ECB6A2 /* AccountManagementHandler.swift in Sources */,
+				213D166520D1426C00ECB6A2 /* CentralManagerHandler.swift in Sources */,
 				3FD700F620A2113700C07C07 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,14 +447,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		3F244F5620639AE700D69338 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD4D75BD64B42437AC2905CC /* Pods-Iota Tap.debug.xcconfig */;
+			baseConfigurationReference = BA5672D4B9B7D8599E22A6FE /* Pods-TaPs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TaPs/TaPs.entitlements;
@@ -430,6 +465,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/TaPs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.redkiteprojects.TaPs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -440,7 +476,7 @@
 		};
 		3F244F5720639AE700D69338 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B7E8A1B6F5BE2E6DEA3E906 /* Pods-Iota Tap.release.xcconfig */;
+			baseConfigurationReference = E5E2AC02A93715B80A57EA2B /* Pods-TaPs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TaPs/TaPs.entitlements;
@@ -450,6 +486,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/TaPs/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.redkiteprojects.TaPs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -480,6 +517,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3F4F009A20B706AE008436F1 /* TaPs.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3F4F009B20B706AE008436F1 /* temp.xcdatamodel */,
+			);
+			currentVersion = 3F4F009B20B706AE008436F1 /* temp.xcdatamodel */;
+			path = TaPs.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3F244F3920639AE700D69338 /* Project object */;
 }
