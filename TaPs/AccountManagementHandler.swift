@@ -10,7 +10,7 @@ import Foundation
 import SwiftKeychainWrapper
 import IotaKit
 
-class AccountManagementHandler: NSObject {
+class IotaAccountManagementHandler: NSObject {
     
     //Data
     let iota = Iota(node: node)
@@ -114,5 +114,34 @@ class AccountManagementHandler: NSObject {
                 print(log) }
             )
         }
+    }
+    
+    public func promoteTransaction(tailHash: String, bundleHash: String ) {
+        
+        //Automatically promote the transaction
+        iota.promoteTransaction(hash: tailHash, { (success) in
+            
+            //Update the last payment record status to "Promoted"
+            DispatchQueue.main.async {
+                if CoreDataHandler.updatePromotedPayment(bundleHash: bundleHash) {
+                    print("Updated status of payment to 'Promoted' successfully")
+                } else {
+                    print("Failed updating payment to 'Promoted' status")
+                }
+            }
+            
+            print("First round of promotion succeeded")
+            
+            //Automatically promote AGAIN the transaction
+            //Temporary measure while MainNet is performaing badly!!
+            self.iota.promoteTransaction(hash: tailHash, { (success) in
+                print("Second round of promotion succeeded")
+            }, error: { (error) in
+                print("Second round of promotion Failed")
+            })
+            
+        }, error: { (error) in
+            print("Promotion Failed")
+        })
     }
 }

@@ -13,7 +13,7 @@ import CoreData
 
 var centralManager = CentralManagerHandler()
 var peripheralManager = PeripheralManagerHandler()
-var accountManagement = AccountManagementHandler()
+var accountManagement = IotaAccountManagementHandler()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

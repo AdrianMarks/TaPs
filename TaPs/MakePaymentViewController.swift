@@ -190,31 +190,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
             //If it has then retrieve, store and update Centrals with new receipt address
             accountManagement.checkAddress()
             
-            //Automatically promote the transaction
-            iota.promoteTransaction(hash: tailHash, { (success) in
-                
-                //Update the last payment record status to "Promoted"
-                DispatchQueue.main.async {
-                    if CoreDataHandler.updatePromotedPayment(bundleHash: bundleHash) {
-                        print("Updated status of payment to 'Promoted' successfully")
-                    } else {
-                        print("Failed updating payment to 'Promoted' status")
-                    }
-                }
-                
-                print("First round of promotion succeeded")
-                
-                //Automatically promote AGAIN the transaction
-                //Temporary measure while MainNet is performaing badly!!
-                iota.promoteTransaction(hash: tailHash, { (success) in
-                    print("Second round of promotion succeeded")
-                }, error: { (error) in
-                    print("Second round of promotion Failed")
-                })
-                
-            }, error: { (error) in
-                print("Promotion Failed")
-            })
+            accountManagement.promoteTransaction(tailHash: tailHash, bundleHash: bundleHash )
             
             //Send Receipt to Payee
             print("attempting to send Receipt to Payee")
