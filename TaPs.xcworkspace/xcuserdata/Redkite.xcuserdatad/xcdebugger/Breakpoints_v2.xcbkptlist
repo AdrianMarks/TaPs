@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Iota Tap/AccountViewController.swift"
+            timestampString = "548679422.381834"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "savedBTStatus"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaPs/HistoryViewController.swift"
+            timestampString = "549550886.619817"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "HistoryViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HistoryViewController.__deallocating_deinit"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HistoryViewController.swift"
+                  timestampString = "548761938.947978"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HistoryViewController.__allocating_init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; TaPs.HistoryViewController"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HistoryViewController.swift"
+                  timestampString = "548761938.950448"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HistoryViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; TaPs.HistoryViewController"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HistoryViewController.swift"
+                  timestampString = "548761938.952423"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HistoryViewController.__allocating_init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;TaPs.HistoryViewController&gt;"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HistoryViewController.swift"
+                  timestampString = "548761938.954412"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HistoryViewController.init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;TaPs.HistoryViewController&gt;"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HistoryViewController.swift"
+                  timestampString = "548761938.956656"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaPs/HomeViewController.swift"
+            timestampString = "550842218.129817"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HomeViewController.__deallocating_deinit"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HomeViewController.swift"
+                  timestampString = "548761938.928012"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HomeViewController.__allocating_init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; TaPs.HomeViewController"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HomeViewController.swift"
+                  timestampString = "548761938.930339"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HomeViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; TaPs.HomeViewController"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HomeViewController.swift"
+                  timestampString = "548761938.9323519"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HomeViewController.__allocating_init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;TaPs.HomeViewController&gt;"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HomeViewController.swift"
+                  timestampString = "548761938.9345"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TaPs.HomeViewController.init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;TaPs.HomeViewController&gt;"
+                  moduleName = "TaPs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Redkite/Dropbox/RedKite/IOTA/Swift/TaPs/TaPs/HomeViewController.swift"
+                  timestampString = "548761938.936625"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaPs/ReceiptsViewController.swift"
+            timestampString = "550842218.1298881"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TaPs/ReceiptsViewController.swift"
+            timestampString = "550842218.129949"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -1,0 +1,28 @@
+PODS:
+  - AvatarCapture (1.1.0):
+    - FontAwesome.swift (~> 1.3.0)
+  - FontAwesome.swift (1.3.2)
+  - IotaKit (0.7.1)
+  - SwiftKeychainWrapper (3.0.1)
+
+DEPENDENCIES:
+  - AvatarCapture
+  - IotaKit (~> 0.7.1)
+  - SwiftKeychainWrapper
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AvatarCapture
+    - FontAwesome.swift
+    - IotaKit
+    - SwiftKeychainWrapper
+
+SPEC CHECKSUMS:
+  AvatarCapture: 7f22ba1523db692f7f682d56dbff9683e73abbea
+  FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
+  IotaKit: bc3420ff86d7e7b12e2630cf5f4821130852e29a
+  SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
+
+PODFILE CHECKSUM: f249ceaaae0699939eaadd9e1ebe8b6bebf068b7
+
+COCOAPODS: 1.5.3

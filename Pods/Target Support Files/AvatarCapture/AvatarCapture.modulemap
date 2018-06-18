@@ -1,0 +1,6 @@
+framework module AvatarCapture {
+  umbrella header "AvatarCapture-umbrella.h"
+
+  export *
+  module * { export * }
+}
