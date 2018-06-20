@@ -82,7 +82,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         paidPayeesTable.dataSource = self
         
         Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.refreshTableView), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 120, target: self, selector: #selector(self.updateBalance), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.updateBalance), userInfo: nil, repeats: true)
         
     }
     
