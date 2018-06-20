@@ -103,6 +103,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     public func validateAmount() {
         
         validity.text = ""
+        sendItButton.isEnabled = false
         
         guard let amount = Double(amountToPay.text!) else {
             return
@@ -133,12 +134,14 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
             if !(amount * 1000000000).isInteger { validity.text = "Invalid" }
             
         default:
+            validity.text = "Invalid"
             print("Unexpected Unit Type")
             
         }
         
         //Debug
-        if amount > Double(0) {
+        if amount > Double(0) && validity.text == "" {
+            sendItButton.isEnabled = true
             let amountInIota = IotaUnitsConverter.convert(amount: Float(amount), fromUnit: fromUnit, toUnit: IotaUnits.i  )
             print("Amount in Iota - \(amountInIota)")
         }
@@ -203,8 +206,12 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         //Set the Units down down button's options
         button.dropView.dropDownOptions = ["I","Ki","Mi","Gi"]
         
-        message.delegate = self
+        //Set Send It Now button to disabled until a value is entered
+        sendItButton.isEnabled = false
+        sendItButton.setTitleColor(UIColor.gray, for: .disabled)
         
+        //Setup delegates
+        message.delegate = self
         button.dropView.delegate = self
         
     }
@@ -213,6 +220,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         
         print("I want to send - \(String(describing: amountToPay.text!)) \(String(describing: button.titleLabel?.text!)) to address - \(String(describing: receivedPayeeAddress)) with Message - \(message.text!) and with Tag - TAPS ")
         
+        //Shouldn't be needed but left in for now just in case
         if validity.text == "Invalid" {
             let title = "Invalid Amount"
             let alertMessage = "The amount entered is invalid for this Unit type."
@@ -226,7 +234,8 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
             return
         }
         
-        if Double(amountToPay.text!) == 0 {
+        //Shouldn't be needed but left in for now just in case
+        if Double(amountToPay.text!) == 0 || amountToPay.text! == "" {
             let title = "Invalid Amount"
             let alertMessage = "Amount of Iota to send must be greater than zero."
             print("Alert message is - \(alertMessage)")
