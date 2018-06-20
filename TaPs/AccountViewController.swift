@@ -58,7 +58,6 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var bluetoothSwitch: UISwitch!
 
     @IBOutlet weak var avatarView: UIView!
-    @IBOutlet weak var smallAvatarView: UIImageView!
     
     //UI Actions
     @IBAction func cameraButton(_ sender: UIButton) {
@@ -148,8 +147,8 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        //Set up avatar images
-        displayAvatars()
+        //Set up avatar image
+        displayAvatar()
         
         //Retrieve Pin Number
         let retrievedPIN = KeychainWrapper.standard.string(forKey: ALConstants.kPincode)
@@ -199,7 +198,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     //Display Avatars - N.B. This will need altered post development phase
-    func displayAvatars() {
+    func displayAvatar() {
         
         let readWriteFileFS = ReadWriteFileFS()
         
@@ -207,11 +206,6 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
         avatarCaptureController.delegate = self
         avatarCaptureController.image = readWriteFileFS.readFile("avatar_saved.jpg")
         avatarView.addSubview((avatarCaptureController.view)!)
-        
-        smallAvatarView.image = readWriteFileFS.readFile("small_avatar_saved.jpg")
-        smallAvatarView.contentMode = .scaleAspectFill
-        smallAvatarView.layer.masksToBounds = true
-        smallAvatarView.layer.cornerRadius = smallAvatarView.frame.width / 2
         
     }
     
@@ -253,12 +247,8 @@ extension AccountViewController: AvatarCaptureControllerDelegate {
         print("Image selected")
         
         let readWriteFileFS = ReadWriteFileFS()
-        smallAvatarView.image = readWriteFileFS.readFile("small_avatar_saved.jpg")
-        smallAvatarView.contentMode = .scaleAspectFill
-        smallAvatarView.layer.masksToBounds = true
-        smallAvatarView.layer.cornerRadius = smallAvatarView.frame.width / 2
-        
-        dataToSend = (UIImagePNGRepresentation(smallAvatarView.image! as UIImage) as Data?)!
+
+        dataToSend = (UIImagePNGRepresentation(readWriteFileFS.readFile("small_avatar_saved.jpg")) as Data?)!
         transferCharacteristic = imageCharacteristic
         
         // Reset the index
