@@ -257,13 +257,12 @@ class IotaAPIService: IotaAPIServices {
 				error(IotaAPIError(e))
 				return
 			}
+            if let state = dict["state"] as? Bool {
+                success(state)
+                return
+            }
 			if let state = dict["state"] as? Int {
 				success(state == 1 ? true : false)
-				return
-			}
-			
-			if let state = dict["state"] as? Bool {
-				success(state)
 				return
 			}
 			error(IotaAPIError("Malformed JSON"))

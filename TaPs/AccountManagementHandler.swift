@@ -74,7 +74,7 @@ class IotaAccountManagementHandler: NSObject {
     @objc public func checkAddress() {
         
         iota.wereAddressesSpentFrom(addresses: [String(savedAddress!.prefix(81))],  { (success) in
-            print(success)
+  
             if success.contains(true) {
                 print("Receipt address nolonger valid - retrieving a new address")
                 self.retrieveAddress()
@@ -116,32 +116,154 @@ class IotaAccountManagementHandler: NSObject {
         }
     }
     
-    public func promoteTransaction(tailHash: String, bundleHash: String ) {
+    public func attemptPromotion(tailHash: String, bundleHash: String) {
         
-        //Automatically promote the transaction
-        iota.promoteTransaction(hash: tailHash, { (success) in
+        //Confirm whether Transfer is promotable
+        iota.isPromotable(tail: tailHash, { (success) in
+
+            if success == true {
+                print("Transfer is promotable")
+                
+                self.promoteTransfer(tailHash: tailHash, bundleHash: bundleHash )
+                
+            } else {
+                
+                print("Transfer no longer promotable - attempting re-attach")
+                
+                /*  NEED TO VALIDATE HOW TO REATTACH ************
+                self.iota.replayBundle(tx: tailHash, { (success) in
+                    print("Transfer reattached successfully")
+                    
+                    let bundleHash = success[0].bundle
+                    let tailHash = success[success.endIndex - 1].hash
+                    
+                    //Update the last payment record status to "Pending"
+                    DispatchQueue.main.async {
+                        if CoreDataHandler.updatePendingPayment(bundleHash: bundleHash, tailHash: tailHash) {
+                            print("Updated status of payment to 'Pending' successfully")
+                        } else {
+                            print("Failed updating payment to 'Pending' status")
+                        }
+                    }
+                    
+                    self.promoteTransfer(tailHash: tailHash, bundleHash: bundleHash )
+                
+                }, error: { (error) in
+                    print("Transfer failed to reattach")
+                })
             
-            //Update the last payment record status to "Promoted"
+                */
+            }
+        }, { (error) in
+            print("Unable to confirm whether or not transfer was promotable")
+        })
+        
+    }
+    
+    func promoteTransfer(tailHash: String, bundleHash: String) {
+        
+        //Promoter the Transfer
+        iota.promoteTransaction(hash: tailHash, { (success) in
+                print("Promotion succeeded")
+
+                //Update the last payment record status to "Promoted"
+                DispatchQueue.main.async {
+                    if CoreDataHandler.updatePromotedPayment(bundleHash: bundleHash) {
+                        print("Updated status of payment to 'Promoted' successfully")
+                    } else {
+                        print("Failed updating payment to 'Promoted' status")
+                    }
+                }
+            
+            }, error: { (error) in
+                print("Promotion failed with error - \(error)")
+        })
+        
+    }
+    
+    public func attemptTransfer(address: String, amount: UInt64, message: String) {
+        
+        //Convert ASCII to Trytes
+        let messageTrytes = IotaConverter.trytes(fromAsciiString: message)
+        
+        print("Message trytes are - \(String(describing: messageTrytes))")
+        
+        //Set transfer details
+        let transfer = IotaTransfer(address: address, value: UInt64(amount), message: messageTrytes!, tag: "TAPS" )
+        
+        print("This is the transfer - \(transfer)")
+        
+        //Send the Transfer via the IOTA API
+        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
+            
+            //ON SUCCESS
+            
+            print("First hash is - \(success[0].hash)")
+            print("Last -1 hash is - \(success[success.endIndex - 1].hash)")
+            print("Bundle hash is - \(success[0].bundle)")
+            
+            let bundleHash = success[0].bundle
+            let tailHash = success[success.endIndex - 1].hash
+            
+            //Update the last payment record status to "Pending"
             DispatchQueue.main.async {
-                if CoreDataHandler.updatePromotedPayment(bundleHash: bundleHash) {
-                    print("Updated status of payment to 'Promoted' successfully")
+                if CoreDataHandler.updatePendingPayment(bundleHash: bundleHash, tailHash: tailHash) {
+                    print("Updated status of payment to 'Pending' successfully")
                 } else {
-                    print("Failed updating payment to 'Promoted' status")
+                    print("Failed updating payment to 'Pending' status")
                 }
             }
             
-            print("First round of promotion succeeded")
+            //Check to see whether the receipt address is still valid or has it just been used for this payment.
+            //If it has then retrieve, store and update Centrals with new receipt address
+            accountManagement.checkAddress()
             
-            //Automatically promote AGAIN the transaction
-            //Temporary measure while MainNet is performaing badly!!
-            self.iota.promoteTransaction(hash: tailHash, { (success) in
-                print("Second round of promotion succeeded")
-            }, error: { (error) in
-                print("Second round of promotion Failed")
-            })
+            //Send Receipt to Payee
+            print("attempting to send Receipt to Payee")
+            DispatchQueue.main.async {
+                
+                //Send BundleHash and Message and Amount in one Bluetooth message
+                var packedMessage: String = message
+                packedMessage.rightPad(count: 33, character: " ")
+                dataToSend = ((bundleHash + packedMessage + String(amount)).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
+                transferCharacteristic = receiptCharacteristic
+                
+                // Reset the index
+                sendDataIndex = 0;
+                
+                // Start sending
+                peripheralManager.sendData()
+            }
             
         }, error: { (error) in
-            print("Promotion Failed")
+            
+            //ON ERROR
+            
+            //Send alert to screen with the returned error message
+            let message = "\(error)"
+            let alertController = UIAlertController(title: "TaPs Error Message", message:
+                message , preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            
+            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+            
+            if let tabBarController = rootViewController as? UITabBarController {
+                rootViewController = tabBarController.selectedViewController
+            }
+            rootViewController?.present(alertController, animated: true, completion: nil)
+            
+            //Update the last payment record status to "Failed
+            DispatchQueue.main.async {
+                if CoreDataHandler.updateFailedPayment() {
+                    print("Updated status of payment to 'failed' successfully")
+                } else {
+                    print("Failed updating payment on IOTA API failure")
+                }
+            }
+            
+            print("API call to send transfer failed with error - \(error)")
         })
+        
     }
+    
 }

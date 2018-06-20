@@ -146,32 +146,13 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                                 if CoreDataHandler.updateConfirmedPayment(bundleHash: payment.bundleHash!) {
                                     print("Updated status of payment to 'Confirmed' successfully")
                                 } else {
-                                    print("Failed updating payment on IOTA API confimed")
+                                    print("Failed updating status of payment to 'Confirmed'")
                                 }
                             }
                         }
                         else {
                             if payment.tailHash != nil {
-                                print("Tail hash is - \(payment.tailHash!)")
-                                iota.isPromotable(tail: payment.tailHash!, { (success) in
-                                    print("Success is - \(success)")
-                                    if success == true {
-                                        print("Transfer is promotable")
-                                    } else {
-                                        iota.replayBundle(tx: payment.tailHash!, { (success) in
-                                            print("Transfer reattached successfully")
-                                            iota.promoteTransaction(hash: payment.tailHash!, { (success) in
-                                                print("Post reattach promotion succeeded")
-                                            }, error: { (error) in
-                                                print("Post reattach promotion Failed")
-                                            })
-                                        }, error: { (error) in
-                                            print("Transfer failed to reattach")
-                                        })
-                                    }
-                                }, { (error) in
-                                    print("Unable to confirm whether or not transfer was promotable")
-                                })
+                                accountManagement.attemptPromotion(tailHash: payment.tailHash!, bundleHash: payment.bundleHash!)
                             }
                         }
                         

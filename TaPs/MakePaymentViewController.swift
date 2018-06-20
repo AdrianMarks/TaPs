@@ -11,8 +11,8 @@ import CoreBluetooth
 import IotaKit
 import SwiftKeychainWrapper
 
-class MakePaymentViewController: UIViewController, UITextFieldDelegate {
-  
+class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDownDelegate {
+    
     //Keychain Data
     fileprivate var savedSeed: String? {
         get {
@@ -28,28 +28,139 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var payeeAvatar: UIImageView!
     @IBOutlet weak var amountToPay: UITextField!
     @IBOutlet weak var message: UITextField!
+    @IBOutlet weak var validity: UILabel!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var sendItButton: UIButton!
     
     var button = DropDownButton()
-
+    let dropView = DropDownView()
+    
     // These variables will hold the data being passed from the Payees View Controller
     var receivedPayeeName: String = ""
     var receivedPayeeAvatar: UIImage = UIImage()
     var receivedPayeeDevice: CBPeripheral!
     var receivedPayeeAddress: String!
-    
     var timer = Timer()
     
-    //Remove leading zeros and decimal points from Amount entry
     @IBAction func amountToPayEdited(_ sender: Any) {
-        if amountToPay.text!.prefix(1) == "0" {
-            amountToPay.text = String((amountToPay.text?.dropFirst())!)
+        
+        //Ensure amount is entered in a valid format and conforms to the limits of teh units entered
+        
+        formatAmount()
+        
+        validateAmount()
+        
+    }
+    
+    func formatAmount() {
+        
+        let firstChar = amountToPay.text!.prefix(1)
+        let lastChar = amountToPay.text!.suffix(1)
+        let remainChar = amountToPay.text!.dropLast()
+        
+        print("First char - \(firstChar)")
+        print("Last char - \(lastChar)")
+        print("Remain char - \(remainChar)")
+        
+        //Remove decimal points when units are in Iota
+        if (lastChar == "." && (button.titleLabel?.text!)! == "I") {
+            amountToPay.text = String((amountToPay.text?.dropLast())!)
+            return
         }
-        if amountToPay.text!.prefix(1) == "." {
-            amountToPay.text = String((amountToPay.text?.dropFirst())!)
+        
+        //Don't allow leading "0" when units are in Iota
+        if (firstChar == "0" && (button.titleLabel?.text!)! == "I") {
+            amountToPay.text = String((amountToPay.text?.dropLast())!)
+            return
         }
+        
+        //Remove extra leading zeros
+        if firstChar == "0" && lastChar == "0" && !(remainChar.contains(".") || remainChar != "0" || remainChar.count == 0) {
+            amountToPay.text = String((amountToPay.text?.dropLast())!)
+            return
+        }
+        
+        //Only allow "." after leading "0"
+        if firstChar == "0" && lastChar != "." && remainChar.count == 1 {
+            amountToPay.text = String((amountToPay.text?.dropLast())!)
+            return
+        }
+        
+        //If "." already exists don't allow any more "."
+        if lastChar == "." && remainChar.contains(".") {
+            amountToPay.text = String((amountToPay.text?.dropLast())!)
+            return
+        }
+        
+        //Add zero to leading decimal points
+        if firstChar == "." {
+            amountToPay.text = "0."
+            return
+        }
+    }
+    
+    public func validateAmount() {
+        
+        validity.text = ""
+        
+        guard let amount = Double(amountToPay.text!) else {
+            return
+        }
+        
+        print("The amount is - \(amount)")
+        
+        let units = button.titleLabel?.text!
+        var fromUnit: IotaUnits = IotaUnits.Mi
+        
+        switch units {
+            
+        case "I":
+            print("I")
+            fromUnit = IotaUnits.i
+            if !amount.isInteger { validity.text = "Invalid" }
+        case "Ki":
+            print("Ki")
+            fromUnit = IotaUnits.Ki
+            if !(amount * 1000).isInteger { validity.text = "Invalid" }
+        case "Mi":
+            print("Mi")
+            fromUnit = IotaUnits.Mi
+            if !(amount * 1000000).isInteger { validity.text = "Invalid" }
+        case "Gi":
+            print("Gi")
+            fromUnit = IotaUnits.Gi
+            if !(amount * 1000000000).isInteger { validity.text = "Invalid" }
+            
+        default:
+            print("Unexpected Unit Type")
+            
+        }
+        
+        //Debug
+        if amount > Double(0) {
+            let amountInIota = IotaUnitsConverter.convert(amount: Float(amount), fromUnit: fromUnit, toUnit: IotaUnits.i  )
+            print("Amount in Iota - \(amountInIota)")
+        }
+        
+    }
+    
+    func dropDownPressed(string: String) {
+        button.setTitle(string, for: .normal)
+        button.dismissDropDown()
+        validateAmount()
+    }
+    
+    @IBAction func messageEdited(_ sender: Any) {
+        
+        let char = String(message.text!.suffix(1))
+        if char.count != 0 {
+            //Remove extended ASCII character
+            if  Character(char).ascii == nil {
+                message.text = String((message.text?.dropLast())!)
+            }
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -71,6 +182,9 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
         payeeAvatar.layer.cornerRadius = payeeAvatar.frame.width / 2
         payeeAvatar.image = receivedPayeeAvatar
         
+        //Set validity text for enetered Amount to null
+        validity.text = ""
+        
         //Configure Units drop down button
         button = DropDownButton.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         button.layer.cornerRadius = 5
@@ -90,22 +204,50 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
         button.dropView.dropDownOptions = ["I","Ki","Mi","Gi"]
         
         message.delegate = self
+        
+        button.dropView.delegate = self
+        
     }
     
     @IBAction func sendItButton(_ sender: Any) {
         
         print("I want to send - \(String(describing: amountToPay.text!)) \(String(describing: button.titleLabel?.text!)) to address - \(String(describing: receivedPayeeAddress)) with Message - \(message.text!) and with Tag - TAPS ")
         
-        //Alert the user to what they are about to do
+        if validity.text == "Invalid" {
+            let title = "Invalid Amount"
+            let alertMessage = "The amount entered is invalid for this Unit type."
+            print("Alert message is - \(alertMessage)")
+            let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+                
+            self.present(alert, animated: true)
+            
+            return
+        }
         
+        if Double(amountToPay.text!) == 0 {
+            let title = "Invalid Amount"
+            let alertMessage = "Amount of Iota to send must be greater than zero."
+            print("Alert message is - \(alertMessage)")
+            let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            
+            return
+        }
+        
+        //Alert the user to what they are about to do
         let title = "Payment Details"
         let units = button.titleLabel?.text!
-        let alertMessage = "You are about to send \(amountToPay.text!) \(units!) to \(payeeLabel.text!). Are you sure you want to proceed?"
+        let alertMessage = "You are about to try to send \(amountToPay.text!) \(units!) to \(payeeLabel.text!). Are you sure you want to proceed?"
         print("Alert message is - \(alertMessage)")
         let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-            
+        
             print("I selected 'Yes' to make payment")
             
             //Make the payment, store the payment details and send receipt to Payee
@@ -130,21 +272,19 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
     
     func makePayment() {
         
-        //Assume success and store the record in core data - payment
         //Calculate amount to pay in Iota from input amount and units label
         let index = button.dropView.dropDownOptions.index(of: (button.titleLabel?.text!)!)
         let multiplier = pow(1000, index!)
         let intMultiplier = NSDecimalNumber(decimal: multiplier)
         let amount = Int(amountToPay.text!)! * Int(truncating: intMultiplier)
         
-        print ("The index is - \(String(describing: index))")
         print ("The amount of iotas is - \(amount)")
         
-        //Save the payment details in Core Data
+        //Assume success and store the record in core data - payment
         if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: (UIImagePNGRepresentation(self.receivedPayeeAvatar as UIImage) as Data?)!, amount: Int64(amount), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "" ) {
-            print("Data saved sussfully")
+            print("Payment data saved sussfully")
         } else {
-            print("Failed to save data")
+            print("Failed to save payment data")
         }
         
         //Limit the payment data stored in Core Data to 10 rows.
@@ -154,89 +294,8 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
             print("Failed to limit number of saved payments")
         }
         
-        //Convert ASCII to Trytes
-        let messageTrytes = IotaConverter.trytes(fromAsciiString: message.text!)
-        
-        print("Message trytes are - \(String(describing: messageTrytes))")
-        
-        //Set up the Iota API details
-        let iota = Iota(node: node)
-        let transfer = IotaTransfer(address: receivedPayeeAddress, value: UInt64(amount), message: messageTrytes!, tag: "TAPS" )
-        
-        print("This is the transfer - \(transfer)")
-        
-        //Send the Transfer via the IOTA API
-        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
-            
-            //ON SUCCESS
-            
-            print("First hash is - \(success[0].hash)")
-            print("Last -1 hash is - \(success[success.endIndex - 1].hash)")
-            print("Bundle hash is - \(success[0].bundle)")
-            
-            let bundleHash = success[0].bundle
-            let tailHash = success[success.endIndex - 1].hash
-            
-            //Update the last payment record status to "Pending"
-            DispatchQueue.main.async {
-                if CoreDataHandler.updatePendingPayment(bundleHash: bundleHash, tailHash: tailHash) {
-                    print("Updated status of payment to 'Pending' successfully")
-                } else {
-                    print("Failed updating payment to 'Pending' status")
-                }
-            }
-            
-            //Check to see whether the receipt address is still valid or has it just been used for this payment.
-            //If it has then retrieve, store and update Centrals with new receipt address
-            accountManagement.checkAddress()
-            
-            accountManagement.promoteTransaction(tailHash: tailHash, bundleHash: bundleHash )
-            
-            //Send Receipt to Payee
-            print("attempting to send Receipt to Payee")
-            DispatchQueue.main.async {
-                
-                //Send BundleHash and Message and Amount in one Bluetooth message
-                var packedMessage: String = self.message.text!
-                packedMessage.rightPad(count: 33, character: " ")
-                dataToSend = ((bundleHash + packedMessage + self.amountToPay.text!).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
-                transferCharacteristic = receiptCharacteristic
-                
-                // Reset the index
-                sendDataIndex = 0;
-                
-                // Start sending
-                peripheralManager.sendData()
-            }
-            
-        }, error: { (error) in
-            
-            //ON ERROR
-            
-            //Send alert to screen with the returned error message
-            let message = "\(error)"
-            let alertController = UIAlertController(title: "TaPs Error Message", message:
-                message , preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-            
-            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-
-            if let tabBarController = rootViewController as? UITabBarController {
-                rootViewController = tabBarController.selectedViewController
-            }
-            rootViewController?.present(alertController, animated: true, completion: nil)
-            
-            //Update the last payment record status to "Failed
-            DispatchQueue.main.async {
-                if CoreDataHandler.updateFailedPayment() {
-                    print("Updated status of payment to 'failed' successfully")
-                } else {
-                    print("Failed updating payment on IOTA API failure")
-                }
-            }
-            
-            print("API call to send transfer failed with error - \(error)")
-        })
+        //Attempt the transfer
+        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amount), message: message.text! )
         
     }
     
@@ -253,6 +312,12 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+}
+
+extension Double {
+    var isInteger: Bool {
+        return rint(self) == self
+    }
 }
 
 
