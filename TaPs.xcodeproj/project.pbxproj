@@ -17,7 +17,8 @@
 		3F244F4520639AE700D69338 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F244F4420639AE700D69338 /* AppDelegate.swift */; };
 		3F244F4C20639AE700D69338 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F244F4A20639AE700D69338 /* Main.storyboard */; };
 		3F244F4E20639AE700D69338 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F244F4D20639AE700D69338 /* Assets.xcassets */; };
-		3F3D463720A457CD00FAE483 /* TextUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D463620A457CD00FAE483 /* TextUtility.swift */; };
+		3F3598F920DC2AC00010B053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3598F820DC2AC00010B053 /* LaunchScreen.storyboard */; };
+		3F3D463720A457CD00FAE483 /* TextNumericUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3D463620A457CD00FAE483 /* TextNumericUtilities.swift */; };
 		3F4F009C20B706AE008436F1 /* TaPs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F009A20B706AE008436F1 /* TaPs.xcdatamodeld */; };
 		3F4F009E20B86B7D008436F1 /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F009D20B86B7D008436F1 /* CoreDataHandler.swift */; };
 		3F5A46A02077A87D0054B218 /* AvatarCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */; };
@@ -58,7 +59,8 @@
 		3F244F4D20639AE700D69338 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F244F5220639AE700D69338 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F244F5820639BB600D69338 /* TaPs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaPs.entitlements; sourceTree = "<group>"; };
-		3F3D463620A457CD00FAE483 /* TextUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtility.swift; sourceTree = "<group>"; };
+		3F3598F820DC2AC00010B053 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3F3D463620A457CD00FAE483 /* TextNumericUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNumericUtilities.swift; sourceTree = "<group>"; };
 		3F4F009B20B706AE008436F1 /* temp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = temp.xcdatamodel; sourceTree = "<group>"; };
 		3F4F009D20B86B7D008436F1 /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarCaptureController.swift; sourceTree = "<group>"; };
@@ -136,7 +138,7 @@
 				3F9B32D220A837D70003A727 /* PeripheralManagerHandler.swift */,
 				3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */,
 				3FB60BDD20B2EF76006C6EAD /* DropDownUnitsButton.swift */,
-				3F3D463620A457CD00FAE483 /* TextUtility.swift */,
+				3F3D463620A457CD00FAE483 /* TextNumericUtilities.swift */,
 				3F228F6B208F501200BFA437 /* ReadWriteFileFS.swift */,
 				21702C5520C1135300A7B3E4 /* PayeesViewController.swift */,
 				3F73C4DD2063E6B2004E262E /* MakePaymentViewController.swift */,
@@ -146,6 +148,7 @@
 				3FD700F520A2113700C07C07 /* HomeViewController.swift */,
 				3F4F009A20B706AE008436F1 /* TaPs.xcdatamodeld */,
 				3F244F4A20639AE700D69338 /* Main.storyboard */,
+				3F3598F820DC2AC00010B053 /* LaunchScreen.storyboard */,
 				3F244F4D20639AE700D69338 /* Assets.xcassets */,
 				3F244F5220639AE700D69338 /* Info.plist */,
 			);
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F244F4E20639AE700D69338 /* Assets.xcassets in Resources */,
+				3F3598F920DC2AC00010B053 /* LaunchScreen.storyboard in Resources */,
 				3F244F4C20639AE700D69338 /* Main.storyboard in Resources */,
 				3F86764720665A2C00A925FF /* AppLocker.xib in Resources */,
 			);
@@ -306,7 +310,7 @@
 				3FC0B0A32093904300F20DB7 /* AppData.swift in Sources */,
 				3FB60BDE20B2EF76006C6EAD /* DropDownUnitsButton.swift in Sources */,
 				3FC0B0A520939F4E00F20DB7 /* AccountViewController.swift in Sources */,
-				3F3D463720A457CD00FAE483 /* TextUtility.swift in Sources */,
+				3F3D463720A457CD00FAE483 /* TextNumericUtilities.swift in Sources */,
 				3F4F009C20B706AE008436F1 /* TaPs.xcdatamodeld in Sources */,
 				3F244F4520639AE700D69338 /* AppDelegate.swift in Sources */,
 				3F5A46A02077A87D0054B218 /* AvatarCaptureController.swift in Sources */,

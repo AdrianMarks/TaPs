@@ -43,11 +43,11 @@ class IotaAccountManagementHandler: NSObject {
     
     public func initialise() {
         
-        checkAddress()
-        retrieveBalance()
+            checkAddress()
+            retrieveBalance()
+            Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.retrieveBalance), userInfo: nil, repeats: true)
+            Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkAddress), userInfo: nil, repeats: true)
         
-        Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.retrieveBalance), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkAddress), userInfo: nil, repeats: true)
     }
     
     //Update the account balance
@@ -73,18 +73,20 @@ class IotaAccountManagementHandler: NSObject {
     
     @objc public func checkAddress() {
         
-        iota.wereAddressesSpentFrom(addresses: [String(savedAddress!.prefix(81))],  { (success) in
-  
-            if success.contains(true) {
-                print("Receipt address nolonger valid - retrieving a new address")
-                self.retrieveAddress()
-            } else {
-                print("Address is still valid")
-            }
-        }, { (error) in
-            print(error)
-            print("Failed to check whether receipt address was valid")
-        })
+        if savedAddress != nil {
+            iota.wereAddressesSpentFrom(addresses: [String(savedAddress!.prefix(81))],  { (success) in
+      
+                if success.contains(true) {
+                    print("Receipt address nolonger valid - retrieving a new address")
+                    self.retrieveAddress()
+                } else {
+                    print("Address is still valid")
+                }
+            }, { (error) in
+                print(error)
+                print("Failed to check whether receipt address was valid")
+            })
+        }
     }
     
     //Update the account balance
@@ -116,9 +118,10 @@ class IotaAccountManagementHandler: NSObject {
         }
     }
     
+    //***** May be better to remove this now MainNet is working well *****
     public func attemptPromotion(tailHash: String, bundleHash: String) {
         
-        //Confirm whether Transfer is promotable
+        //First check whether Transfer is promotable
         iota.isPromotable(tail: tailHash, { (success) in
 
             if success == true {
@@ -130,36 +133,53 @@ class IotaAccountManagementHandler: NSObject {
                 
                 print("Transfer no longer promotable - attempting re-attach")
                 
-                /*  NEED TO VALIDATE HOW TO REATTACH ************
-                self.iota.replayBundle(tx: tailHash, { (success) in
-                    print("Transfer reattached successfully")
-                    
-                    let bundleHash = success[0].bundle
-                    let tailHash = success[success.endIndex - 1].hash
-                    
-                    //Update the last payment record status to "Pending"
-                    DispatchQueue.main.async {
-                        if CoreDataHandler.updatePendingPayment(bundleHash: bundleHash, tailHash: tailHash) {
-                            print("Updated status of payment to 'Pending' successfully")
-                        } else {
-                            print("Failed updating payment to 'Pending' status")
-                        }
-                    }
-                    
-                    self.promoteTransfer(tailHash: tailHash, bundleHash: bundleHash )
-                
-                }, error: { (error) in
-                    print("Transfer failed to reattach")
-                })
-            
-                */
+                self.attemptReattach(bundleHash: bundleHash)
+ 
             }
         }, { (error) in
             print("Unable to confirm whether or not transfer was promotable")
         })
         
     }
+
+    //***** May be better to remove this now MainNet is working well *****
+    func attemptReattach(bundleHash: String) {
+        
+        /*
+        //Reattach the Trytes
+        iota.findTransactions(bundles: [bundleHash], { (hashes) in
+
+            self.iota.trytes(hashes: hashes, { (trytes) in
+                
+                self.iota.sendTrytes(trytes: trytes, { (success) in
+                    
+                    print("Reattach Successful")
+                    
+                    //Update the last payment record status to "Reattached"
+                    DispatchQueue.main.async {
+                        if CoreDataHandler.updateReattachedPayment(bundleHash: bundleHash) {
+                            print("Updated status of payment to 'Reattached' successfully")
+                        } else {
+                            print("Failed updating payment to 'Reattached' status")
+                        }
+                    }
+                    
+                }, error: { (error) in
+                    print("Send Trytes failed - error is - \(error)")
+                })
+                
+            }, error: { (error) in
+                print("Unable to find Trytes - error is - \(error)")
+            })
+            
+        }, error: { (error) in
+            print("Unable to find Transactions - error is - \(error)")
+        })
+        */
+        
+    }
     
+    //***** May be better to remove this now MainNet is working well *****
     func promoteTransfer(tailHash: String, bundleHash: String) {
         
         //Promoter the Transfer
@@ -185,16 +205,24 @@ class IotaAccountManagementHandler: NSObject {
         
         //Convert ASCII to Trytes
         let messageTrytes = IotaConverter.trytes(fromAsciiString: message)
+        let commissionTrytes = IotaConverter.trytes(fromAsciiString: "TaPs Commission")
         
         print("Message trytes are - \(String(describing: messageTrytes))")
         
         //Set transfer details
         let transfer = IotaTransfer(address: address, value: UInt64(amount), message: messageTrytes!, tag: "TAPS" )
         
+        //Set commisson transfer details
+        let commissionAmount = (amount / 100)
+        print("Commission is - \(commissionAmount)")
+        
+        let commission = IotaTransfer(address: address, value: UInt64(commissionAmount), message: commissionTrytes!, tag: "TAPS" )
+
         print("This is the transfer - \(transfer)")
+        print("This is the commission - \(commission)")
         
         //Send the Transfer via the IOTA API
-        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
+        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer, commission], inputs: nil, remainderAddress: nil , { (success) in
             
             //ON SUCCESS
             

@@ -144,6 +144,27 @@ class CoreDataHandler: NSObject {
         }
     }
     
+    class func updateReattachedPayment(bundleHash: String) -> Bool {
+        
+        let context = getContext()
+        
+        let fetchRequest: NSFetchRequest<Payment> = Payment.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        
+        if let result = try? context.fetch(fetchRequest) {
+            let payment = result[0]
+            payment.setValue("Reattached",        forKey: "status")
+            payment.setValue(bundleHash,       forKey: "bundleHash")
+        }
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     class func updateConfirmedPayment(bundleHash: String) -> Bool {
         let context = getContext()
         

@@ -150,11 +150,6 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                                 }
                             }
                         }
-                        else {
-                            if payment.tailHash != nil {
-                                accountManagement.attemptPromotion(tailHash: payment.tailHash!, bundleHash: payment.bundleHash!)
-                            }
-                        }
                         
                         print("Inclusion Status - \(success)")
                         print("Payment BundleHash - \(payment.bundleHash!)")

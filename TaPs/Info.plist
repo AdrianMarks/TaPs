@@ -17,17 +17,19 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1</string>
+	<string>0.2.1</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Communicates with other TaPs Devices</string>
+	<string>To communicates with other TaPs devices</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera Allowance Required</string>
+	<string>To take picture for use as Avatar</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To retrieve potential Avatar images</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

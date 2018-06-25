@@ -38,7 +38,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     
     // These variables will hold the data being passed from the Payees View Controller
     var receivedPayeeName: String = ""
-    var receivedPayeeAvatar: UIImage = UIImage()
+    var receivedPayeeAvatar: Data = Data()
     var receivedPayeeDevice: CBPeripheral!
     var receivedPayeeAddress: String!
     var timer = Timer()
@@ -183,7 +183,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         payeeAvatar.layer.masksToBounds = true
         payeeAvatar.layer.borderWidth = 0
         payeeAvatar.layer.cornerRadius = payeeAvatar.frame.width / 2
-        payeeAvatar.image = receivedPayeeAvatar
+        payeeAvatar.image = UIImage(data:receivedPayeeAvatar,scale:1.0)
         
         //Set validity text for enetered Amount to null
         validity.text = ""
@@ -290,7 +290,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         print ("The amount of iotas is - \(amount)")
         
         //Assume success and store the record in core data - payment
-        if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: (UIImagePNGRepresentation(self.receivedPayeeAvatar as UIImage) as Data?)!, amount: Int64(amount), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "" ) {
+        if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: self.receivedPayeeAvatar, amount: Int64(amount), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "" ) {
             print("Payment data saved sussfully")
         } else {
             print("Failed to save payment data")
@@ -321,12 +321,6 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         return true
     }
 
-}
-
-extension Double {
-    var isInteger: Bool {
-        return rint(self) == self
-    }
 }
 
 

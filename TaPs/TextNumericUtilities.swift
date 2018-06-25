@@ -1,5 +1,5 @@
 //
-//  TextUtility.swift
+//  TextNumericUtilities.swift
 //  TaPs
 //
 //  Created by Redkite - Adrian Marks on 10/05/2018.
@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+
+//Text Extensions
 
 private var __maxLengths = [UITextField: Int]()
 
@@ -72,5 +74,13 @@ extension StringProtocol {
 extension Character {
     var ascii: UInt32? {
         return String(self).unicodeScalars.filter{$0.isASCII}.first?.value
+    }
+}
+
+//Numeric Extensions
+
+extension Double {
+    var isInteger: Bool {
+        return rint(self) == self
     }
 }

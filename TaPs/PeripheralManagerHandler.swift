@@ -210,7 +210,7 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
         sendData()
     }
     
-    //Check when someone subscribe to our characteristic.
+    //Check when someone subscribes to our characteristic.
     public func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         
         print("Device \(central) subscribed to characteristic - \(characteristic.uuid)")

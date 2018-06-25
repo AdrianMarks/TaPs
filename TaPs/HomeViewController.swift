@@ -44,7 +44,7 @@ class HomeViewController: UIViewController {
         UIApplication.shared.keyWindow?.rootViewController = selectedVC
         
         if (retrievedSeed == nil) {
-            selectedVC.selectedIndex = 2
+            selectedVC.selectedIndex = 3
         } else {
             selectedVC.selectedIndex = 0
         }

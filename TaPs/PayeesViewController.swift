@@ -30,7 +30,7 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: false)
         Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: false)
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: true)
         
     }
     
@@ -62,7 +62,7 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             MakePaymentViewController.receivedPayeeDevice = payees[path.row].payeeDevice!
             MakePaymentViewController.receivedPayeeAddress = payees[path.row].payeeAddress!
             MakePaymentViewController.receivedPayeeName = payees[path.row].payeeName!
-            MakePaymentViewController.receivedPayeeAvatar = payees[path.row].payeeAvatar!
+            MakePaymentViewController.receivedPayeeAvatar = payees[path.row].payeeAvatar
     
         }
     }
@@ -70,6 +70,21 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     //Relod the Payee Table
     @objc func refreshScanView() {
+        
+        payees = []
+        //Loop through payeesBuilt table and for each row where all elements are built transfer the row to the payees table
+        for builtPayees in payeesBuilt {
+            if builtPayees.payeeName != "" && builtPayees.payeeAvatar.count > 0 && builtPayees.payeeAddress != "" {
+                payees.append(builtPayees)
+                print("BUILT TRANSFER - Payee Device Name is \(builtPayees.payeeDeviceName!) - Payee Name is \(builtPayees.payeeName!) - Payee Avatar Count is \(builtPayees.payeeAvatar.count) - Payee Address Count is \(builtPayees.payeeAddress!.count)")
+            }
+        }
+        
+        print("\nDB1 Build Table  - \(payeesBuild)\n")
+        print("\nDB1 Built Table  - \(payeesBuilt)\n")
+        print("\nDB1 Payees Table - \(payees)\n")
+        print("\nDB1 Peripherals - \(peripherals)\n")
+        
         payeesTable.reloadData()
     }
        
@@ -89,10 +104,12 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.payeeAvatarView?.layer.masksToBounds = true
         cell.payeeAvatarView?.layer.borderWidth = 0
         cell.payeeAvatarView?.layer.cornerRadius = (cell.payeeAvatarView?.frame.width)! / 2
-        cell.payeeAvatarView?.image = payees[indexPath.row].payeeAvatar
+        cell.payeeAvatarView?.image = UIImage(data:payees[indexPath.row].payeeAvatar,scale:1.0)
         
         let payee = payees[indexPath.row].payeeName
         cell.payeeLabel?.text = payee
+        
+        print("Payee Name - \(payee!) - Payee Avatar count - \(payees[indexPath.row].payeeAvatar.count)")
         
         return cell
     }

@@ -10,15 +10,16 @@ import SwiftKeychainWrapper
 import CoreBluetooth
 import IotaKit
 
-var iotaTapPeripheral: CBPeripheral?
 var xCharacteristic : CBCharacteristic?
 var characteristicASCIIValue = String()
 
 struct payee {
     var payeeDevice: CBPeripheral? = nil
+    var payeeDeviceName: String? = ""
     var payeeName: String?  = ""
-    var payeeAvatar: UIImage? = nil
+    var payeeAvatar: Data = Data()
     var payeeAddress: String? = nil
+    var timestamp: Date = Date()
 }
 
 struct subscribedCharacteristic {
@@ -27,6 +28,8 @@ struct subscribedCharacteristic {
 }
 
 var payees: [payee] = []
+var payeesBuild: [payee] = []
+var payeesBuilt: [payee] = []
 var subscribedCharacteristics: [subscribedCharacteristic] = []
 var peripherals: [CBPeripheral] = []
 var path = IndexPath()
@@ -35,10 +38,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     
     //Data
     var centralManager: CBCentralManager!
-    var payeeNameBuild: String = ""
-    var payeeAvatarBuild: Data = Data()
-    var payeeAddressBuild: String = ""
     var payeeReceiptBuild: String = ""
+    var scanCount: Int = 0
     
     var timer = Timer()
     
@@ -77,22 +78,26 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     
     // Called when we want to start scanning for more TaPs devices
     @objc func startScan() {
-        print("Now Scanning...")
+        print("Started Scanning")
         self.timer.invalidate()
+        
+        //Remove aged peripherals in case they've just gone away
+        disconnectAgedPeripherals()
+        
         centralManager?.scanForPeripherals(withServices: [Service_UUID] , options: [CBCentralManagerScanOptionAllowDuplicatesKey:false])
-        Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(self.cancelScan), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.cancelScan), userInfo: nil, repeats: false)
     }
     
     // Called when we want to stop scanning for more TaPs devices
     @objc func cancelScan() {
         centralManager.stopScan()
-        print("Scan Stopped")
+        print("Stopped Scanning")
         Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.startScan), userInfo: nil, repeats: false)
     }
     
     public func ceaseScanAltogether() {
         if (centralManager != nil) {
-            print("Ceased scanning")
+            print("Ceased Scanning Altogether")
             centralManager.stopScan()
         }
     }
@@ -101,35 +106,37 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String: Any], rssi RSSI: NSNumber) {
         
+        print("Discovered peripheral")
+        
         //Check to make sure we've not already found this peripheral
-        if !payees.contains(where: { $0.payeeDevice == peripheral }) {
+        if !payeesBuild.contains(where: { $0.payeeDevice == peripheral }) {
             
-            //Set-up payee record in payees array
-            payees.append(payee(payeeDevice: peripheral, payeeName: "", payeeAvatar: UIImage(), payeeAddress: ""))
+            //Set-up payee record in payees array and payeesBuild
+            payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: peripheral.name ?? "Unknown", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
+            payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: peripheral.name ?? "Unknown", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
             
-            iotaTapPeripheral = peripheral
-            peripherals.append(iotaTapPeripheral!)
+            peripherals.append(peripheral)
             peripheral.delegate = self
         
             //print(peripheral)
-            if  iotaTapPeripheral != nil {
+            //if  iotaTapPeripheral != nil {
                 print("Found new peripheral devices with the IOTA TAP service")
-                print("Device name: \(peripheral.name!)")
+                print("Device name: \(peripheral.name ?? "Unknown")")
                 print("**********************************")
                 //print ("Advertisement Data : \(advertisementData)")
                 print ("Advertisement Data : \(advertisementData["kCBAdvDataLocalName"] ?? "Unknown")")
-            }
+            //}
             
             //Connect to the peripheral
-            connectToDevice()
+            connectToDevice(peripheral: peripheral)
             
         }
         
     }
     
     //Called to invoke a connection to a peripheral device
-    func connectToDevice () {
-        centralManager?.connect(iotaTapPeripheral!, options: nil)
+    func connectToDevice (peripheral: CBPeripheral) {
+        centralManager?.connect(peripheral, options: nil)
     }
     
     //Called when a connection is successfully created with a peripheral.
@@ -227,8 +234,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             return
         }
         
-        print("(Payments) Characteristic is - \(characteristic.uuid)")
-        
         if characteristic.uuid == nameCharacteristic.uuid {
             
             print("nameCharacteristic is - \(nameCharacteristic.uuid)")
@@ -236,17 +241,29 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeNameFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeNameFragment != "EOM" {
-                    payeeNameBuild = payeeNameBuild + payeeNameFragment
+                    if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+                        let tempPayeeAvatar = payeesBuild[index].payeeAvatar
+                        let tempPayeeAddress = payeesBuild[index].payeeAddress
+                        let tempPayeeDeviceName = payeesBuild[index].payeeDeviceName
+                        var tempPayeeName = payeesBuild[index].payeeName
+                        tempPayeeName = tempPayeeName! + payeeNameFragment
+                        payeesBuild.remove(at: index)
+                        payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                    }
                 }
                 else
                 {
-                    if let index = payees.index(where: { $0.payeeDevice == peripheral}) {
-                        let tempPayeeAvatar = payees[index].payeeAvatar
-                        let tempPayeeAddress = payees[index].payeeAddress
-                        payees.remove(at: index)
-                        payees.append(payee(payeeDevice: peripheral, payeeName: payeeNameBuild, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress ))
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeeDevice == peripheral})
+                        let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
+                        let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
+                        let tempPayeeDeviceName = payeesBuilt[payeesIndex].payeeDeviceName
+                        let tempPayeeName = payeesBuild[payeesBuildIndex!].payeeName
+                        payeesBuilt.remove(at: payeesIndex)
+                        payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuild[payeesBuildIndex!].payeeName = ""
+                        print("BUILT NAME - Payee Device Name is \(tempPayeeDeviceName!) - Payee Name is \(tempPayeeName!) - Payee Avatar Count is \(tempPayeeAvatar.count) - Payee Address Count is \(tempPayeeAddress!.count)")
                     }
-                    payeeNameBuild = ""
                     print("Payee Name End of Message found")
                 }
                 
@@ -266,22 +283,34 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 if payeeAvatarFragmentString == "EOM" {
                     
                     print("Payee Avatar End of Message found")
-                    print("PayeeAvatar is - \(String(describing: payeeAvatarBuild))")
                     
-                    if let index = payees.index(where: { $0.payeeDevice == peripheral}) {
-                        let tempPayeeName = payees[index].payeeName
-                        let tempPayeeAddress = payees[index].payeeAddress
-                        payees.remove(at: index)
-                        payees.append(payee(payeeDevice: peripheral, payeeName: tempPayeeName, payeeAvatar: UIImage(data:payeeAvatarBuild,scale:1.0), payeeAddress: tempPayeeAddress ))
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeeDevice == peripheral})
+                        let tempPayeeName = payeesBuilt[payeesIndex].payeeName
+                        let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
+                        let tempPayeeDeviceName = payeesBuilt[payeesIndex].payeeDeviceName
+                        let tempPayeeAvatar = payeesBuild[payeesBuildIndex!].payeeAvatar
+                        payeesBuilt.remove(at: payeesIndex)
+                        payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuild[payeesBuildIndex!].payeeAvatar = Data()
+                        print("PayeeAvatar is - \(String(describing: tempPayeeAvatar))")
+                        print("BUILT AVATAR - Payee Device Name is \(tempPayeeDeviceName!) - Payee Name is \(tempPayeeName!) - Payee Avatar Count is \(tempPayeeAvatar.count) - Payee Address Count is \(tempPayeeAddress!.count)")
                     }
-                    payeeAvatarBuild = Data()
                 }
             }
             else
             {
+                if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+                    let tempPayeeName = payeesBuild[index].payeeName
+                    let tempPayeeAddress = payeesBuild[index].payeeAddress
+                    let tempPayeeDeviceName = payeesBuild[index].payeeDeviceName
+                    var tempPayeeAvatar = payeesBuild[index].payeeAvatar
+                    tempPayeeAvatar = tempPayeeAvatar + payeeAvatarFragment
+                    payeesBuild.remove(at: index)
+                    payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                    print("Accumulated payeeAvater - \(String(describing: tempPayeeAvatar)) - for Device Name - \(tempPayeeDeviceName!)")
+                }
                 print("Received: \(String(describing: payeeAvatarFragment))")
-                payeeAvatarBuild = payeeAvatarBuild + payeeAvatarFragment
-                print("Accumulated payeeAvater - \(String(describing: payeeAvatarBuild))")
             }
             
         }
@@ -293,17 +322,30 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeAddressFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeAddressFragment != "EOM" {
-                    payeeAddressBuild = payeeAddressBuild + payeeAddressFragment
+                    if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+                        let tempPayeeAvatar = payeesBuild[index].payeeAvatar
+                        let tempPayeeName = payeesBuild[index].payeeName
+                        let tempPayeeDeviceName = payeesBuild[index].payeeDeviceName
+                        var tempPayeeAddress = payeesBuild[index].payeeAddress
+                        tempPayeeAddress = tempPayeeAddress! + payeeAddressFragment
+                        payeesBuild.remove(at: index)
+                        payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                    }
                 }
                 else
                 {
-                    if let index = payees.index(where: { $0.payeeDevice == peripheral}) {
-                        let tempPayeeAvatar = payees[index].payeeAvatar
-                        let tempPayeeName = payees[index].payeeName
-                        payees.remove(at: index)
-                        payees.append(payee(payeeDevice: peripheral, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: payeeAddressBuild ))
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeeDevice == peripheral})
+                        let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
+                        let tempPayeeName = payeesBuilt[payeesIndex].payeeName
+                        let tempPayeeDeviceName = payeesBuilt[payeesIndex].payeeDeviceName
+                        let tempPayeeAddress = payeesBuild[payeesBuildIndex!].payeeAddress
+                        payeesBuilt.remove(at: payeesIndex)
+                        payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuild[payeesBuildIndex!].payeeAddress = ""
+                        print("BUILT ADDRESS - Payee Device Name is \(tempPayeeDeviceName!) - Payee Name is \(tempPayeeName!) - Payee Avatar Count is \(tempPayeeAvatar.count) - Payee Address Count is \(tempPayeeAddress!.count)")
                     }
-                    payeeAddressBuild = ""
+                    print("Payee Address End of Message found")
                 }
                 
                 print("Payee Address Fragment = \(payeeAddressFragment)")
@@ -333,7 +375,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                             let amount = payeeReceiptBuild.substring(from: 114, to: payeeReceiptBuild.count)
                             
                             //Save the receipt details in Core Data
-                            if CoreDataHandler.saveReceiptDetails(payerName: tempPayeeName!, payerAvatar: (UIImagePNGRepresentation(tempPayeeAvatar!) as Data?)!, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(), bundleHash: bundleHash ) {
+                            if CoreDataHandler.saveReceiptDetails(payerName: tempPayeeName!, payerAvatar: tempPayeeAvatar, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(), bundleHash: bundleHash ) {
                                 print("Receipt data saved sussfully")
                             } else {
                                 print("Failed to save Receipt data")
@@ -383,33 +425,80 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected")
         
-        //Remove peripheral from list of known payees
-        if let index = payees.index(where: { $0.payeeDevice == peripheral}) {
-            payees.remove(at: index)
+        print("BUILT - Clearing down Build and Built arrays")
+        //Remove peripheral from list of known payeesBuilt and payeesBuild arrays
+        if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+            print("Removing - \(payeesBuild[index].payeeName!) from payeesBuild")
+            payeesBuild.remove(at: index)
+            if let index = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
+                print("Removing - \(payeesBuilt[index].payeeName!) from payeesBuilt")
+                payeesBuilt.remove(at: index)
+            }
         }
         
     }
     
-    public func cbTidyUp() {
+    public func unsubscribeAll() {
         
-        //Clean up Bluetooth connections before going into Background
-        for index in 0..<subscribedCharacteristics.count {
-            let device = subscribedCharacteristics[index].peripheral
-            let characteristic = subscribedCharacteristics[index].characteristic!
-            // Unsubscribe from a characteristic
-            print("Unsubscribing from Char - \(characteristic) on Device \(String(describing: device))")
-            device?.setNotifyValue(false, for: characteristic)
-        }
+        print("Unsubscribing from all peripherals")
         
         for device in peripherals {
-            print("Disconnecting from from Device \(device)")
+
+            //Unsubscribe from existing characteristics for this peripheral
+            for index in 0..<(subscribedCharacteristics.count) {
+                if device == subscribedCharacteristics[index].peripheral {
+                    let characteristic = subscribedCharacteristics[index].characteristic!
+                    // Unsubscribe from a characteristic
+                    print("Unsubscribing from Char - \(characteristic) on Device \(String(describing: device))")
+                    device.setNotifyValue(false, for: characteristic)
+                }
+            }
+            
+            //Then diconnect from the peripheral and remove the peripheral from the list of peripherals
             centralManager.cancelPeripheralConnection(device)
+    
         }
         
         if (centralManager != nil) {
-            print("Stopped scanning")
+            print("Stopped Scanning")
             centralManager.stopScan()
         }
+        
+    }
+    
+    public func disconnectAgedPeripherals() {
+        
+        print("Disconnecting from aged peripherals")
+        print("Peripherals contains - \(peripherals)")
+        
+        //Clean up Bluetooth connections where the device hasn't been active for more than 300 seconds
+        //First unsubscribe all Characteristics and then disconnect Peripheral else when we re-subscribe nothing will happen
+        for device in peripherals {
+            if let index = payeesBuild.index(where: { $0.payeeDevice == device}) {
+                print("Time interval for \(payeesBuild[index].payeeName!) is - \(Date().timeIntervalSince(payeesBuild[index].timestamp))")
+                print("Subscribed Characteristic Count - \(subscribedCharacteristics.count)")
+                if (Date().timeIntervalSince(payeesBuild[index].timestamp) > 300 && subscribedCharacteristics.count > 0) {
+
+                    //Unsubscribe from existing characteristics for this peripheral
+                    for index in 0..<(subscribedCharacteristics.count) {
+                        if device == subscribedCharacteristics[index].peripheral {
+                            let characteristic = subscribedCharacteristics[index].characteristic!
+                            // Unsubscribe from a characteristic
+                            print("Unsubscribing from Char - \(characteristic) on Device \(String(describing: device))")
+                            device.setNotifyValue(false, for: characteristic)
+                        }
+                    }
+                    
+                    subscribedCharacteristics = subscribedCharacteristics.filter() { $0.peripheral !== device }
+                    
+                    //Then diconnect from the peripheral and remove the peripheral from the list of peripherals
+                    centralManager.cancelPeripheralConnection(device)
+                    peripherals = peripherals.filter() { $0 !== device }
+                    
+                }
+            }
+        }
+        
         
     }
     
