@@ -109,7 +109,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         print("Discovered peripheral")
         
         //Check to make sure we've not already found this peripheral
-        if !payeesBuild.contains(where: { $0.payeeDevice == peripheral }) {
+        if !payeesBuild.contains(where: { $0.payeeDevice?.identifier == peripheral.identifier }) {
             
             //Set-up payee record in payees array and payeesBuild
             payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: peripheral.name ?? "Unknown", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
