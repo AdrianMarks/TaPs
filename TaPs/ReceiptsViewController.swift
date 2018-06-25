@@ -45,6 +45,9 @@ class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var paidPayersTable: UITableView!
     @IBOutlet weak var accountBalance: UILabel!
     
+    //Data
+    var timer1 = Timer()
+    var timer2 = Timer()
     
     //NSFetchedResults
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Receipt> = {
@@ -77,21 +80,26 @@ class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableView
             print("\(fetchError), \(fetchError.localizedDescription)")
         }
         
-        accountBalance.text = savedBalance
-        
-        paidPayersTable.reloadData()
-        
         paidPayersTable.delegate = self
         paidPayersTable.dataSource = self
-        
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.refreshTableView), userInfo: nil, repeats: true)
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.updateBalance), userInfo: nil, repeats: true)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        refreshTableView()
+        updateBalance()
+        
+        timer1 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshTableView), userInfo: nil, repeats: true)
+        timer2 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateBalance), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.timer1.invalidate()
+        self.timer2.invalidate()
     }
     
     override func didReceiveMemoryWarning() {

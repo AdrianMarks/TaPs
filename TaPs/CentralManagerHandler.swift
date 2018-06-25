@@ -39,9 +39,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     //Data
     var centralManager: CBCentralManager!
     var payeeReceiptBuild: String = ""
-    var scanCount: Int = 0
-    
-    var timer = Timer()
     
     override init() {
         super.init()
@@ -79,20 +76,19 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     // Called when we want to start scanning for more TaPs devices
     @objc func startScan() {
         print("Started Scanning")
-        self.timer.invalidate()
         
         //Remove aged peripherals in case they've just gone away
         disconnectAgedPeripherals()
         
         centralManager?.scanForPeripherals(withServices: [Service_UUID] , options: [CBCentralManagerScanOptionAllowDuplicatesKey:false])
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.cancelScan), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.cancelScan), userInfo: nil, repeats: false)
     }
     
     // Called when we want to stop scanning for more TaPs devices
     @objc func cancelScan() {
         centralManager.stopScan()
         print("Stopped Scanning")
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.startScan), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.startScan), userInfo: nil, repeats: false)
     }
     
     public func ceaseScanAltogether() {
