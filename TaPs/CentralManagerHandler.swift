@@ -236,8 +236,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
         if characteristic.uuid == nameCharacteristic.uuid {
             
-            print("nameCharacteristic is - \(nameCharacteristic.uuid)")
-            
             if let payeeNameFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeNameFragment != "EOM" {
@@ -273,8 +271,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         }
         
         if characteristic.uuid == imageCharacteristic.uuid {
-            
-            print("imageCharacteristic is - \(imageCharacteristic.uuid)")
             
             let payeeAvatarFragment = characteristic.value!
             
@@ -315,8 +311,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
         if characteristic.uuid == addressCharacteristic.uuid {
             
-            print("addressCharacteristic is - \(addressCharacteristic.uuid)")
-            
             if let payeeAddressFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeAddressFragment != "EOM" {
@@ -354,8 +348,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         }
         
         if characteristic.uuid == receiptCharacteristic.uuid {
-            
-            print("receiptCharacteristic is - \(receiptCharacteristic.uuid)")
             
             if let payeeReceiptFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
@@ -406,8 +398,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         }
         
         if characteristic.uuid == deviceCharacteristic.uuid {
-            
-            print("deviceCharacteristic is - \(deviceCharacteristic.uuid)")
             
             if let payeeDeviceFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
@@ -511,14 +501,12 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     public func disconnectAgedPeripherals() {
         
         print("Disconnecting from aged peripherals")
-        print("Peripherals contains - \(peripherals)")
         
         //Clean up Bluetooth connections where the device hasn't been active for more than 300 seconds
         //First unsubscribe all Characteristics and then disconnect Peripheral else when we re-subscribe nothing will happen
         for peripheral in peripherals {
             if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
-                print("Time interval for \(payeesBuild[index].payeeName!) is - \(Date().timeIntervalSince(payeesBuild[index].timestamp))")
-                print("Subscribed Characteristic Count - \(subscribedCharacteristics.count)")
+
                 if (Date().timeIntervalSince(payeesBuild[index].timestamp) > 300 && subscribedCharacteristics.count > 0) {
 
                     //Unsubscribe from existing characteristics for this peripheral

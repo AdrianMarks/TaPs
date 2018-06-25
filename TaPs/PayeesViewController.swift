@@ -91,8 +91,6 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print("indexPath.row is - \(indexPath.row)")
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PayeeTableViewCell
         
         cell.payeeAvatarView?.layer.masksToBounds = true
@@ -102,8 +100,6 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let payee = payees[indexPath.row].payeeName
         cell.payeeLabel?.text = payee
-        
-        print("Payee Name - \(payee!) - Payee Avatar count - \(payees[indexPath.row].payeeAvatar.count)")
         
         return cell
     }
