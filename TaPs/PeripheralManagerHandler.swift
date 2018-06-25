@@ -74,7 +74,8 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             nameCharacteristic.value = nil
             imageCharacteristic.value = nil
             addressCharacteristic.value = nil
-            service.characteristics = [ receiptCharacteristic, nameCharacteristic, addressCharacteristic, imageCharacteristic]
+            deviceCharacteristic.value = nil
+            service.characteristics = [ deviceCharacteristic, receiptCharacteristic, nameCharacteristic, addressCharacteristic, imageCharacteristic]
             peripheralManager?.add(service)
             
             //Check if bluetooth status is and if so start advertising
@@ -171,8 +172,6 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
                 return
             }
             
-            print("Sent: \(String(describing: chunk))")
-            
             // It did send, so update our index
             sendDataIndex! += amountToSend;
             
@@ -226,8 +225,6 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             dataToSend = (UIImagePNGRepresentation(smallAvatar as UIImage) as Data?)!
             transferCharacteristic = imageCharacteristic
             
-            print("Data to Send - \(String(describing: dataToSend))")
-            
             // Reset the index
             sendDataIndex = 0;
             
@@ -237,8 +234,6 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
         else if characteristic.uuid.isEqual(nameCharacteristic_UUID) {
             dataToSend = ((savedAvatarName)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
             transferCharacteristic = nameCharacteristic
-            
-            print("Data to Send - \(String(describing: dataToSend))")
             
             // Reset the index
             sendDataIndex = 0
@@ -250,8 +245,6 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             dataToSend = ((savedAddress)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
             transferCharacteristic = addressCharacteristic
             
-            print("Data to Send - \(String(describing: dataToSend))")
-            
             // Reset the index
             sendDataIndex = 0
             
@@ -262,7 +255,15 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             dataToSend = "EOM".data(using: String.Encoding.utf8)!
             transferCharacteristic = receiptCharacteristic
             
-            print("Data to Send - \(String(describing: dataToSend))")
+            // Reset the index
+            sendDataIndex = 0
+            
+            // Start sending
+            sendData()
+        }
+        else if characteristic.uuid.isEqual(deviceCharacteristic_UUID) {
+            dataToSend = device_UUID.data(using: String.Encoding.utf8)!
+            transferCharacteristic = deviceCharacteristic
             
             // Reset the index
             sendDataIndex = 0

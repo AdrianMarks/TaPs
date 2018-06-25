@@ -39,7 +39,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     // These variables will hold the data being passed from the Payees View Controller
     var receivedPayeeName: String = ""
     var receivedPayeeAvatar: Data = Data()
-    var receivedPayeeDevice: CBPeripheral!
+    var receivedPayeeDeviceUUID: String!
     var receivedPayeeAddress: String!
     var timer = Timer()
     
@@ -304,7 +304,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         }
         
         //Attempt the transfer
-        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amount), message: message.text! )
+        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amount), message: message.text!, payeeDeviceUUID: receivedPayeeDeviceUUID )
         
     }
     

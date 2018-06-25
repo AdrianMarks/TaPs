@@ -79,8 +79,6 @@ class IotaAccountManagementHandler: NSObject {
                 if success.contains(true) {
                     print("Receipt address nolonger valid - retrieving a new address")
                     self.retrieveAddress()
-                } else {
-                    print("Address is still valid")
                 }
             }, { (error) in
                 print(error)
@@ -101,8 +99,6 @@ class IotaAccountManagementHandler: NSObject {
                 
                 dataToSend = ((self.savedAddress)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
                 transferCharacteristic = addressCharacteristic
-                
-                print("Data to Send - \(String(describing: dataToSend))")
                 
                 //Set fragment length to default
                 NOTIFY_MTU = default_MTU
@@ -204,7 +200,7 @@ class IotaAccountManagementHandler: NSObject {
         
     }
     
-    public func attemptTransfer(address: String, amount: UInt64, message: String) {
+    public func attemptTransfer(address: String, amount: UInt64, message: String, payeeDeviceUUID: String) {
         
         //Convert ASCII to Trytes
         let messageTrytes = IotaConverter.trytes(fromAsciiString: message)
@@ -246,7 +242,7 @@ class IotaAccountManagementHandler: NSObject {
                 //Send BundleHash and Message and Amount in one Bluetooth message
                 var packedMessage: String = message
                 packedMessage.rightPad(count: 33, character: " ")
-                dataToSend = ((bundleHash + packedMessage + String(amount)).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
+                dataToSend = ((bundleHash + payeeDeviceUUID + packedMessage + String(amount)).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
                 transferCharacteristic = receiptCharacteristic
                 
                 //Set fragment length to default

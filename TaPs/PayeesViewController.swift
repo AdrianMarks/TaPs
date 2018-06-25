@@ -59,7 +59,7 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let MakePaymentViewController = segue.destination as! MakePaymentViewController
             
             // set a variable in the second view controller with the String to pass
-            MakePaymentViewController.receivedPayeeDevice = payees[path.row].payeeDevice!
+            MakePaymentViewController.receivedPayeeDeviceUUID = payees[path.row].payeeDeviceUUID!
             MakePaymentViewController.receivedPayeeAddress = payees[path.row].payeeAddress!
             MakePaymentViewController.receivedPayeeName = payees[path.row].payeeName!
             MakePaymentViewController.receivedPayeeAvatar = payees[path.row].payeeAvatar
@@ -74,16 +74,10 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         payees = []
         //Loop through payeesBuilt table and for each row where all elements are built transfer the row to the payees table
         for builtPayees in payeesBuilt {
-            if builtPayees.payeeName != "" && builtPayees.payeeAvatar.count > 0 && builtPayees.payeeAddress != "" {
+            if builtPayees.payeeName != "" && builtPayees.payeeDeviceUUID != "" && builtPayees.payeeAvatar.count > 0 && builtPayees.payeeAddress != "" {
                 payees.append(builtPayees)
-                print("BUILT TRANSFER - Payee Device Name is \(builtPayees.payeeDeviceName!) - Payee Name is \(builtPayees.payeeName!) - Payee Avatar Count is \(builtPayees.payeeAvatar.count) - Payee Address Count is \(builtPayees.payeeAddress!.count)")
             }
         }
-        
-        print("\nDB1 Build Table  - \(payeesBuild)\n")
-        print("\nDB1 Built Table  - \(payeesBuilt)\n")
-        print("\nDB1 Payees Table - \(payees)\n")
-        print("\nDB1 Peripherals - \(peripherals)\n")
         
         payeesTable.reloadData()
     }

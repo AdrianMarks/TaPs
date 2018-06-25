@@ -14,8 +14,8 @@ var xCharacteristic : CBCharacteristic?
 var characteristicASCIIValue = String()
 
 struct payee {
-    var payeeDevice: CBPeripheral? = nil
-    var payeeDeviceName: String? = ""
+    var payeePeripheral: CBPeripheral? = nil
+    var payeeDeviceUUID: String? = ""
     var payeeName: String?  = ""
     var payeeAvatar: Data = Data()
     var payeeAddress: String? = nil
@@ -109,11 +109,11 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         print("Discovered peripheral")
         
         //Check to make sure we've not already found this peripheral
-        if !payeesBuild.contains(where: { $0.payeeDevice?.identifier == peripheral.identifier }) {
+        if !payeesBuild.contains(where: { $0.payeePeripheral?.identifier == peripheral.identifier }) {
             
             //Set-up payee record in payees array and payeesBuild
-            payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: peripheral.name ?? "Unknown", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
-            payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: peripheral.name ?? "Unknown", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
+            payeesBuild.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: "", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
+            payeesBuilt.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: "", payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
             
             peripherals.append(peripheral)
             peripheral.delegate = self
@@ -210,7 +210,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         for characteristic in characteristics {
             
             //Subscribe to each characteristic
-            if (characteristic.uuid == nameCharacteristic.uuid || characteristic.uuid == imageCharacteristic.uuid  || characteristic.uuid == addressCharacteristic.uuid  || characteristic.uuid == receiptCharacteristic.uuid) {
+            if (characteristic.uuid == nameCharacteristic.uuid || characteristic.uuid == imageCharacteristic.uuid  || characteristic.uuid == addressCharacteristic.uuid  || characteristic.uuid == receiptCharacteristic.uuid  || characteristic.uuid == deviceCharacteristic.uuid) {
                 print("Found valid characteristics! - \(characteristic.uuid)")
                 subscribedCharacteristics.append(subscribedCharacteristic(peripheral: peripheral, characteristic: characteristic))
                 
@@ -241,28 +241,27 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeNameFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeNameFragment != "EOM" {
-                    if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
                         let tempPayeeAvatar = payeesBuild[index].payeeAvatar
                         let tempPayeeAddress = payeesBuild[index].payeeAddress
-                        let tempPayeeDeviceName = payeesBuild[index].payeeDeviceName
+                        let tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
                         var tempPayeeName = payeesBuild[index].payeeName
                         tempPayeeName = tempPayeeName! + payeeNameFragment
                         payeesBuild.remove(at: index)
-                        payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuild.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                     }
                 }
                 else
                 {
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeeDevice == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
-                        let tempPayeeDeviceName = payeesBuilt[payeesIndex].payeeDeviceName
+                        let tempPayeeDeviceUUID = payeesBuilt[payeesIndex].payeeDeviceUUID
                         let tempPayeeName = payeesBuild[payeesBuildIndex!].payeeName
                         payeesBuilt.remove(at: payeesIndex)
-                        payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                         payeesBuild[payeesBuildIndex!].payeeName = ""
-                        print("BUILT NAME - Payee Device Name is \(tempPayeeDeviceName!) - Payee Name is \(tempPayeeName!) - Payee Avatar Count is \(tempPayeeAvatar.count) - Payee Address Count is \(tempPayeeAddress!.count)")
                     }
                     print("Payee Name End of Message found")
                 }
@@ -284,31 +283,30 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                     
                     print("Payee Avatar End of Message found")
                     
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeeDevice == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
-                        let tempPayeeDeviceName = payeesBuilt[payeesIndex].payeeDeviceName
+                        let tempPayeeDeviceUUID = payeesBuilt[payeesIndex].payeeDeviceUUID
                         let tempPayeeAvatar = payeesBuild[payeesBuildIndex!].payeeAvatar
                         payeesBuilt.remove(at: payeesIndex)
-                        payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                         payeesBuild[payeesBuildIndex!].payeeAvatar = Data()
                         print("PayeeAvatar is - \(String(describing: tempPayeeAvatar))")
-                        print("BUILT AVATAR - Payee Device Name is \(tempPayeeDeviceName!) - Payee Name is \(tempPayeeName!) - Payee Avatar Count is \(tempPayeeAvatar.count) - Payee Address Count is \(tempPayeeAddress!.count)")
                     }
                 }
             }
             else
             {
-                if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+                if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
                     let tempPayeeName = payeesBuild[index].payeeName
                     let tempPayeeAddress = payeesBuild[index].payeeAddress
-                    let tempPayeeDeviceName = payeesBuild[index].payeeDeviceName
+                    let tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
                     var tempPayeeAvatar = payeesBuild[index].payeeAvatar
                     tempPayeeAvatar = tempPayeeAvatar + payeeAvatarFragment
                     payeesBuild.remove(at: index)
-                    payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
-                    print("Accumulated payeeAvater - \(String(describing: tempPayeeAvatar)) - for Device Name - \(tempPayeeDeviceName!)")
+                    payeesBuild.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                    print("Accumulated payeeAvater - \(String(describing: tempPayeeAvatar)) - for Device Name - \(tempPayeeDeviceUUID!)")
                 }
                 print("Received: \(String(describing: payeeAvatarFragment))")
             }
@@ -322,28 +320,27 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeAddressFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeAddressFragment != "EOM" {
-                    if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
                         let tempPayeeAvatar = payeesBuild[index].payeeAvatar
                         let tempPayeeName = payeesBuild[index].payeeName
-                        let tempPayeeDeviceName = payeesBuild[index].payeeDeviceName
+                        let tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
                         var tempPayeeAddress = payeesBuild[index].payeeAddress
                         tempPayeeAddress = tempPayeeAddress! + payeeAddressFragment
                         payeesBuild.remove(at: index)
-                        payeesBuild.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuild.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                     }
                 }
                 else
                 {
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeeDevice == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
-                        let tempPayeeDeviceName = payeesBuilt[payeesIndex].payeeDeviceName
+                        let tempPayeeDeviceUUID = payeesBuilt[payeesIndex].payeeDeviceUUID
                         let tempPayeeAddress = payeesBuild[payeesBuildIndex!].payeeAddress
                         payeesBuilt.remove(at: payeesIndex)
-                        payeesBuilt.append(payee(payeeDevice: peripheral, payeeDeviceName: tempPayeeDeviceName, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                         payeesBuild[payeesBuildIndex!].payeeAddress = ""
-                        print("BUILT ADDRESS - Payee Device Name is \(tempPayeeDeviceName!) - Payee Name is \(tempPayeeName!) - Payee Avatar Count is \(tempPayeeAvatar.count) - Payee Address Count is \(tempPayeeAddress!.count)")
                     }
                     print("Payee Address End of Message found")
                 }
@@ -351,6 +348,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 print("Payee Address Fragment = \(payeeAddressFragment)")
                 
             }
+            
+            
             
         }
         
@@ -366,26 +365,34 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 else
                 {
                     if payeeReceiptBuild != "" {
-                        if let index = payees.index(where: { $0.payeeDevice == peripheral}) {
+                        if let index = payees.index(where: { $0.payeePeripheral == peripheral}) {
                             let tempPayeeAvatar = payees[index].payeeAvatar
                             let tempPayeeName = payees[index].payeeName
                             
                             let bundleHash = String(payeeReceiptBuild.prefix(81))
-                            let message = payeeReceiptBuild.substring(from: 81, to: 114)
-                            let amount = payeeReceiptBuild.substring(from: 114, to: payeeReceiptBuild.count)
+                            let payeeDeviceUUID = payeeReceiptBuild.substring(from: 81, to: 117)
+                            let message = payeeReceiptBuild.substring(from: 117, to: 150)
+                            let amount = payeeReceiptBuild.substring(from: 150, to: payeeReceiptBuild.count)
+
+                            print("Payee Device UUID - \(payeeDeviceUUID)")
+                            print("This Device UUID - \(device_UUID)")
                             
-                            //Save the receipt details in Core Data
-                            if CoreDataHandler.saveReceiptDetails(payerName: tempPayeeName!, payerAvatar: tempPayeeAvatar, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(), bundleHash: bundleHash, timeToConfirm: 0) {
-                                print("Receipt data saved sussfully")
-                            } else {
-                                print("Failed to save Receipt data")
-                            }
+                            //Only store the receipt if it belongs to this Payee's device
+                            if payeeDeviceUUID == device_UUID {
                             
-                            //Limit the payment data stored in Core Data to 10 rows.
-                            if CoreDataHandler.limitStoredReceipts() {
-                                print("Successfully limited number of saved receipts")
-                            } else {
-                                print("Failed to limit number of saved receipts")
+                                //Save the receipt details in Core Data
+                                if CoreDataHandler.saveReceiptDetails(payerName: tempPayeeName!, payerAvatar: tempPayeeAvatar, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(), bundleHash: bundleHash, timeToConfirm: 0) {
+                                    print("Receipt data saved sussfully")
+                                } else {
+                                    print("Failed to save Receipt data")
+                                }
+                                
+                                //Limit the payment data stored in Core Data to 10 rows.
+                                if CoreDataHandler.limitStoredReceipts() {
+                                    print("Successfully limited number of saved receipts")
+                                } else {
+                                    print("Failed to limit number of saved receipts")
+                                }
                             }
                         }
                     }
@@ -393,6 +400,44 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 }
                 
                 print("Payee Receipt Fragment = \(payeeReceiptFragment)")
+                
+            }
+            
+        }
+        
+        if characteristic.uuid == deviceCharacteristic.uuid {
+            
+            print("deviceCharacteristic is - \(deviceCharacteristic.uuid)")
+            
+            if let payeeDeviceFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
+                
+                if payeeDeviceFragment != "EOM" {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+                        let tempPayeeAvatar = payeesBuild[index].payeeAvatar
+                        let tempPayeeAddress = payeesBuild[index].payeeAddress
+                        let tempPayeeName = payeesBuild[index].payeeName
+                        var tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
+                        tempPayeeDeviceUUID = tempPayeeDeviceUUID! + payeeDeviceFragment
+                        payeesBuild.remove(at: index)
+                        payeesBuild.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                    }
+                }
+                else
+                {
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
+                        let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
+                        let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
+                        let tempPayeeName = payeesBuilt[payeesIndex].payeeName
+                        let tempPayeeDeviceUUID = payeesBuild[payeesBuildIndex!].payeeDeviceUUID
+                        payeesBuilt.remove(at: payeesIndex)
+                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuild[payeesBuildIndex!].payeeDeviceUUID = ""
+                    }
+                    print("Payee Device End of Message found")
+                }
+                
+                print("Payee Device Fragment = \(payeeDeviceFragment)")
                 
             }
             
@@ -425,13 +470,10 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected")
         
-        print("BUILT - Clearing down Build and Built arrays")
         //Remove peripheral from list of known payeesBuilt and payeesBuild arrays
-        if let index = payeesBuild.index(where: { $0.payeeDevice == peripheral}) {
-            print("Removing - \(payeesBuild[index].payeeName!) from payeesBuild")
+        if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
             payeesBuild.remove(at: index)
-            if let index = payeesBuilt.index(where: { $0.payeeDevice == peripheral}) {
-                print("Removing - \(payeesBuilt[index].payeeName!) from payeesBuilt")
+            if let index = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
                 payeesBuilt.remove(at: index)
             }
         }
@@ -473,27 +515,27 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
         //Clean up Bluetooth connections where the device hasn't been active for more than 300 seconds
         //First unsubscribe all Characteristics and then disconnect Peripheral else when we re-subscribe nothing will happen
-        for device in peripherals {
-            if let index = payeesBuild.index(where: { $0.payeeDevice == device}) {
+        for peripheral in peripherals {
+            if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
                 print("Time interval for \(payeesBuild[index].payeeName!) is - \(Date().timeIntervalSince(payeesBuild[index].timestamp))")
                 print("Subscribed Characteristic Count - \(subscribedCharacteristics.count)")
                 if (Date().timeIntervalSince(payeesBuild[index].timestamp) > 300 && subscribedCharacteristics.count > 0) {
 
                     //Unsubscribe from existing characteristics for this peripheral
                     for index in 0..<(subscribedCharacteristics.count) {
-                        if device == subscribedCharacteristics[index].peripheral {
+                        if peripheral == subscribedCharacteristics[index].peripheral {
                             let characteristic = subscribedCharacteristics[index].characteristic!
                             // Unsubscribe from a characteristic
-                            print("Unsubscribing from Char - \(characteristic) on Device \(String(describing: device))")
-                            device.setNotifyValue(false, for: characteristic)
+                            print("Unsubscribing from Char - \(characteristic) on Device \(String(describing: peripheral))")
+                            peripheral.setNotifyValue(false, for: characteristic)
                         }
                     }
                     
-                    subscribedCharacteristics = subscribedCharacteristics.filter() { $0.peripheral !== device }
+                    subscribedCharacteristics = subscribedCharacteristics.filter() { $0.peripheral !== peripheral }
                     
                     //Then diconnect from the peripheral and remove the peripheral from the list of peripherals
-                    centralManager.cancelPeripheralConnection(device)
-                    peripherals = peripherals.filter() { $0 !== device }
+                    centralManager.cancelPeripheralConnection(peripheral)
+                    peripherals = peripherals.filter() { $0 !== peripheral }
                     
                 }
             }
