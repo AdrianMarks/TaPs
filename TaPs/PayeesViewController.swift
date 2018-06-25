@@ -21,7 +21,7 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var payeesTable: UITableView!
     
     //Data
-    var timer1: Timer?
+    var timer1: Timer? = nil
     
     //View controller functions
     override func viewDidLoad() {
@@ -41,14 +41,19 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         refreshScanView()
 
-        timer1 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: true)
-
+        if timer1 == nil {
+            timer1 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: true)
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        timer1!.invalidate()
+        if timer1 != nil {
+            timer1!.invalidate()
+            timer1 = nil
+        }
 
     }
     
@@ -82,10 +87,16 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         payees = []
         //Loop through payeesBuilt table and for each row where all elements are built transfer the row to the payees table
         for builtPayees in payeesBuilt {
-            if builtPayees.payeeName != "" && builtPayees.payeeDeviceUUID != "" && builtPayees.payeeAvatar.count > 0 && builtPayees.payeeAddress != "" {
+            if builtPayees.payeeName != "" && builtPayees.payeeAvatar.count > 0 && builtPayees.payeeAddress != "" {
                 payees.append(builtPayees)
+                print("BUILT TRANSFER - Payee Device Name is \(builtPayees.payeeDeviceUUID!) - Payee Name is \(builtPayees.payeeName!) - Payee Avatar Count is \(builtPayees.payeeAvatar.count) - Payee Address Count is \(builtPayees.payeeAddress!.count)")
             }
         }
+        
+        print("\nDB1 Build Table  - \(payeesBuild)\n")
+        print("\nDB1 Built Table  - \(payeesBuilt)\n")
+        print("\nDB1 Payees Table - \(payees)\n")
+        print("\nDB1 Peripherals - \(peripherals)\n")
         
         payeesTable.reloadData()
     }

@@ -81,7 +81,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         disconnectAgedPeripherals()
         
         centralManager?.scanForPeripherals(withServices: [Service_UUID] , options: [CBCentralManagerScanOptionAllowDuplicatesKey:false])
-        Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.cancelScan), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.cancelScan), userInfo: nil, repeats: false)
     }
     
     // Called when we want to stop scanning for more TaPs devices
@@ -114,19 +114,18 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             peripherals.append(peripheral)
             peripheral.delegate = self
         
-            //print(peripheral)
-            //if  iotaTapPeripheral != nil {
-                print("Found new peripheral devices with the IOTA TAP service")
-                print("Device name: \(peripheral.name ?? "Unknown")")
-                print("**********************************")
-                //print ("Advertisement Data : \(advertisementData)")
-                print ("Advertisement Data : \(advertisementData["kCBAdvDataLocalName"] ?? "Unknown")")
-            //}
+            print("Found new peripheral devices with the IOTA TAP service")
+            print("Device name: \(peripheral.name ?? "Unknown")")
+            print("**********************************")
+            //print ("Advertisement Data : \(advertisementData)")
+            print ("Advertisement Data : \(advertisementData["kCBAdvDataLocalName"] ?? "Unknown")")
             
             //Connect to the peripheral
             connectToDevice(peripheral: peripheral)
             
         }
+        
+        print("Peripherals discovered so far - \(peripherals)")
         
     }
     
@@ -470,20 +469,20 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
         print("Unsubscribing from all peripherals")
         
-        for device in peripherals {
+        for peripheral in peripherals {
 
             //Unsubscribe from existing characteristics for this peripheral
             for index in 0..<(subscribedCharacteristics.count) {
-                if device == subscribedCharacteristics[index].peripheral {
+                if peripheral.identifier == subscribedCharacteristics[index].peripheral?.identifier {
                     let characteristic = subscribedCharacteristics[index].characteristic!
                     // Unsubscribe from a characteristic
-                    print("Unsubscribing from Char - \(characteristic) on Device \(String(describing: device))")
-                    device.setNotifyValue(false, for: characteristic)
+                    print("Unsubscribing from Char - \(characteristic) on Peripheral Identifier \(String(describing: peripheral.identifier))")
+                    peripheral.setNotifyValue(false, for: characteristic)
                 }
             }
             
             //Then diconnect from the peripheral and remove the peripheral from the list of peripherals
-            centralManager.cancelPeripheralConnection(device)
+            centralManager.cancelPeripheralConnection(peripheral)
     
         }
         
@@ -501,8 +500,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         //Clean up Bluetooth connections where the device hasn't been active for more than 300 seconds
         //First unsubscribe all Characteristics and then disconnect Peripheral else when we re-subscribe nothing will happen
         for peripheral in peripherals {
-            if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
-
+            if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
+                
                 if (Date().timeIntervalSince(payeesBuild[index].timestamp) > 300 && subscribedCharacteristics.count > 0) {
 
                     //Unsubscribe from existing characteristics for this peripheral

@@ -46,8 +46,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var accountBalance: UILabel!
     
     //Data
-    var timer1 = Timer()
-    var timer2 = Timer()
+    var timer1: Timer? = nil
+    var timer2: Timer? = nil
     
     //NSFetchedResults
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Payment> = {
@@ -91,15 +91,25 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         refreshTableView()
         updateBalance()
         
-        timer1 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshTableView), userInfo: nil, repeats: true)
-        timer2 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateBalance), userInfo: nil, repeats: true)
+        if timer1 == nil {
+            timer1 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshTableView), userInfo: nil, repeats: true)
+        }
+        if timer2 == nil {
+            timer2 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.updateBalance), userInfo: nil, repeats: true)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        timer1.invalidate()
-        timer2.invalidate()
+        if timer1 != nil {
+            timer1!.invalidate()
+            timer1 = nil
+        }
+        if timer2 != nil {
+            timer2!.invalidate()
+            timer2 = nil
+        }
     }
     
     override func didReceiveMemoryWarning() {
