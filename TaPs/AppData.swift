@@ -32,7 +32,9 @@ let receiptCharacteristic_uuid = "60BD4755-F29E-41F0-87A8-3BDE05B4A13C"
 
 let advertisementData = "TaPs Device"
 
-let NOTIFY_MTU = 132
+var default_MTU = 182
+var NOTIFY_MTU = 182
+
 let Service_UUID = CBUUID(string: kService_UUID)
 let nameCharacteristic_UUID = CBUUID(string: nameCharacteristic_uuid)
 let imageCharacteristic_UUID = CBUUID(string: imageCharacteristic_uuid)

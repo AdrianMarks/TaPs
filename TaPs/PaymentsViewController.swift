@@ -18,6 +18,7 @@ class PaymentsTableViewCell: UITableViewCell {
     @IBOutlet weak var paymentDate: UILabel!
     @IBOutlet weak var message: UILabel!
     @IBOutlet weak var paymentStatus: UILabel!
+    @IBOutlet weak var timeToConfirm: UILabel!
 }
 
 class PaymentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
@@ -132,6 +133,15 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY hh:mm a"
         let dateString = dayTimePeriodFormatter.string(from: date!)
         cell.paymentDate?.text = dateString
+        
+        let time = payment.timeToConfirm
+        if time > 0 {
+            cell.timeToConfirm?.text = stringFromTimeInterval(interval: TimeInterval(time))
+        }
+        else
+        {
+            cell.timeToConfirm?.text = "--:--"
+        }
         
         cell.payeeAmount?.text = IotaUnitsConverter.iotaToString(amount: UInt64(payment.amount))
         cell.message?.text = payment.message

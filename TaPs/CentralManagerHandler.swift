@@ -375,7 +375,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                             let amount = payeeReceiptBuild.substring(from: 114, to: payeeReceiptBuild.count)
                             
                             //Save the receipt details in Core Data
-                            if CoreDataHandler.saveReceiptDetails(payerName: tempPayeeName!, payerAvatar: tempPayeeAvatar, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(), bundleHash: bundleHash ) {
+                            if CoreDataHandler.saveReceiptDetails(payerName: tempPayeeName!, payerAvatar: tempPayeeAvatar, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(), bundleHash: bundleHash, timeToConfirm: 0) {
                                 print("Receipt data saved sussfully")
                             } else {
                                 print("Failed to save Receipt data")

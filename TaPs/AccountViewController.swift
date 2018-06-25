@@ -69,6 +69,9 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
         dataToSend = ((savedAvatarName)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
         transferCharacteristic = nameCharacteristic
         
+        //Set fragment length to default
+        NOTIFY_MTU = default_MTU
+        
         // Reset the index
         sendDataIndex = 0;
         
@@ -250,6 +253,9 @@ extension AccountViewController: AvatarCaptureControllerDelegate {
 
         dataToSend = (UIImagePNGRepresentation(readWriteFileFS.readFile("small_avatar_saved.jpg")) as Data?)!
         transferCharacteristic = imageCharacteristic
+        
+        //Set fragment length to default
+        NOTIFY_MTU = default_MTU
         
         // Reset the index
         sendDataIndex = 0;

@@ -290,7 +290,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         print ("The amount of iotas is - \(amount)")
         
         //Assume success and store the record in core data - payment
-        if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: self.receivedPayeeAvatar, amount: Int64(amount), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "" ) {
+        if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: self.receivedPayeeAvatar, amount: Int64(amount), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "", timeToConfirm: 0 ) {
             print("Payment data saved sussfully")
         } else {
             print("Failed to save payment data")

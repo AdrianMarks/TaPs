@@ -21,7 +21,7 @@ class CoreDataHandler: NSObject {
     //PAYMENTS
     //********
     
-    class func savePaymentDetails(payeeName: String, payeeAvatar: Data, amount: Int64, message: String, status: String, timestamp: Date, bundleHash: String, tailHash: String ) -> Bool {
+    class func savePaymentDetails(payeeName: String, payeeAvatar: Data, amount: Int64, message: String, status: String, timestamp: Date, bundleHash: String, tailHash: String, timeToConfirm: Double ) -> Bool {
     
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Payment", in: context )
@@ -36,6 +36,7 @@ class CoreDataHandler: NSObject {
         managedObject.setValue(timestamp,       forKey: "timestamp")
         managedObject.setValue(bundleHash,      forKey: "bundleHash")
         managedObject.setValue(tailHash,        forKey: "tailHash")
+        managedObject.setValue(timeToConfirm,   forKey: "timeToConfirm")
         
         do {
             try context.save()
@@ -175,7 +176,11 @@ class CoreDataHandler: NSObject {
         
         if let result = try? context.fetch(fetchRequest) {
             let payment = result[0]
+            
+            let timeToConfirm = Date().timeIntervalSince(payment.timestamp!)
+            
             payment.setValue("Confirmed", forKey: "status")
+            payment.setValue(timeToConfirm, forKey: "timeToConfirm")
         }
         
         do {
@@ -190,7 +195,7 @@ class CoreDataHandler: NSObject {
     //RECEIPTS
     //********
     
-    class func saveReceiptDetails(payerName: String, payerAvatar: Data, amount: Int64, message: String, status: String, timestamp: Date, bundleHash: String ) -> Bool {
+    class func saveReceiptDetails(payerName: String, payerAvatar: Data, amount: Int64, message: String, status: String, timestamp: Date, bundleHash: String, timeToConfirm: Double ) -> Bool {
         
         let context = getContext()
         let entity = NSEntityDescription.entity(forEntityName: "Receipt", in: context )
@@ -204,6 +209,7 @@ class CoreDataHandler: NSObject {
         managedObject.setValue(status,          forKey: "status")
         managedObject.setValue(timestamp,       forKey: "timestamp")
         managedObject.setValue(bundleHash,      forKey: "bundleHash")
+        managedObject.setValue(timeToConfirm,   forKey: "timeToConfirm")
         
         do {
             try context.save()
@@ -279,7 +285,11 @@ class CoreDataHandler: NSObject {
         
         if let result = try? context.fetch(fetchRequest) {
             let receipt = result[0]
+            
+            let timeToConfirm = Date().timeIntervalSince(receipt.timestamp!)
+            
             receipt.setValue("Confirmed", forKey: "status")
+            receipt.setValue(timeToConfirm, forKey: "timeToConfirm")
         }
         
         do {

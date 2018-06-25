@@ -18,6 +18,7 @@ class ReceiptsTableViewCell: UITableViewCell {
     @IBOutlet weak var receiptDate: UILabel!
     @IBOutlet weak var receiptMessage: UILabel!
     @IBOutlet weak var receiptStatus: UILabel!
+    @IBOutlet weak var timeToConfirm: UILabel!
 }
 
 class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
@@ -134,6 +135,15 @@ class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableView
         dayTimePeriodFormatter.dateFormat = "dd MMM YYYY hh:mm a"
         let dateString = dayTimePeriodFormatter.string(from: date!)
         cell.receiptDate?.text = dateString
+        
+        let time = receipt.timeToConfirm
+        if time > 0 {
+            cell.timeToConfirm?.text = stringFromTimeInterval(interval: TimeInterval(time))
+        }
+        else
+        {
+            cell.timeToConfirm?.text = "--:--"
+        }
         
         cell.receiptAmount?.text = IotaUnitsConverter.iotaToString(amount: UInt64(receipt.amount))
         cell.receiptMessage?.text = receipt.message

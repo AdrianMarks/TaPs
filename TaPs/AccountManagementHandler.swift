@@ -104,6 +104,9 @@ class IotaAccountManagementHandler: NSObject {
                 
                 print("Data to Send - \(String(describing: dataToSend))")
                 
+                //Set fragment length to default
+                NOTIFY_MTU = default_MTU
+                
                 // Reset the index
                 sendDataIndex = 0;
                 
@@ -205,24 +208,14 @@ class IotaAccountManagementHandler: NSObject {
         
         //Convert ASCII to Trytes
         let messageTrytes = IotaConverter.trytes(fromAsciiString: message)
-        let commissionTrytes = IotaConverter.trytes(fromAsciiString: "TaPs Commission")
         
         print("Message trytes are - \(String(describing: messageTrytes))")
         
         //Set transfer details
         let transfer = IotaTransfer(address: address, value: UInt64(amount), message: messageTrytes!, tag: "TAPS" )
         
-        //Set commisson transfer details
-        let commissionAmount = (amount / 100)
-        print("Commission is - \(commissionAmount)")
-        
-        let commission = IotaTransfer(address: address, value: UInt64(commissionAmount), message: commissionTrytes!, tag: "TAPS" )
-
-        print("This is the transfer - \(transfer)")
-        print("This is the commission - \(commission)")
-        
         //Send the Transfer via the IOTA API
-        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer, commission], inputs: nil, remainderAddress: nil , { (success) in
+        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
             
             //ON SUCCESS
             
@@ -255,6 +248,9 @@ class IotaAccountManagementHandler: NSObject {
                 packedMessage.rightPad(count: 33, character: " ")
                 dataToSend = ((bundleHash + packedMessage + String(amount)).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
                 transferCharacteristic = receiptCharacteristic
+                
+                //Set fragment length to default
+                NOTIFY_MTU = default_MTU
                 
                 // Reset the index
                 sendDataIndex = 0;

@@ -9,6 +9,7 @@
         <attribute name="status" attributeType="String" syncable="YES"/>
         <attribute name="tailHash" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="timeToConfirm" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <entity name="Receipt" representedClassName="Receipt" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -18,9 +19,10 @@
         <attribute name="payerName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="timeToConfirm" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Payment" positionX="-54" positionY="-9" width="128" height="165"/>
-        <element name="Receipt" positionX="-54" positionY="45" width="128" height="150"/>
+        <element name="Payment" positionX="-54" positionY="-9" width="128" height="180"/>
+        <element name="Receipt" positionX="-54" positionY="45" width="128" height="165"/>
     </elements>
 </model>

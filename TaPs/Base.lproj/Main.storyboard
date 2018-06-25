@@ -171,8 +171,8 @@
                                     <action selector="sendItButton:" destination="2y7-CC-EBr" eventType="touchUpInside" id="9yf-DS-k2N"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Commission Payments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="HHV-eX-yq1">
-                                <rect key="frame" x="74" y="394" width="227" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Advertise Here!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="HHV-eX-yq1">
+                                <rect key="frame" x="111.00000000000001" y="394" width="153.33333333333337" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="QkB-af-Q0K"/>
                                 </constraints>
@@ -180,9 +180,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="spatial" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dxl-Uh-31n">
-                                <rect key="frame" x="10" y="431" width="355" height="71.666666666666686"/>
-                                <string key="text">A commission of 1% is charged on all payments over the value of 100 Iota. This commission is paid to the developers' donation address and is used to support the development of this app. </string>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="spatial" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dxl-Uh-31n">
+                                <rect key="frame" x="30" y="431" width="315" height="71.666666666666686"/>
+                                <string key="text">Please contact Red Kite Projects if you would like to advertise here: 
+ admin@redkiteprojects.com</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -214,14 +215,14 @@
                             <constraint firstItem="B3b-iW-JZp" firstAttribute="centerX" secondItem="o2a-cU-DqS" secondAttribute="centerX" id="Am4-uU-6DK"/>
                             <constraint firstItem="ozc-ai-FHA" firstAttribute="centerY" secondItem="dTo-TA-p9j" secondAttribute="centerY" id="BAT-lS-Hzz"/>
                             <constraint firstAttribute="trailing" secondItem="zgt-ma-pkP" secondAttribute="trailing" constant="75" id="BAr-No-kWd"/>
-                            <constraint firstItem="Dxl-Uh-31n" firstAttribute="leading" secondItem="o2a-cU-DqS" secondAttribute="leading" constant="10" id="Cm9-9j-XgK"/>
+                            <constraint firstItem="Dxl-Uh-31n" firstAttribute="leading" secondItem="o2a-cU-DqS" secondAttribute="leading" constant="30" id="Cm9-9j-XgK"/>
                             <constraint firstItem="sXB-O6-DB6" firstAttribute="top" secondItem="dTo-TA-p9j" secondAttribute="bottom" constant="50" id="ETZ-wM-jVq"/>
                             <constraint firstItem="dTo-TA-p9j" firstAttribute="top" secondItem="hgo-1o-0EW" secondAttribute="bottom" constant="30" id="Hye-mg-7ys"/>
                             <constraint firstItem="sXB-O6-DB6" firstAttribute="leading" secondItem="o2a-cU-DqS" secondAttribute="leading" constant="20" id="L2L-Ln-hoE"/>
                             <constraint firstItem="oza-Mb-pB1" firstAttribute="leading" secondItem="sAY-ho-8QL" secondAttribute="trailing" constant="10" id="Nen-HY-gfN"/>
                             <constraint firstItem="Dxl-Uh-31n" firstAttribute="top" secondItem="HHV-eX-yq1" secondAttribute="bottom" constant="10" id="TVl-Cf-HGk"/>
                             <constraint firstItem="B3b-iW-JZp" firstAttribute="top" secondItem="gLX-Tn-x5i" secondAttribute="bottom" constant="10" id="Tg2-N3-BYh"/>
-                            <constraint firstAttribute="trailing" secondItem="Dxl-Uh-31n" secondAttribute="trailing" constant="10" id="W24-fs-C7z"/>
+                            <constraint firstAttribute="trailing" secondItem="Dxl-Uh-31n" secondAttribute="trailing" constant="30" id="W24-fs-C7z"/>
                             <constraint firstItem="HHV-eX-yq1" firstAttribute="top" secondItem="oza-Mb-pB1" secondAttribute="bottom" constant="50" id="clM-qr-IJX"/>
                             <constraint firstItem="ozc-ai-FHA" firstAttribute="leading" secondItem="dTo-TA-p9j" secondAttribute="trailing" constant="10" id="fJ4-8c-2cg"/>
                             <constraint firstItem="sAY-ho-8QL" firstAttribute="top" secondItem="sXB-O6-DB6" secondAttribute="bottom" constant="50" id="iJU-e5-y5a"/>
@@ -352,7 +353,16 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16f-SI-N4P" userLabel="Receipt Date">
-                                                    <rect key="frame" x="80" y="27" width="32" height="18"/>
+                                                    <rect key="frame" x="80" y="27" width="200" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="200" id="ViR-8q-xzU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2j3-I7-4Wv">
+                                                    <rect key="frame" x="301" y="27" width="64" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -362,14 +372,16 @@
                                                 <constraint firstItem="16f-SI-N4P" firstAttribute="leading" secondItem="gyb-wh-54c" secondAttribute="trailing" constant="10" id="2HG-dr-cfK"/>
                                                 <constraint firstItem="ZZ6-AU-ZTp" firstAttribute="leading" secondItem="gyb-wh-54c" secondAttribute="trailing" constant="10" id="3jY-JO-2EO"/>
                                                 <constraint firstItem="Ebh-MR-rW5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZZ6-AU-ZTp" secondAttribute="trailing" constant="10" id="4Gy-pI-gRX"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="16f-SI-N4P" secondAttribute="trailing" constant="10" id="5rW-IE-D4X"/>
                                                 <constraint firstItem="gyb-wh-54c" firstAttribute="leading" secondItem="aUn-cK-Xw3" secondAttribute="leading" constant="10" id="5wC-D5-1eL"/>
+                                                <constraint firstItem="2j3-I7-4Wv" firstAttribute="leading" secondItem="16f-SI-N4P" secondAttribute="trailing" constant="21" id="9eT-RZ-aRc"/>
                                                 <constraint firstItem="16f-SI-N4P" firstAttribute="top" secondItem="ZZ6-AU-ZTp" secondAttribute="bottom" constant="3" id="Car-PV-owp"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ebh-MR-rW5" secondAttribute="trailing" constant="10" id="ClP-Pd-xCK"/>
                                                 <constraint firstItem="gyb-wh-54c" firstAttribute="centerY" secondItem="aUn-cK-Xw3" secondAttribute="centerY" id="Ief-jy-QBx"/>
                                                 <constraint firstItem="0gx-T9-jgQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h5E-Mt-INo" secondAttribute="trailing" constant="10" id="JCd-a0-dGJ"/>
+                                                <constraint firstItem="2j3-I7-4Wv" firstAttribute="centerY" secondItem="16f-SI-N4P" secondAttribute="centerY" id="JKK-Uq-OyN"/>
                                                 <constraint firstAttribute="bottom" secondItem="h5E-Mt-INo" secondAttribute="bottom" constant="5" id="VUf-1y-7rZ"/>
                                                 <constraint firstItem="h5E-Mt-INo" firstAttribute="leading" secondItem="gyb-wh-54c" secondAttribute="trailing" constant="10" id="a2k-Nd-Ze1"/>
+                                                <constraint firstAttribute="trailing" secondItem="2j3-I7-4Wv" secondAttribute="trailing" constant="10" id="b2w-Y4-r1C"/>
                                                 <constraint firstAttribute="bottom" secondItem="0gx-T9-jgQ" secondAttribute="bottom" constant="5" id="csZ-yX-0Tg"/>
                                                 <constraint firstAttribute="trailing" secondItem="0gx-T9-jgQ" secondAttribute="trailing" constant="10" id="mHX-wE-Tot"/>
                                                 <constraint firstItem="ZZ6-AU-ZTp" firstAttribute="top" secondItem="aUn-cK-Xw3" secondAttribute="top" constant="5" id="tBz-eZ-LvV"/>
@@ -385,6 +397,7 @@
                                             <outlet property="receiptDate" destination="16f-SI-N4P" id="JVx-Un-YBC"/>
                                             <outlet property="receiptMessage" destination="h5E-Mt-INo" id="9mh-kh-OMH"/>
                                             <outlet property="receiptStatus" destination="0gx-T9-jgQ" id="GWC-r6-qfX"/>
+                                            <outlet property="timeToConfirm" destination="2j3-I7-4Wv" id="H2c-mR-UlH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -789,7 +802,16 @@ Powered by IOTA</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JXR-IA-CBB">
-                                                    <rect key="frame" x="80" y="27" width="32" height="18"/>
+                                                    <rect key="frame" x="80" y="27" width="200" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="200" id="7x3-f6-M6Q"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBM-kb-YRS">
+                                                    <rect key="frame" x="310" y="27" width="55" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -798,18 +820,19 @@ Powered by IOTA</string>
                                             <constraints>
                                                 <constraint firstItem="Ed1-ya-fGe" firstAttribute="leading" secondItem="6St-gU-zCZ" secondAttribute="trailing" constant="10" id="9e7-Ax-cu0"/>
                                                 <constraint firstItem="3zG-nd-wic" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cM6-Ob-9LZ" secondAttribute="trailing" constant="10" id="Abc-fu-6gS"/>
+                                                <constraint firstItem="CBM-kb-YRS" firstAttribute="centerY" secondItem="JXR-IA-CBB" secondAttribute="centerY" id="Kg4-Oj-1B8"/>
                                                 <constraint firstItem="6St-gU-zCZ" firstAttribute="leading" secondItem="Q9j-wD-k4y" secondAttribute="leading" constant="10" id="SIa-3X-eEJ"/>
                                                 <constraint firstItem="7BF-xU-25M" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ed1-ya-fGe" secondAttribute="trailing" constant="10" id="WAJ-i7-o3w"/>
                                                 <constraint firstItem="6St-gU-zCZ" firstAttribute="centerY" secondItem="Q9j-wD-k4y" secondAttribute="centerY" id="WLd-T3-lQ6"/>
                                                 <constraint firstAttribute="bottom" secondItem="cM6-Ob-9LZ" secondAttribute="bottom" constant="5" id="apS-hz-MTs"/>
                                                 <constraint firstAttribute="bottom" secondItem="3zG-nd-wic" secondAttribute="bottom" constant="5" id="gyf-P1-okb"/>
+                                                <constraint firstAttribute="trailing" secondItem="CBM-kb-YRS" secondAttribute="trailing" constant="10" id="kbR-HG-at7"/>
                                                 <constraint firstItem="cM6-Ob-9LZ" firstAttribute="leading" secondItem="6St-gU-zCZ" secondAttribute="trailing" constant="10" id="kyL-8D-Wmt"/>
                                                 <constraint firstItem="JXR-IA-CBB" firstAttribute="leading" secondItem="6St-gU-zCZ" secondAttribute="trailing" constant="10" id="pNm-bw-PCK"/>
                                                 <constraint firstAttribute="trailing" secondItem="3zG-nd-wic" secondAttribute="trailing" constant="10" id="pop-uU-wBH"/>
                                                 <constraint firstAttribute="trailing" secondItem="7BF-xU-25M" secondAttribute="trailing" constant="10" id="t85-b9-R3X"/>
                                                 <constraint firstItem="Ed1-ya-fGe" firstAttribute="top" secondItem="Q9j-wD-k4y" secondAttribute="top" constant="5" id="tJC-KO-X2O"/>
                                                 <constraint firstItem="JXR-IA-CBB" firstAttribute="top" secondItem="Ed1-ya-fGe" secondAttribute="bottom" constant="3" id="uiB-8I-AbP"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JXR-IA-CBB" secondAttribute="trailing" constant="10" id="zlK-DA-60e"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
@@ -822,6 +845,7 @@ Powered by IOTA</string>
                                             <outlet property="payeeName" destination="Ed1-ya-fGe" id="PDv-Re-Njk"/>
                                             <outlet property="paymentDate" destination="JXR-IA-CBB" id="u4m-2r-oX7"/>
                                             <outlet property="paymentStatus" destination="3zG-nd-wic" id="BaQ-g2-i4J"/>
+                                            <outlet property="timeToConfirm" destination="CBM-kb-YRS" id="mn8-xE-a7b"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

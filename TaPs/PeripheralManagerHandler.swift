@@ -213,6 +213,10 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
     //Check when someone subscribes to our characteristic.
     public func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         
+        //Set maximum CB transfer fregment length
+        NOTIFY_MTU = central.maximumUpdateValueLength
+        if default_MTU < NOTIFY_MTU {default_MTU = NOTIFY_MTU }
+        
         print("Device \(central) subscribed to characteristic - \(characteristic.uuid)")
         
         //******* Check Charateristic and set dataToSend and transferCharacteristic accordingly ******
