@@ -21,7 +21,7 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var payeesTable: UITableView!
     
     //Data
-    var timer1 = Timer()
+    var timer1: Timer?
     
     //View controller functions
     override func viewDidLoad() {
@@ -31,23 +31,25 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         payeesTable.delegate = self
         payeesTable.dataSource = self
         
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: false)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         refreshScanView()
-        
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: false)
-        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: false)
+
         timer1 = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.refreshScanView), userInfo: nil, repeats: true)
-        
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.timer1.invalidate()
+        timer1!.invalidate()
+
     }
     
     override func didReceiveMemoryWarning() {

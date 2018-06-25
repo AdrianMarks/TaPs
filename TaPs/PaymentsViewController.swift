@@ -98,8 +98,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.timer1.invalidate()
-        self.timer2.invalidate()
+        timer1.invalidate()
+        timer2.invalidate()
     }
     
     override func didReceiveMemoryWarning() {
