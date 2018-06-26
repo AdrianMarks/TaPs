@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,7 +14,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <viewController id="eZb-O9-KwV" customClass="AppLocker" customModule="Iota_Tap" customModuleProvider="target">
+        <viewController id="eZb-O9-KwV" customClass="AppLocker" customModule="TaPs" customModuleProvider="target">
             <layoutGuides>
                 <viewControllerLayoutGuide type="top" id="1Nd-Cx-bNb"/>
                 <viewControllerLayoutGuide type="bottom" id="lR7-xf-1EX"/>
@@ -23,34 +23,34 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4o-Ks-4Ii">
-                        <rect key="frame" x="0.0" y="-11" width="375" height="210"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4o-Ks-4Ii">
+                        <rect key="frame" x="0.0" y="-11" width="375" height="284"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kS-ba-3rR">
-                                <rect key="frame" x="8" y="262" width="359" height="28"/>
+                                <rect key="frame" x="8" y="257.5" width="359" height="28"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y48-OI-bV6" userLabel="first" customClass="Indicator" customModule="Iota_Tap" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y48-OI-bV6" userLabel="first" customClass="Indicator" customModule="TaPs" customModuleProvider="target">
                                         <rect key="frame" x="120.5" y="7" width="14.5" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="y48-OI-bV6" secondAttribute="height" multiplier="1:1" id="cHE-Dp-W1T"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EvL-fK-aNd" userLabel="second" customClass="Indicator" customModule="Iota_Tap" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EvL-fK-aNd" userLabel="second" customClass="Indicator" customModule="TaPs" customModuleProvider="target">
                                         <rect key="frame" x="155.5" y="7" width="14" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="EvL-fK-aNd" secondAttribute="height" multiplier="1:1" id="mWJ-SV-lPQ"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ty0-rX-vyo" userLabel="third" customClass="Indicator" customModule="Iota_Tap" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ty0-rX-vyo" userLabel="third" customClass="Indicator" customModule="TaPs" customModuleProvider="target">
                                         <rect key="frame" x="189.5" y="7" width="14" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ty0-rX-vyo" secondAttribute="height" multiplier="1:1" id="Bb2-Nk-aDy"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQv-Y6-U7g" userLabel="four" customClass="Indicator" customModule="Iota_Tap" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQv-Y6-U7g" userLabel="four" customClass="Indicator" customModule="TaPs" customModuleProvider="target">
                                         <rect key="frame" x="223" y="7" width="14.5" height="14"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -74,13 +74,7 @@
                                     <constraint firstItem="nQv-Y6-U7g" firstAttribute="height" secondItem="6kS-ba-3rR" secondAttribute="height" multiplier="1:2" id="rTb-Fm-qBg"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="submessage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yc-zm-CFr">
-                                <rect key="frame" x="8" y="200" width="359" height="77"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hVx-18-l1J" customClass="ImageView" customModule="Iota_Tap" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hVx-18-l1J" customClass="ImageView" customModule="TaPs" customModuleProvider="target">
                                 <rect key="frame" x="125" y="70" width="125" height="125"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="125" id="EWE-dK-ilt"/>
@@ -91,8 +85,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiA-iv-5oK">
-                                <rect key="frame" x="20" y="194" width="335" height="34"/>
+                                <rect key="frame" x="20" y="200" width="335" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="submessage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yc-zm-CFr">
+                                <rect key="frame" x="8" y="223" width="359" height="25"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -102,24 +102,24 @@
                             <constraint firstItem="hVx-18-l1J" firstAttribute="centerX" secondItem="O4o-Ks-4Ii" secondAttribute="centerX" id="4ph-gk-YLp"/>
                             <constraint firstItem="6kS-ba-3rR" firstAttribute="height" secondItem="O4o-Ks-4Ii" secondAttribute="height" multiplier="1:8" constant="1.75" id="5vT-yP-MeY"/>
                             <constraint firstItem="BiA-iv-5oK" firstAttribute="centerX" secondItem="O4o-Ks-4Ii" secondAttribute="centerX" id="ABR-dq-2Dy"/>
-                            <constraint firstItem="9Yc-zm-CFr" firstAttribute="top" secondItem="BiA-iv-5oK" secondAttribute="bottom" constant="-28" id="FD0-he-TB2"/>
+                            <constraint firstItem="9Yc-zm-CFr" firstAttribute="top" secondItem="BiA-iv-5oK" secondAttribute="bottom" constant="5" id="FD0-he-TB2"/>
                             <constraint firstAttribute="trailing" secondItem="BiA-iv-5oK" secondAttribute="trailing" constant="20" id="IN1-bn-LyO"/>
                             <constraint firstItem="hVx-18-l1J" firstAttribute="top" secondItem="O4o-Ks-4Ii" secondAttribute="top" constant="70" id="W9A-g9-4JC"/>
                             <constraint firstItem="9Yc-zm-CFr" firstAttribute="leading" secondItem="O4o-Ks-4Ii" secondAttribute="leading" constant="8" id="cb0-Xj-5lK"/>
                             <constraint firstItem="BiA-iv-5oK" firstAttribute="centerY" secondItem="O4o-Ks-4Ii" secondAttribute="centerY" constant="106" id="cod-xi-qy4"/>
-                            <constraint firstItem="BiA-iv-5oK" firstAttribute="top" secondItem="hVx-18-l1J" secondAttribute="bottom" constant="-1" id="dUH-mc-nNL"/>
+                            <constraint firstItem="BiA-iv-5oK" firstAttribute="top" secondItem="hVx-18-l1J" secondAttribute="bottom" constant="5" id="dUH-mc-nNL"/>
                             <constraint firstAttribute="trailing" secondItem="6kS-ba-3rR" secondAttribute="trailing" constant="8" id="gi3-Ze-ZlI"/>
                             <constraint firstItem="BiA-iv-5oK" firstAttribute="leading" secondItem="O4o-Ks-4Ii" secondAttribute="leading" constant="20" id="hm6-JS-fkp"/>
-                            <constraint firstItem="6kS-ba-3rR" firstAttribute="top" secondItem="9Yc-zm-CFr" secondAttribute="bottom" constant="41.5" id="rwf-wn-aLV"/>
+                            <constraint firstItem="6kS-ba-3rR" firstAttribute="top" secondItem="9Yc-zm-CFr" secondAttribute="bottom" constant="10" id="rwf-wn-aLV"/>
                             <constraint firstItem="6kS-ba-3rR" firstAttribute="leading" secondItem="O4o-Ks-4Ii" secondAttribute="leading" constant="8" id="x0K-gx-1Dy"/>
                             <constraint firstAttribute="trailing" secondItem="9Yc-zm-CFr" secondAttribute="trailing" constant="8" id="y15-Jy-o4e"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRu-9U-A1v" userLabel="keyboard">
-                        <rect key="frame" x="0.0" y="229" width="375" height="355"/>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xRu-9U-A1v" userLabel="keyboard">
+                        <rect key="frame" x="0.0" y="245" width="375" height="362"/>
                         <subviews>
-                            <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxb-3y-6MP" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="55" y="45" width="74.5" height="74.5"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxb-3y-6MP" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="55" y="56.5" width="74.5" height="74.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="1">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -131,8 +131,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="XYs-GF-s9W"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cog-Nd-UYd" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="244.5" y="45" width="74.5" height="74.5"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cog-Nd-UYd" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="244.5" y="56.5" width="74.5" height="74.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="3">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,8 +144,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="kUY-ac-H1J"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJn-a6-MYe" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="55" y="136" width="74.5" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJn-a6-MYe" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="55" y="147.5" width="74.5" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="4">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,8 +157,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="vVP-wW-7UM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sva-ss-Jmv" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="149" y="136" width="75" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sva-ss-Jmv" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="149" y="147.5" width="75" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="5">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -170,8 +170,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="4M3-s9-Shf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uve-ti-7ya" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="244.5" y="136" width="74.5" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uve-ti-7ya" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="244.5" y="147.5" width="74.5" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="6">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -183,8 +183,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="6ST-Wn-yxf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAE-1L-zxN" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="55" y="227" width="74.5" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAE-1L-zxN" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="55" y="238.5" width="74.5" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="7">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -196,8 +196,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="I4e-kV-iez"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abq-s3-wbI" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="149" y="227" width="75" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abq-s3-wbI" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="149" y="238.5" width="75" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="8">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,8 +209,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="VeO-5Y-HF2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKD-qE-N40" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="244.5" y="227" width="74.5" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKD-qE-N40" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="244.5" y="238.5" width="74.5" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="9">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -223,7 +223,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEL-KO-vKM">
-                                <rect key="frame" x="244" y="318.5" width="74.5" height="74.5"/>
+                                <rect key="frame" x="244" y="330" width="74.5" height="74.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -235,8 +235,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="LXj-tf-Iwj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQB-bP-FZg" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="149" y="318" width="75" height="75"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQB-bP-FZg" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="149" y="329.5" width="75" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="0">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,7 +249,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIU-9Q-OSg">
-                                <rect key="frame" x="54.5" y="318.5" width="74.5" height="74.5"/>
+                                <rect key="frame" x="54.5" y="330" width="74.5" height="74.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -261,8 +261,8 @@
                                     <action selector="keyboardPressed:" destination="eZb-O9-KwV" eventType="touchUpInside" id="3tQ-Zd-NaK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJZ-BT-9eb" customClass="Button" customModule="Iota_Tap" customModuleProvider="target">
-                                <rect key="frame" x="149" y="45" width="75" height="74.5"/>
+                            <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJZ-BT-9eb" customClass="Button" customModule="TaPs" customModuleProvider="target">
+                                <rect key="frame" x="149" y="56.5" width="75" height="74.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HJZ-BT-9eb" secondAttribute="height" multiplier="1:1" id="1VR-Td-HwG"/>
                                 </constraints>
@@ -337,7 +337,7 @@
                     <constraint firstAttribute="trailing" secondItem="xRu-9U-A1v" secondAttribute="trailing" id="7Gx-rG-Z33"/>
                     <constraint firstItem="xRu-9U-A1v" firstAttribute="leading" secondItem="IOf-8m-rm3" secondAttribute="leading" id="JGX-ya-vx1"/>
                     <constraint firstItem="O4o-Ks-4Ii" firstAttribute="top" secondItem="IOf-8m-rm3" secondAttribute="top" constant="-11" id="P6m-eY-Usf"/>
-                    <constraint firstAttribute="bottom" secondItem="xRu-9U-A1v" secondAttribute="bottom" constant="83" id="gKj-fb-OZp"/>
+                    <constraint firstAttribute="bottom" secondItem="xRu-9U-A1v" secondAttribute="bottom" constant="60" id="gKj-fb-OZp"/>
                     <constraint firstItem="xRu-9U-A1v" firstAttribute="top" secondItem="O4o-Ks-4Ii" secondAttribute="bottom" constant="30" id="jWl-Y0-LxV"/>
                     <constraint firstItem="hVx-18-l1J" firstAttribute="width" secondItem="IOf-8m-rm3" secondAttribute="width" multiplier="1:4.25" constant="36.764705882352942" id="sNw-8Z-NlU"/>
                     <constraint firstAttribute="trailing" secondItem="O4o-Ks-4Ii" secondAttribute="trailing" id="xJg-Dp-gkv"/>

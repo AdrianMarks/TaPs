@@ -38,12 +38,12 @@ class HomeViewController: UIViewController {
         print("Retrieved Seed LENGTH is \(retrievedSeed?.count ?? 0 )")
         print("Retrieved Address is \(retrievedAddress ?? "set to nil" )")
         
-        Thread.sleep(forTimeInterval: 3.0)
+        Thread.sleep(forTimeInterval: 1.5)
         
         let selectedVC: UITabBarController = storyboard?.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
         UIApplication.shared.keyWindow?.rootViewController = selectedVC
         
-        if (retrievedSeed == nil) {
+        if (retrievedSeed == "" || retrievedSeed == nil) {
             selectedVC.selectedIndex = 3
         } else {
             selectedVC.selectedIndex = 0

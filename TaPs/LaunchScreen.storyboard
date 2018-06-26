@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,11 +14,50 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" contentMode="scaleToFill" id="NCm-06-ej7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2018 Red Kite Projects Ltd - All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vF3-2G-Fc8">
+                                <rect key="frame" x="17" y="768" width="342" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNQ-0X-kdA">
+                                <rect key="frame" x="99" y="176" width="178" height="48"/>
+                                <string key="text">Tips and Payments
+Powered by IOTA</string>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Iota_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="WJZ-5f-fWK">
+                                <rect key="frame" x="67" y="274" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="FQF-zn-paf"/>
+                                    <constraint firstAttribute="width" constant="240" id="UdF-Z3-zlZ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TaPs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="XPl-hj-seg">
+                                <rect key="frame" x="108" y="60" width="158" height="96"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WJZ-5f-fWK" firstAttribute="top" secondItem="oNQ-0X-kdA" secondAttribute="bottom" constant="50" id="3ad-6p-SDk"/>
+                            <constraint firstItem="oNQ-0X-kdA" firstAttribute="centerX" secondItem="NCm-06-ej7" secondAttribute="centerX" id="8oA-67-cJb"/>
+                            <constraint firstItem="XPl-hj-seg" firstAttribute="centerX" secondItem="NCm-06-ej7" secondAttribute="centerX" id="Ggd-hU-qP8"/>
+                            <constraint firstItem="XPl-hj-seg" firstAttribute="top" secondItem="NCm-06-ej7" secondAttribute="top" constant="60" id="NUP-T3-W1m"/>
+                            <constraint firstItem="WJZ-5f-fWK" firstAttribute="centerX" secondItem="NCm-06-ej7" secondAttribute="centerX" id="Qol-Gk-Rcm"/>
+                            <constraint firstAttribute="bottom" secondItem="vF3-2G-Fc8" secondAttribute="bottom" constant="30" id="YC1-sb-6CG"/>
+                            <constraint firstItem="vF3-2G-Fc8" firstAttribute="centerX" secondItem="NCm-06-ej7" secondAttribute="centerX" id="bef-E6-qxU"/>
+                            <constraint firstItem="oNQ-0X-kdA" firstAttribute="top" secondItem="XPl-hj-seg" secondAttribute="bottom" constant="20" id="xFE-lR-QWD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iqp-ck-KSJ"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -26,4 +65,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Iota_Logo" width="812" height="774"/>
+    </resources>
 </document>
