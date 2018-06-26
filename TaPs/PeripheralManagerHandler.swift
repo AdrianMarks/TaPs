@@ -282,8 +282,11 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
     
     //start advertising the selected service
     public func startAdvertising() {
-        peripheralManager?.startAdvertising([CBAdvertisementDataServiceUUIDsKey:[Service_UUID],
+        
+        if (savedSeed?.count == 81 && savedAddress?.count == 90) {
+            peripheralManager?.startAdvertising([CBAdvertisementDataServiceUUIDsKey:[Service_UUID],
                                              CBAdvertisementDataLocalNameKey: advertisementData])
+        }
     }
     
     //Stop advertising
