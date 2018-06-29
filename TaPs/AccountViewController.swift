@@ -46,9 +46,18 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
             KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kAddress)
         }
     }
+    fileprivate var savedImageHash: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kImageHash)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kImageHash)
+        }
+    }
     
     //Data
     var avatarCaptureController = AvatarCaptureController()
+    var iotaStorage = IotaStorage()
     
     //UI
     @IBOutlet weak var passcodeSwitch: UISwitch!
@@ -58,6 +67,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var bluetoothSwitch: UISwitch!
 
     @IBOutlet weak var avatarView: UIView!
+    @IBOutlet weak var smallAvatarView: UIImageView!
     
     //UI Actions
     @IBAction func cameraButton(_ sender: UIButton) {
@@ -144,7 +154,6 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
         avatarName.delegate = self
         seed.delegate = self
         
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -250,18 +259,33 @@ extension AccountViewController: AvatarCaptureControllerDelegate {
         print("Image selected")
         
         let readWriteFileFS = ReadWriteFileFS()
-
-        dataToSend = (UIImagePNGRepresentation(readWriteFileFS.readFile("small_avatar_saved.jpg")) as Data?)!
-        transferCharacteristic = imageCharacteristic
+        let image = readWriteFileFS.readFile("small_avatar_saved.jpg")
         
-        //Set fragment length to default
-        NOTIFY_MTU = default_MTU
+        iotaStorage.save(image: image, { (success) in
+            print("Saved image to Tangle successfully!")
+            print("BundleHash is - \(success)")
+            
+            DispatchQueue.main.async {
+                print("Saving Image Hash - \(self.savedImageHash!)")
+                self.savedImageHash = success
+                
+                dataToSend = ((self.savedImageHash)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
+                transferCharacteristic = imageCharacteristic
+                
+                //Set fragment length to default
+                NOTIFY_MTU = default_MTU
+                
+                // Reset the index
+                sendDataIndex = 0;
+                
+                // Start sending
+                peripheralManager.sendData()
+            }
+            
+        }, error: { (error) in
+            print("Save to Tangle failed with error - \(error)")
+        })
         
-        // Reset the index
-        sendDataIndex = 0;
-        
-        // Start sending
-        peripheralManager.sendData()
     }
     
     func imageSelectionCancelled() {

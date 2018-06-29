@@ -31,6 +31,7 @@
 		3FC0B0A32093904300F20DB7 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B0A22093904300F20DB7 /* AppData.swift */; };
 		3FC0B0A520939F4E00F20DB7 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B0A420939F4E00F20DB7 /* AccountViewController.swift */; };
 		3FD700F620A2113700C07C07 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD700F520A2113700C07C07 /* HomeViewController.swift */; };
+		3FDC061020E4C9B40051A59C /* IotaStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC060F20E4C9B40051A59C /* IotaStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,7 @@
 		3FC0B0A22093904300F20DB7 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		3FC0B0A420939F4E00F20DB7 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		3FD700F520A2113700C07C07 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		3FDC060F20E4C9B40051A59C /* IotaStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotaStorage.swift; sourceTree = "<group>"; };
 		956FED37C605A15AFEAC7C71 /* Pods_TaPs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaPs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5672D4B9B7D8599E22A6FE /* Pods-TaPs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaPs.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaPs/Pods-TaPs.debug.xcconfig"; sourceTree = "<group>"; };
 		E5E2AC02A93715B80A57EA2B /* Pods-TaPs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaPs.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaPs/Pods-TaPs.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				213D170A20D1502300ECB6A2 /* AccountManagementHandler.swift */,
 				213D166420D1426C00ECB6A2 /* CentralManagerHandler.swift */,
 				3F9B32D220A837D70003A727 /* PeripheralManagerHandler.swift */,
+				3FDC060F20E4C9B40051A59C /* IotaStorage.swift */,
 				3F5A469F2077A87C0054B218 /* AvatarCaptureController.swift */,
 				3FB60BDD20B2EF76006C6EAD /* DropDownUnitsButton.swift */,
 				3F3D463620A457CD00FAE483 /* TextNumericUtilities.swift */,
@@ -307,6 +310,7 @@
 			files = (
 				3F4F009E20B86B7D008436F1 /* CoreDataHandler.swift in Sources */,
 				213D166120D141FE00ECB6A2 /* ReceiptsViewController.swift in Sources */,
+				3FDC061020E4C9B40051A59C /* IotaStorage.swift in Sources */,
 				3FC0B0A32093904300F20DB7 /* AppData.swift in Sources */,
 				3FB60BDE20B2EF76006C6EAD /* DropDownUnitsButton.swift in Sources */,
 				3FC0B0A520939F4E00F20DB7 /* AccountViewController.swift in Sources */,

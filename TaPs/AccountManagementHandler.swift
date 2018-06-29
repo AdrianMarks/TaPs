@@ -40,6 +40,22 @@ class IotaAccountManagementHandler: NSObject {
             KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kAddress)
         }
     }
+    fileprivate var savedImageHash: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kImageHash)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kImageHash)
+        }
+    }
+    fileprivate var savedAvatarName: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kAvatar)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kAvatar)
+        }
+    }
     
     public func initialise() {
         
@@ -242,7 +258,12 @@ class IotaAccountManagementHandler: NSObject {
                 //Send BundleHash and Message and Amount in one Bluetooth message
                 var packedMessage: String = message
                 packedMessage.rightPad(count: 33, character: " ")
-                dataToSend = ((bundleHash + payeeDeviceUUID + packedMessage + String(amount)).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
+                let imageHash = self.savedImageHash!
+                let payerNameLength = String(format: "%02d", (self.savedAvatarName?.count)!)
+                let amount = String(amount)
+                let payerName = self.savedAvatarName
+                let data = bundleHash + imageHash + payerNameLength + payerName! + payeeDeviceUUID + packedMessage + amount
+                dataToSend = (data).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
                 transferCharacteristic = receiptCharacteristic
                 
                 //Set fragment length to default

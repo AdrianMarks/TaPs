@@ -37,6 +37,14 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kAddress)
         }
     }
+    fileprivate var savedImageHash: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kImageHash)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kImageHash)
+        }
+    }
 
     //Data
     var peripheralManager: CBPeripheralManager?
@@ -220,9 +228,7 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
         
         //******* Check Charateristic and set dataToSend and transferCharacteristic accordingly ******
         if characteristic.uuid.isEqual(imageCharacteristic_UUID) {
-            let readWriteFileFS = ReadWriteFileFS()
-            let smallAvatar = readWriteFileFS.readFile("small_avatar_saved.jpg")
-            dataToSend = (UIImagePNGRepresentation(smallAvatar as UIImage) as Data?)!
+            dataToSend =  ((savedImageHash)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
             transferCharacteristic = imageCharacteristic
             
             // Reset the index

@@ -119,11 +119,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TaPs/HomeViewController.swift"
-            timestampString = "551724934.137657"
+            timestampString = "551962643.7485549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
             landmarkName = "HomeViewController"
             landmarkType = "3">
             <Locations>

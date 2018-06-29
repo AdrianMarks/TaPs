@@ -22,6 +22,7 @@ enum TAPConstants {
     static let kBTStatus = "bluetooth"
     static let kAddress = "address"
     static let kBalance = "balance"
+    static let kImageHash = "imageHash"
 }
 
 let device_UUID = UUID().uuidString
