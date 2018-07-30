@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
                 print("BundleHash is - \(success)")
                 
                 DispatchQueue.main.async {
-                    print("Saving default small_avatar Image Hash - \(self.savedImageHash!)")
+                    print("Saving default small_avatar Image Hash - \(success)")
                     self.savedImageHash = success
                     
                     dataToSend = ((self.savedImageHash)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!

@@ -101,6 +101,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.startScan), userInfo: nil, repeats: false)
     }
     
+    // Called when we want to stop scanning altogether
     public func ceaseScanAltogether() {
         if (centralManager != nil) {
             print("Ceased Scanning Altogether")
@@ -244,7 +245,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeNameFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeNameFragment != "EOM" {
-                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                         let tempPayeeImageHash = payeesBuild[index].payeeImageHash
                         let tempPayeeAddress = payeesBuild[index].payeeAddress
                         let tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
@@ -256,8 +257,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 }
                 else
                 {
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
                         let tempPayeeDeviceUUID = payeesBuilt[payeesIndex].payeeDeviceUUID
@@ -280,7 +281,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeImageHashFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeImageHashFragment != "EOM" {
-                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                         let tempPayeeName = payeesBuild[index].payeeName
                         let tempPayeeAddress = payeesBuild[index].payeeAddress
                         let tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
@@ -290,8 +291,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                         payeesBuild.append(payeeBuild(payeePeripheral: peripheral, payeeDeviceUUID: tempPayeeDeviceUUID, payeeName: tempPayeeName, payeeImageHash: tempPayeeImageHash, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                     }
                 } else {
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
                         let tempPayeeDeviceUUID = payeesBuilt[payeesIndex].payeeDeviceUUID
@@ -310,7 +311,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                             //Update the UIImage View back on the main queue
                             DispatchQueue.main.async {
                                 
-                                let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral})
+                                let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                                     
                                 print("PAYEES INDEX - \(payeesIndex!)")
                                 
@@ -338,7 +339,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeAddressFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeAddressFragment != "EOM" {
-                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                         let tempPayeeImageHash = payeesBuild[index].payeeImageHash
                         let tempPayeeName = payeesBuild[index].payeeName
                         let tempPayeeDeviceUUID = payeesBuild[index].payeeDeviceUUID
@@ -350,8 +351,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 }
                 else
                 {
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
                         let tempPayeeDeviceUUID = payeesBuilt[payeesIndex].payeeDeviceUUID
@@ -443,7 +444,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             if let payeeDeviceFragment = String(data: characteristic.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
                 
                 if payeeDeviceFragment != "EOM" {
-                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                         let tempPayeeImageHash = payeesBuild[index].payeeImageHash
                         let tempPayeeAddress = payeesBuild[index].payeeAddress
                         let tempPayeeName = payeesBuild[index].payeeName
@@ -455,8 +456,8 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 }
                 else
                 {
-                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
-                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral == peripheral})
+                    if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
+                        let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
@@ -502,9 +503,9 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         print("Disconnected")
         
         //Remove peripheral from list of known payeesBuilt and payeesBuild arrays
-        if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+        if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
             payeesBuild.remove(at: index)
-            if let index = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
+            if let index = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                 payeesBuilt.remove(at: index)
             }
         }
@@ -567,20 +568,16 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                     peripherals = peripherals.filter() { $0 !== peripheral }
                     
                     //Remove peripheral from list of known payeesBuilt and payeesBuild arrays
-                    if let index = payeesBuild.index(where: { $0.payeePeripheral == peripheral}) {
+                    if let index = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                         payeesBuild.remove(at: index)
-                        if let index = payeesBuilt.index(where: { $0.payeePeripheral == peripheral}) {
+                        if let index = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
                             payeesBuilt.remove(at: index)
                         }
                     }
-                    
                 }
             }
         }
-        
-        
     }
-    
 }
 
 

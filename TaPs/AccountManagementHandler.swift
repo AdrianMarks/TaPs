@@ -1,5 +1,5 @@
 //
-//  AccountBalanceUtility.swift
+//  IotaAccountManagementHandler.swift
 //  TaPs
 //
 //  Created by Adrian Marks on 13/06/2018.
@@ -87,6 +87,7 @@ class IotaAccountManagementHandler: NSObject {
         }
     }
     
+    //Check whether the Receipt Address is still valid
     @objc public func checkAddress() {
         
         if savedAddress != nil {
@@ -103,7 +104,7 @@ class IotaAccountManagementHandler: NSObject {
         }
     }
     
-    //Update the account balance
+    //Retrieve the Address funds are to be sent to
     public func retrieveAddress() {
         
         if savedSeed?.count == 81 {
@@ -133,7 +134,7 @@ class IotaAccountManagementHandler: NSObject {
         }
     }
     
-    //***** May be better to remove this now MainNet is working well *****
+    //Check whther transaction is Promotable and if so Promote else Re-attach
     public func attemptPromotion(tailHash: String, bundleHash: String) {
         
         //First check whether Transfer is promotable
@@ -157,7 +158,7 @@ class IotaAccountManagementHandler: NSObject {
         
     }
 
-    //***** May be better to remove this now MainNet is working well *****
+    //Automated Re-attach function
     func attemptReattach(bundleHash: String) {
         
         /*
@@ -194,7 +195,7 @@ class IotaAccountManagementHandler: NSObject {
         
     }
     
-    //***** May be better to remove this now MainNet is working well *****
+    //Automated Promote function
     func promoteTransfer(tailHash: String, bundleHash: String) {
         
         //Promoter the Transfer
@@ -227,7 +228,7 @@ class IotaAccountManagementHandler: NSObject {
         let transfer = IotaTransfer(address: address, value: UInt64(amount), message: messageTrytes!, tag: "TAPS" )
         
         //Send the Transfer via the IOTA API
-        iota.sendTransfers(seed: self.savedSeed!, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
+        iota.sendTransfers(seed: self.savedSeed!, depth: 3, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
             
             //ON SUCCESS
             
