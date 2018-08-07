@@ -166,7 +166,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.payeeAmount?.text = IotaUnitsConverter.iotaToString(amount: UInt64(payment.amount))
         cell.message?.text = payment.message
         
-        if (payment.status == "Pending" || payment.status == "Promoted") {
+        if (payment.status == "Pending" || payment.status == "Promoted" || payment.status == "Reattached") {
             let iota = Iota(node: node)
             if payment.bundleHash != nil {
                 iota.findTransactions(bundles: [payment.bundleHash!], { (success) in
@@ -179,7 +179,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                                     print("Failed updating status of payment to 'Confirmed'")
                                 }
                             }
-                        }
+                        } 
                         
                         print("Inclusion Status - \(success)")
                         print("Payment BundleHash - \(payment.bundleHash!)")

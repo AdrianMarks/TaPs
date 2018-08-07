@@ -90,7 +90,7 @@ class IotaAPIService: IotaAPIServices {
 		}
 	}
 	
-	static func trytes(nodeAddress: String, hashes: [String], _ success: @escaping (_ trytes: [IotaTransaction]) -> Void, _ error: @escaping (Error) -> Void) {
+    static func trytes(nodeAddress: String, hashes: [String], _ success: @escaping (_ trytes: [IotaTransaction]) -> Void, _ error: @escaping (Error) -> Void) {
 		
 		var data = command(withString: "getTrytes")
 		data["hashes"] = hashes

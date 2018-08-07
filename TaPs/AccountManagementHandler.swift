@@ -10,6 +10,7 @@ import Foundation
 import SwiftKeychainWrapper
 import IotaKit
 import CoreBluetooth
+import AudioToolbox
 
 class IotaAccountManagementHandler: NSObject {
     
@@ -148,9 +149,10 @@ class IotaAccountManagementHandler: NSObject {
                 
             } else {
                 
-                print("Transfer no longer promotable - attempting re-attach")
+                // print("Transfer no longer promotable - attempting re-attach")
+                //self.attemptReattach(tailHash: tailHash, bundleHash: bundleHash )
                 
-                self.attemptReattach(bundleHash: bundleHash)
+                print("Transfer no longer promotable - not attempting re-attach due to known bug")
  
             }
         }, { (error) in
@@ -160,39 +162,25 @@ class IotaAccountManagementHandler: NSObject {
     }
 
     //Automated Re-attach function
-    func attemptReattach(bundleHash: String) {
+    func attemptReattach(tailHash: String, bundleHash: String) {
         
-        /*
-        //Reattach the Trytes
-        iota.findTransactions(bundles: [bundleHash], { (hashes) in
-
-            self.iota.trytes(hashes: hashes, { (trytes) in
-                
-                self.iota.sendTrytes(trytes: trytes, { (success) in
-                    
-                    print("Reattach Successful")
-                    
-                    //Update the last payment record status to "Reattached"
-                    DispatchQueue.main.async {
-                        if CoreDataHandler.updateReattachedPayment(bundleHash: bundleHash) {
-                            print("Updated status of payment to 'Reattached' successfully")
-                        } else {
-                            print("Failed updating payment to 'Reattached' status")
-                        }
-                    }
-                    
-                }, error: { (error) in
-                    print("Send Trytes failed - error is - \(error)")
-                })
-                
-            }, error: { (error) in
-                print("Unable to find Trytes - error is - \(error)")
-            })
+        //Replay the bundle
+        iota.replayBundle(tx: tailHash, { (success) in
+            
+            print("Reattach succeeded")
+            
+            //Update the last payment record status to "Promoted"
+            DispatchQueue.main.async {
+                if CoreDataHandler.updateReattachedPayment(bundleHash: bundleHash) {
+                    print("Updated status of payment to 'Reattached' successfully")
+                } else {
+                    print("Failed updating payment to 'Reattached' status")
+                }
+            }
             
         }, error: { (error) in
             print("Unable to find Transactions - error is - \(error)")
         })
-        */
         
     }
     
@@ -283,7 +271,11 @@ class IotaAccountManagementHandler: NSObject {
             //ON ERROR
             
             //Send alert to screen with the returned error message
-            let message = "\(error)"
+            var message = "\(error)"
+            if message.count > 45 {
+                //Use localized description if error message is long
+                message = "\(error.localizedDescription)"
+            }
             let alertController = UIAlertController(title: "TaPs Error Message", message:
                 message , preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
@@ -294,6 +286,7 @@ class IotaAccountManagementHandler: NSObject {
                 rootViewController = tabBarController.selectedViewController
             }
             rootViewController?.present(alertController, animated: true, completion: nil)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             
             //Update the last payment record status to "Failed
             DispatchQueue.main.async {
