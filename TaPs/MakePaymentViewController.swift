@@ -38,14 +38,15 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     
     // These variables will hold the data being passed from the Payees View Controller
     var receivedPayeeName: String = ""
+    var receivedPayeeReceiptChar: CBCharacteristic? = nil
     var receivedPayeeAvatar: Data = Data()
-    var receivedPayeeDeviceUUID: String!
+    var receivedPayeePeripheral: CBPeripheral!
     var receivedPayeeAddress: String!
     var timer = Timer()
     
     @IBAction func amountToPayEdited(_ sender: Any) {
         
-        //Ensure amount is entered in a valid format and conforms to the limits of teh units entered
+        //Ensure amount is entered in a valid format and conforms to the limits of the units entered
         
         formatAmount()
         
@@ -304,7 +305,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         }
         
         //Attempt the transfer
-        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amount), message: message.text!, payeeDeviceUUID: receivedPayeeDeviceUUID )
+        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amount), message: message.text!, payeePeripheral: receivedPayeePeripheral, payeeReceiptChar: receivedPayeeReceiptChar! )
         
     }
     

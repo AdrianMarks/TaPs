@@ -9,12 +9,16 @@
 import CoreBluetooth
 
 public var sendingEOM = false;
+public var writingEOM = false;
 public var transferCharacteristic: CBMutableCharacteristic?
+public var writeCharacteristic: CBCharacteristic?
 public var dataToSend: Data?
 public var sendDataIndex: Int?
 public var sendShortDataIndex: Int?
+public var dataToWrite: Data?
+public var writeDataIndex: Int?
+public var writeShortDataIndex: Int?
 public var node = "https://redkite-iota.com:443"
-
 enum TAPConstants {
     static let kAvatar = "avatar"
     static let kSeed = "seed"
@@ -48,7 +52,9 @@ let receiptCharacteristic_UUID = CBUUID(string: receiptCharacteristic_uuid)
 let service = CBMutableService(type: Service_UUID, primary: true)
 
 let properties: CBCharacteristicProperties = [.notify, .read ]
+let writeProperties: CBCharacteristicProperties = [.writeWithoutResponse ]
 let permissions: CBAttributePermissions = [.readable ]
+let writePermissions: CBAttributePermissions = [.writeable ]
 
 let nameCharacteristic = CBMutableCharacteristic(
     type: nameCharacteristic_UUID,
@@ -68,14 +74,8 @@ let addressCharacteristic = CBMutableCharacteristic(
     value: nil,
     permissions: permissions)
 
-let deviceCharacteristic = CBMutableCharacteristic(
-    type: deviceCharacteristic_UUID,
-    properties: properties,
-    value: nil,
-    permissions: permissions)
-
 let receiptCharacteristic = CBMutableCharacteristic(
     type: receiptCharacteristic_UUID,
-    properties: properties,
+    properties: writeProperties,
     value: nil,
-    permissions: permissions)
+    permissions: writePermissions)

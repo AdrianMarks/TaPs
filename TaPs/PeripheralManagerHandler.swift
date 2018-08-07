@@ -48,6 +48,8 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
 
     //Data
     var peripheralManager: CBPeripheralManager?
+    var payeeReceiptBuild: String = ""
+    var iotaStorage = IotaStorage()
     
     override init() {
         super.init()
@@ -82,8 +84,7 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             nameCharacteristic.value = nil
             imageCharacteristic.value = nil
             addressCharacteristic.value = nil
-            deviceCharacteristic.value = nil
-            service.characteristics = [ deviceCharacteristic, receiptCharacteristic, nameCharacteristic, addressCharacteristic, imageCharacteristic]
+            service.characteristics = [ receiptCharacteristic, nameCharacteristic, addressCharacteristic, imageCharacteristic]
             peripheralManager?.add(service)
             
             //Check if bluetooth status is and if so start advertising
@@ -257,29 +258,77 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             // Start sending
             sendData()
         }
-        else if characteristic.uuid.isEqual(receiptCharacteristic_UUID) {
-            dataToSend = "EOM".data(using: String.Encoding.utf8)!
-            transferCharacteristic = receiptCharacteristic
-            
-            // Reset the index
-            sendDataIndex = 0
-            
-            // Start sending
-            sendData()
-        }
-        else if characteristic.uuid.isEqual(deviceCharacteristic_UUID) {
-            dataToSend = device_UUID.data(using: String.Encoding.utf8)!
-            transferCharacteristic = deviceCharacteristic
-            
-            // Reset the index
-            sendDataIndex = 0
-            
-            // Start sending
-            sendData()
-        }
         
     }
     
+    //Receive Receipt
+    func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
+   
+        print("Write request received")
+        
+        for request in requests
+        {
+            if request.characteristic.uuid.isEqual(receiptCharacteristic.uuid) {
+                
+                if let payeeReceiptFragment = String(data: request.value!, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) {
+                    
+                    if payeeReceiptFragment != "EOM" {
+                        payeeReceiptBuild = payeeReceiptBuild + payeeReceiptFragment
+                    }
+                    else
+                    {
+                        if payeeReceiptBuild != "" {
+                            let bundleHash = String(payeeReceiptBuild.prefix(81))
+                            let imageHash = payeeReceiptBuild.substring(from: 81, to: 162)
+                            let payerNameLength = Int(payeeReceiptBuild.substring(from: 162, to: 164))
+                            let payerName = payeeReceiptBuild.substring(from: 164, to: (164 + payerNameLength!))
+                            let message = payeeReceiptBuild.substring(from: (164 + payerNameLength!), to: (197 + payerNameLength!))
+                            let amount = payeeReceiptBuild.substring(from: (197 + payerNameLength!), to: payeeReceiptBuild.count)
+                            
+                            print("Retrieved Receipt for this Device Successfully!")
+                            
+                            print("Attempting Avatar Retrieve")
+                            
+                            iotaStorage.retrieve(bundleHash: imageHash, { (success) in
+                                
+                                print("Avatar Retrieve was successful")
+                                
+                                let tempPayeeAvatar:Data = UIImagePNGRepresentation(success)!
+                                
+                                //Update the UIImage View back on the main queue
+                                DispatchQueue.main.async {
+                                    
+                                    //Save the receipt details in Core Data
+                                    if CoreDataHandler.saveReceiptDetails(payerName: payerName, payerAvatar: tempPayeeAvatar, amount: Int64(amount)!, message: message, status: "Pending", timestamp: Date(),
+                                                                          bundleHash: bundleHash, timeToConfirm: 0) {
+                                        print("Receipt data saved sussfully")
+                                    } else {
+                                        print("Failed to save Receipt data")
+                                    }
+                                    
+                                    //Limit the payment data stored in Core Data to 10 rows.
+                                    if CoreDataHandler.limitStoredReceipts() {
+                                        print("Successfully limited number of saved receipts")
+                                    } else {
+                                        print("Failed to limit number of saved receipts")
+                                    }
+                                    
+                                }
+                                
+                            }, error: { (error) in
+                                print("Retrieve from Tangle failed with error - \(error)")
+                            })
+
+                        }
+                        payeeReceiptBuild = ""
+                    }
+                    
+                    print("Payee Receipt Fragment = \(payeeReceiptFragment)")
+                    peripheralManager?.respond(to: requests[0], withResult: .success)
+                }
+            }
+        }
+    }
     
     //Log when someone unsubscribes from our characteristic.
     public func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {

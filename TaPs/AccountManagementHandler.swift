@@ -9,6 +9,7 @@
 import Foundation
 import SwiftKeychainWrapper
 import IotaKit
+import CoreBluetooth
 
 class IotaAccountManagementHandler: NSObject {
     
@@ -81,7 +82,7 @@ class IotaAccountManagementHandler: NSObject {
                     }
                     
                     }, error: { (error) in
-                        print("API call to retrieve the no of addresses failed with error -\(error)") }
+                        print("API call to retrieve the Balance failed with error -\(error)") }
                 )
             }
         }
@@ -217,7 +218,7 @@ class IotaAccountManagementHandler: NSObject {
         
     }
     
-    public func attemptTransfer(address: String, amount: UInt64, message: String, payeeDeviceUUID: String) {
+    public func attemptTransfer(address: String, amount: UInt64, message: String, payeePeripheral: CBPeripheral, payeeReceiptChar: CBCharacteristic ) {
         
         //Convert ASCII to Trytes
         let messageTrytes = IotaConverter.trytes(fromAsciiString: message)
@@ -253,7 +254,7 @@ class IotaAccountManagementHandler: NSObject {
             accountManagement.checkAddress()
             
             //Send Receipt to Payee
-            print("attempting to send Receipt to Payee")
+            print("Attempting to write Receipt to Payee")
             DispatchQueue.main.async {
                 
                 //Send BundleHash and Message and Amount in one Bluetooth message
@@ -263,18 +264,18 @@ class IotaAccountManagementHandler: NSObject {
                 let payerNameLength = String(format: "%02d", (self.savedAvatarName?.count)!)
                 let amount = String(amount)
                 let payerName = self.savedAvatarName
-                let data = bundleHash + imageHash + payerNameLength + payerName! + payeeDeviceUUID + packedMessage + amount
-                dataToSend = (data).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-                transferCharacteristic = receiptCharacteristic
+                let data = bundleHash + imageHash + payerNameLength + payerName! + packedMessage + amount
+                dataToWrite = (data).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
+                writeCharacteristic = payeeReceiptChar
                 
                 //Set fragment length to default
                 NOTIFY_MTU = default_MTU
                 
                 // Reset the index
-                sendDataIndex = 0;
+                writeDataIndex = 0;
                 
-                // Start sending
-                peripheralManager.sendData()
+                // Start writing
+                centralManager.writeData(peripheral: payeePeripheral)
             }
             
         }, error: { (error) in

@@ -50,24 +50,45 @@ class HomeViewController: UIViewController {
                     print("Saving default small_avatar Image Hash - \(success)")
                     self.savedImageHash = success
                     
-                    dataToSend = ((self.savedImageHash)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
-                    transferCharacteristic = imageCharacteristic
-                    
-                    //Set fragment length to default
-                    NOTIFY_MTU = default_MTU
-                    
-                    // Reset the index
-                    sendDataIndex = 0;
-                    
-                    // Start sending
-                    peripheralManager.sendData()
                 }
                 
             }, error: { (error) in
                 print("Save to Tangle failed with error - \(error)")
             })
         
+        } else {
+            
+            //Check that Avatar is still available in the Tangle
+            print("Attempting Avatar Retrieve")
+            iotaStorage.retrieve(bundleHash: savedImageHash!, { (success) in
+                
+                print("Initial Avatar retrieve was successful")
+                
+            }, error: { (error) in
+                print("Initial Avatar Retrieve from Tangle failed with error - \(error)")
+                
+                //Restore Avatar save in the Tangle
+                let readWriteFileFS = ReadWriteFileFS()
+                let image = readWriteFileFS.readFile("small_avatar_saved.jpg")
+                
+                self.iotaStorage.save(image: image, { (success) in
+                    print("Saved image to Tangle successfully!")
+                    print("BundleHash is - \(success)")
+                    
+                    DispatchQueue.main.async {
+                        print("Saving Image Hash - \(self.savedImageHash!)")
+                        self.savedImageHash = success
+                        
+                    }
+                    
+                }, error: { (error) in
+                    print("Avatar save to Tangle failed with error - \(error)")
+                })
+                
+            })
+            
         }
+        
         
     }
 

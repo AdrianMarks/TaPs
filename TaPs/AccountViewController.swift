@@ -283,7 +283,7 @@ extension AccountViewController: AvatarCaptureControllerDelegate {
             }
             
         }, error: { (error) in
-            print("Save to Tangle failed with error - \(error)")
+            print("Avatar save to Tangle failed with error - \(error)")
         })
         
     }

@@ -73,7 +73,7 @@ class IotaStorage: NSObject {
         }
         
         //Send the Transfer
-        iota.sendTransfers(seed: savedSeed!, transfers: transfers, inputs: nil, remainderAddress: nil , { (result) in
+        iota.sendTransfers(seed: savedSeed!, depth: 3,  transfers: transfers, inputs: nil, remainderAddress: nil , { (result) in
 
             success(result[0].bundle)
             
@@ -94,8 +94,10 @@ class IotaStorage: NSObject {
         //Use bundleHash to retrieve the transactions
         iota.findTransactions(bundles: [bundleHash], { (hashes) in
             
+            print("Hashes are - \(hashes)")
+            
             self.iota.trytes(hashes: hashes, { (trytes) in
-
+                
                 var imageTrytes = ""
                 
                 for transaction in trytes.sorted(by: { $0.currentIndex < $1.currentIndex }) {
@@ -103,15 +105,24 @@ class IotaStorage: NSObject {
                     imageTrytes += transaction.signatureFragments
                 }
                 
-                //Make sure we have an even number of trytes before converting back to Ascii
-                if imageTrytes.count % 2 != 0 { imageTrytes += "9" }
-                let imageStrBase64 = IotaConverter.asciiString(fromTrytes: imageTrytes)
+                print("Image Trytes count - \(imageTrytes.count)")
                 
-                //Convert string to image data
-                let imageData = Data(base64Encoded: imageStrBase64!, options: Data.Base64DecodingOptions.ignoreUnknownCharacters)!
-                
-                //Return image
-                success(UIImage(data: imageData)!)
+                if imageTrytes.count > 0 {
+                    //Make sure we have an even number of trytes before converting back to Ascii
+                    if imageTrytes.count % 2 != 0 { imageTrytes += "9" }
+                    let imageStrBase64 = IotaConverter.asciiString(fromTrytes: imageTrytes)
+                    
+                    print("Image Data - \(imageStrBase64!.count)")
+                    
+                    //Convert string to image data
+                    let imageData = Data(base64Encoded: imageStrBase64!, options: Data.Base64DecodingOptions.ignoreUnknownCharacters)!
+                    
+                    //Return image
+                    success(UIImage(data: imageData)!)
+                } else {
+                    error(IotaAPIError("Error retrieving Image hashes"))
+                    return
+                }
                 
             }, error: { (error) in
                 print("Unable to find Trytes - error is - \(error)")

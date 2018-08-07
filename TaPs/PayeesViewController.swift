@@ -72,7 +72,8 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let MakePaymentViewController = segue.destination as! MakePaymentViewController
             
             // set a variable in the second view controller with the String to pass
-            MakePaymentViewController.receivedPayeeDeviceUUID = payees[path.row].payeeDeviceUUID!
+            MakePaymentViewController.receivedPayeePeripheral = payees[path.row].payeePeripheral!
+            MakePaymentViewController.receivedPayeeReceiptChar = payees[path.row].payeeReceiptChar!
             MakePaymentViewController.receivedPayeeAddress = payees[path.row].payeeAddress!
             MakePaymentViewController.receivedPayeeName = payees[path.row].payeeName!
             MakePaymentViewController.receivedPayeeAvatar = payees[path.row].payeeAvatar
@@ -89,7 +90,7 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         for builtPayees in payeesBuilt {
             if builtPayees.payeeName != "" && builtPayees.payeeAvatar.count > 0 && builtPayees.payeeAddress != "" {
                 payees.append(builtPayees)
-                print("BUILT TRANSFER - Payee Device Name is \(builtPayees.payeeDeviceUUID!) - Payee Name is \(builtPayees.payeeName!) - Payee Avatar Count is \(builtPayees.payeeAvatar.count) - Payee Address Count is \(builtPayees.payeeAddress!.count)")
+                print("BUILT TRANSFER - Payee Name is \(builtPayees.payeeName!) - Payee Avatar Count is \(builtPayees.payeeAvatar.count) - Payee Address Count is \(builtPayees.payeeAddress!.count)")
             }
         }
         
