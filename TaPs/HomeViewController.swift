@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
             }, error: { (error) in
                 print("Initial Avatar Retrieve from Tangle failed with error - \(error)")
                 
-                //Restore Avatar save in the Tangle
+                //Restore Avatar save in the Tangle i.e. Post snapshot
                 let readWriteFileFS = ReadWriteFileFS()
                 let image = readWriteFileFS.readFile("small_avatar_saved.jpg")
                 

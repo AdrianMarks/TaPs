@@ -23,6 +23,16 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //Data
     var timer1: Timer? = nil
     
+    //Keychain Data
+    fileprivate var savedSeed: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kSeed)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kSeed)
+        }
+    }
+    
     //View controller functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +74,20 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if savedSeed?.count != 81 {
+            
+            let title = "Invalid Seed Entered"
+            let alertMessage = "You cannot make payments until you have entered a valid Seed in Settings"
+            print("Alert message is - \(alertMessage)")
+            let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            
+            return
+        }
         
         let segueID = segue.identifier
         

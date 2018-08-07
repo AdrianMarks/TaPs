@@ -15,6 +15,7 @@ class IotaStorage: NSObject {
     //Data
     let iota = Iota(node: node)
     let messageLength = 2187
+    let storageSeed = "".rightPadded(count: 81, character: "9")
     var transfers: [IotaTransfer] = []
     
     //Keychain Data
@@ -55,6 +56,7 @@ class IotaStorage: NSObject {
         
         var index = 0
         var offset = messageLength
+        transfers = []
         
         //Chop the trytes up into message sized chuncks - 2187 tryes max
         while index < (imageTrytes?.count)! {
@@ -73,12 +75,14 @@ class IotaStorage: NSObject {
         }
         
         //Send the Transfer
-        iota.sendTransfers(seed: savedSeed!, depth: 3,  transfers: transfers, inputs: nil, remainderAddress: nil , { (result) in
+        iota.sendTransfers(seed: storageSeed , depth: 3, transfers: transfers, inputs: nil, remainderAddress: nil , { (result) in
 
             success(result[0].bundle)
             
         }, error: { (error) in
-        
+            
+            print("Unable to store image - error is - \(error)")
+            
         })
         
     }

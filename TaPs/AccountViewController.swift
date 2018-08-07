@@ -266,7 +266,7 @@ extension AccountViewController: AvatarCaptureControllerDelegate {
             print("BundleHash is - \(success)")
             
             DispatchQueue.main.async {
-                print("Saving Image Hash - \(self.savedImageHash!)")
+
                 self.savedImageHash = success
                 
                 dataToSend = ((self.savedImageHash)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)!
