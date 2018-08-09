@@ -134,6 +134,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
                 print("Failed to clear down Payment and Receipt data")
             }
             
+            //Retrieve New Receipt Address
             accountManagement.retrieveAddress()
             
         }

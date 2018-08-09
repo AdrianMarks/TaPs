@@ -129,7 +129,42 @@ class IotaAccountManagementHandler: NSObject {
                 peripheralManager.sendData()
                 
             }, error: { (error) in
-                print("API call to retrieve the no of addresses failed with error -\(error)")
+                print("API call to retrieve the new address failed with error -\(error)")
+                
+                //Send alert to screen with the returned error message
+                var message = "\(error)"
+                if message.count > 45 {
+                    //Use localized description if error message is long
+                    message = "\(error.localizedDescription)"
+                }
+                let alertController1 = UIAlertController(title: "TaPs Error Message", message:
+                    message , preferredStyle: UIAlertControllerStyle.alert)
+                alertController1.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                
+                var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                
+                if let tabBarController = rootViewController as? UITabBarController {
+                    rootViewController = tabBarController.selectedViewController
+                }
+                rootViewController?.present(alertController1, animated: true, completion: nil)
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+
+                //Send alert to screen with the returned error message
+                message = "Please check that you are connected to the Internet. If you have just updated your Seed, please also re-enter the Seed once re-connected to the Internet."
+     
+                let alertController2 = UIAlertController(title: "TaPs Error Message", message:
+                    message , preferredStyle: UIAlertControllerStyle.alert)
+                alertController2.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                
+                rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                
+                if let tabBarController = rootViewController as? UITabBarController {
+                    rootViewController = tabBarController.selectedViewController
+                }
+                rootViewController?.present(alertController2, animated: true, completion: nil)
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
             }, log: { (log) in
                 print(log) }
             )
