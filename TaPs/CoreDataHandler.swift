@@ -300,4 +300,42 @@ class CoreDataHandler: NSObject {
         }
     }
     
+    //*************
+    //CLEAR HISTORY
+    //*************
+    
+    
+    class func deleteHistory() -> Bool {
+        let context = getContext()
+        
+        let fetchRequest1: NSFetchRequest<Receipt> = Receipt.fetchRequest()
+        
+        if let result = try? context.fetch(fetchRequest1) {
+            for object in result {
+                context.delete(object)
+            }
+        } else {
+            return false
+        }
+        
+        let fetchRequest2: NSFetchRequest<Payment> = Payment.fetchRequest()
+        
+        if let result = try? context.fetch(fetchRequest2) {
+            for object in result {
+                context.delete(object)
+            }
+        } else {
+            return false
+        }
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    
+    
 }

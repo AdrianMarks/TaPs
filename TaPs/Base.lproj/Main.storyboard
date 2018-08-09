@@ -490,8 +490,11 @@
                                             <action selector="cameraButton:" destination="TQl-Nz-vmh" eventType="touchUpInside" id="Sjt-Se-OoP"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="CHK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAZ-Wx-Nh7">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="CHK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAZ-Wx-Nh7">
                                         <rect key="frame" x="339" y="211" width="35" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="Scf-Z6-0cw"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -584,7 +587,6 @@
                                     <constraint firstItem="M83-XT-0YB" firstAttribute="top" secondItem="6kv-WX-5Wn" secondAttribute="bottom" constant="5" id="v4B-Av-9G6"/>
                                     <constraint firstItem="GAZ-Wx-Nh7" firstAttribute="centerY" secondItem="msa-YV-for" secondAttribute="centerY" constant="1" id="v9n-B2-bgw"/>
                                     <constraint firstAttribute="trailing" secondItem="V6I-Yt-OS9" secondAttribute="trailing" constant="20" id="waq-4t-F8K"/>
-                                    <constraint firstAttribute="trailing" secondItem="GAZ-Wx-Nh7" secondAttribute="trailing" constant="20" id="x1t-ev-YMR"/>
                                 </constraints>
                             </scrollView>
                         </subviews>

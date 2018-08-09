@@ -115,9 +115,38 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
         
     }
     @IBAction func seedChanged(_ sender: Any) {
-        savedSeed = seed.text
         
-        accountManagement.retrieveAddress()
+        //Alert the user to what they are about to do
+        let title = "SEED CHANGE"
+        let alertMessage = "You are about to change the Seed. This will clear down your Payments and Receipts history - are you sure you want to proceed?"
+        print("Alert message is - \(alertMessage)")
+        let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            
+            print("I selected 'Yes' to change the seed")
+            self.savedSeed = self.seed.text
+            
+            //Clear down Payment and Receipt History
+            if CoreDataHandler.deleteHistory() {
+                print("Payment and Receipt data cleared down successfully")
+            } else {
+                print("Failed to clear down Payment and Receipt data")
+            }
+            
+            accountManagement.retrieveAddress()
+            
+        }
+        ))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+            print("I selected 'No' to change the seed")
+            self.seed.text = self.savedSeed
+            return
+            
+        }
+        ))
+        
+        present(alert, animated: true)
     
     }
     
