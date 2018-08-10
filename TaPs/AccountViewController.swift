@@ -126,6 +126,7 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
             
             print("I selected 'Yes' to change the seed")
             self.savedSeed = self.seed.text
+            self.savedAddress = ""
             
             //Clear down Payment and Receipt History
             if CoreDataHandler.deleteHistory() {

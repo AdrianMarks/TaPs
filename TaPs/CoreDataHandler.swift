@@ -83,6 +83,25 @@ class CoreDataHandler: NSObject {
         }
     }
     
+    class func paymentActiveStatus() -> Bool {
+        let context = getContext()
+        
+        let fetchRequest: NSFetchRequest<Payment> = Payment.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        
+        do {
+            if let payment = try context.fetch(fetchRequest).first {
+                print ("Payment status is \(String(describing: payment.status))")
+                if (payment.status == "Pending" || payment.status == "Promoted" ||  payment.status == "Reattached" || payment.status == "Submitted") {
+                    return true
+                }
+            }
+        } catch {
+            return false
+        }
+        return false
+    }
+    
     class func updateFailedPayment() -> Bool {
         let context = getContext()
         

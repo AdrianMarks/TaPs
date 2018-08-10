@@ -10,6 +10,7 @@ import UIKit
 import CoreBluetooth
 import IotaKit
 import SwiftKeychainWrapper
+import CoreData
 
 class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDownDelegate {
     
@@ -239,6 +240,20 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         if Double(amountToPay.text!) == 0 || amountToPay.text! == "" {
             let title = "Invalid Amount"
             let alertMessage = "Amount of Iota to send must be greater than zero."
+            print("Alert message is - \(alertMessage)")
+            let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            
+            return
+        }
+        
+        //Confirm that there are no Pending transactions
+        if CoreDataHandler.paymentActiveStatus() {
+            let title = "Payment In Progress"
+            let alertMessage = "Please wait until the currently active payment has confirmed"
             print("Alert message is - \(alertMessage)")
             let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
             

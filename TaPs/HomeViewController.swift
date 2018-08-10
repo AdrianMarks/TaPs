@@ -23,6 +23,14 @@ class HomeViewController: UIViewController {
             KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kImageHash)
         }
     }
+    fileprivate var savedAddress: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kAddress)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kAddress)
+        }
+    }
     
     //Data
     fileprivate var retrievedPIN = KeychainWrapper.standard.string(forKey: ALConstants.kPincode)
@@ -38,10 +46,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         //Save default small_avatar imageHash if not set.
-        if savedImageHash == nil {
+        if savedImageHash == nil || savedImageHash == "" {
         
+            savedAddress = "TAPSDEFAULTAVATARSTORAGE999999999999999999999999999999999999999999999999999999999"
             let image = #imageLiteral(resourceName: "small_avatar")
-                
+
             iotaStorage.save(image: image, { (success) in
                 print("Saved default small_avatar image to Tangle successfully!")
                 print("BundleHash is - \(success)")
