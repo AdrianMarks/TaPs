@@ -175,6 +175,9 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                             DispatchQueue.main.async {
                                 if CoreDataHandler.updateConfirmedPayment(bundleHash: payment.bundleHash!) {
                                     print("Updated status of payment to 'Confirmed' successfully")
+                                    
+                                    //Update balance here *****************
+                                    
                                 } else {
                                     print("Failed updating status of payment to 'Confirmed'")
                                 }

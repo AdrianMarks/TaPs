@@ -37,6 +37,9 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     var button = DropDownButton()
     let dropView = DropDownView()
     
+    //Data
+    var amountInIota: Float = 0.0
+    
     // These variables will hold the data being passed from the Payees View Controller
     var receivedPayeeName: String = ""
     var receivedPayeeReceiptChar: CBCharacteristic? = nil
@@ -144,7 +147,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         //Debug
         if amount > Double(0) && validity.text == "" {
             sendItButton.isEnabled = true
-            let amountInIota = IotaUnitsConverter.convert(amount: Float(amount), fromUnit: fromUnit, toUnit: IotaUnits.i  )
+            amountInIota = IotaUnitsConverter.convert(amount: Float(amount), fromUnit: fromUnit, toUnit: IotaUnits.i  )
             print("Amount in Iota - \(amountInIota)")
         }
         
@@ -253,7 +256,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         //Confirm that there are no Pending transactions
         if CoreDataHandler.paymentActiveStatus() {
             let title = "Payment In Progress"
-            let alertMessage = "Please wait until the currently active payment has confirmed"
+            let alertMessage = "Please wait until the currently active payment has confirmed."
             print("Alert message is - \(alertMessage)")
             let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
             
@@ -297,16 +300,8 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     
     func makePayment() {
         
-        //Calculate amount to pay in Iota from input amount and units label
-        let index = button.dropView.dropDownOptions.index(of: (button.titleLabel?.text!)!)
-        let multiplier = pow(1000, index!)
-        let intMultiplier = NSDecimalNumber(decimal: multiplier)
-        let amount = Int(amountToPay.text!)! * Int(truncating: intMultiplier)
-        
-        print ("The amount of iotas is - \(amount)")
-        
         //Assume success and store the record in core data - payment
-        if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: self.receivedPayeeAvatar, amount: Int64(amount), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "", timeToConfirm: 0 ) {
+        if CoreDataHandler.savePaymentDetails(payeeName: self.receivedPayeeName, payeeAvatar: self.receivedPayeeAvatar, amount: Int64(amountInIota), message: self.message.text!, status: "Submitted", timestamp: Date(), bundleHash: "", tailHash: "", timeToConfirm: 0 ) {
             print("Payment data saved sussfully")
         } else {
             print("Failed to save payment data")
@@ -320,7 +315,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         }
         
         //Attempt the transfer
-        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amount), message: message.text!, payeePeripheral: receivedPayeePeripheral, payeeReceiptChar: receivedPayeeReceiptChar! )
+        accountManagement.attemptTransfer(address: receivedPayeeAddress, amount: UInt64(amountInIota), message: message.text!, payeePeripheral: receivedPayeePeripheral, payeeReceiptChar: receivedPayeeReceiptChar! )
         
     }
     

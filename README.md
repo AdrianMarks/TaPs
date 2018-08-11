@@ -2,7 +2,7 @@
 
 Tips and Payments - IOTA POC Project
 
-Swift iOS application for iPhones. 
+Swift application for iOS devices. 
 
 ** N.B. Very much work in progress. **
 

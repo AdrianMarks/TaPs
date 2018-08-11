@@ -175,6 +175,9 @@ class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableView
                             DispatchQueue.main.async {
                                 if CoreDataHandler.updateConfirmedReceipt(bundleHash: receipt.bundleHash!) {
                                     print("Updated status of payment to 'Confirmed' successfully")
+                                    
+                                    //Update balance here *****************
+                                    
                                 } else {
                                     print("Failed updating payment on IOTA API confimed")
                                 }
