@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IotaKit
 
 //Text Extensions
 
@@ -98,4 +99,37 @@ func stringFromTimeInterval(interval: TimeInterval) -> String {
     } else {
         return String(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
     }
+}
+
+func amountFromSavedBalance(stringBalance: String) -> Float {
+    
+    var element = stringBalance.components(separatedBy: " ")
+    
+    let amount = Float(element[0])
+    let units = element[1]
+    var fromUnit: IotaUnits = IotaUnits.Mi
+    
+    switch units {
+        
+    case "i":
+        fromUnit = IotaUnits.i
+    case "Ki":
+        fromUnit = IotaUnits.Ki
+    case "Mi":
+        fromUnit = IotaUnits.Mi
+    case "Gi":
+        fromUnit = IotaUnits.Gi
+    case "Ti":
+        fromUnit = IotaUnits.Gi
+    case "Pi":
+        fromUnit = IotaUnits.Gi
+        
+    default:
+        fromUnit = IotaUnits.i
+        
+    }
+    
+    let amountInIota = IotaUnitsConverter.convert(amount: amount!, fromUnit: fromUnit, toUnit: IotaUnits.i  )
+    
+    return amountInIota
 }

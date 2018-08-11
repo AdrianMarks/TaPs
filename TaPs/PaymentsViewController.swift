@@ -173,11 +173,17 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                     iota.latestInclusionStates(hashes: success, { (success) in
                         if success.contains(true) {
                             DispatchQueue.main.async {
+                                
+                                //Update balance
+                                if self.savedBalance != nil {
+                                    let amount = amountFromSavedBalance(stringBalance: self.savedBalance!)
+                                    let newBalance = Int64(amount) - payment.amount
+                                    self.savedBalance = IotaUnitsConverter.iotaToString(amount: UInt64(newBalance))
+                                    self.accountBalance.text = self.savedBalance
+                                }
+                                
                                 if CoreDataHandler.updateConfirmedPayment(bundleHash: payment.bundleHash!) {
                                     print("Updated status of payment to 'Confirmed' successfully")
-                                    
-                                    //Update balance here *****************
-                                    
                                 } else {
                                     print("Failed updating status of payment to 'Confirmed'")
                                 }
