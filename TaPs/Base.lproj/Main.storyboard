@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="624"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="PXM-0V-WBY" customClass="PayeeTableViewCell" customModule="TaPs" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="PXM-0V-WBY" customClass="PayeeTableViewCell" customModule="TaPs" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PXM-0V-WBY" id="AfY-ru-Chv">
@@ -296,7 +296,7 @@
                                 <rect key="frame" x="0.0" y="86.333333333333314" width="414" height="573.66666666666674"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayersCell" rowHeight="90" id="9r7-ai-jze" userLabel="Payers Cell" customClass="ReceiptsTableViewCell" customModule="TaPs">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayersCell" rowHeight="90" id="9r7-ai-jze" userLabel="Payers Cell" customClass="ReceiptsTableViewCell" customModule="TaPs">
                                         <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9r7-ai-jze" id="aUn-cK-Xw3">
@@ -451,7 +451,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="spatial" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="200" textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M83-XT-0YB">
                                         <rect key="frame" x="20" y="518.33333333333337" width="385" height="107.66666666666663"/>
-                                        <string key="text">Accepting tips and payments from others requires the use of Bluetooth even when your phone is in background mode. As this consumes more power we recommend turning this facility off when not in use to save battery life.
+                                        <string key="text">Accepting tips and payments from others requires the use of Bluetooth even when your application is in background mode. As this consumes more power we recommend turning this facility off when not in use to save battery life.
 </string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
@@ -459,7 +459,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="200" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V6I-Yt-OS9">
                                         <rect key="frame" x="20" y="244.99999999999997" width="385" height="107.66666666666666"/>
-                                        <string key="text">Your Seed never leaves this phone and is held in an encrypted format within Apple's Keychain Services. Nevertheless, we strongly recommend keeping a separate account, and therefore Seed, just for managing your TaPs payments. DO NOT DISCLOSE YOUR SEED TO ANYONE.</string>
+                                        <string key="text">Your Seed never leaves this device and is held in an encrypted format within Apple's Keychain Services. Nevertheless, we strongly recommend keeping a separate account, and therefore Seed, just for managing your TaPs payments. DO NOT DISCLOSE YOUR SEED TO ANYONE.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -508,7 +508,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" semanticContentAttribute="spatial" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="200" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pFW-lD-SNW">
                                         <rect key="frame" x="20" y="400.66666666666669" width="385" height="71.666666666666686"/>
-                                        <string key="text">If you enter a PIN number this is used to provide additional access control to the TaPs application. When set you will be asked to enter the pin whenever you open the application on your phone.</string>
+                                        <string key="text">If you enter a PIN number this is used to provide additional access control to the TaPs application. When set you will be asked to enter the pin whenever you open the application on your device.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -752,7 +752,7 @@ Powered by IOTA</string>
                                 <rect key="frame" x="0.0" y="86.333333333333314" width="414" height="573.66666666666674"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayeesCell" rowHeight="90" id="qgb-iv-CAg" userLabel="Payees Cell" customClass="PaymentsTableViewCell" customModule="TaPs">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayeesCell" rowHeight="90" id="qgb-iv-CAg" userLabel="Payees Cell" customClass="PaymentsTableViewCell" customModule="TaPs">
                                         <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qgb-iv-CAg" id="Q9j-wD-k4y">
