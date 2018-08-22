@@ -96,8 +96,6 @@ class PayeesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let MakePaymentViewController = segue.destination as! MakePaymentViewController
             
             // set a variable in the second view controller with the String to pass
-            MakePaymentViewController.receivedPayeePeripheral = payees[path.row].payeePeripheral!
-            MakePaymentViewController.receivedPayeeReceiptChar = payees[path.row].payeeReceiptChar!
             MakePaymentViewController.receivedPayeeAddress = payees[path.row].payeeAddress!
             MakePaymentViewController.receivedPayeeName = payees[path.row].payeeName!
             MakePaymentViewController.receivedPayeeAvatar = payees[path.row].payeeAvatar

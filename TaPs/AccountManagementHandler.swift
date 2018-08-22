@@ -16,6 +16,8 @@ class IotaAccountManagementHandler: NSObject {
     
     //Data
     let iota = Iota(node: node)
+    var transfers: [IotaTransfer] = []
+    var iotaStorage = IotaStorage()
     
     //Keychain Data
     fileprivate var savedSeed: String? {
@@ -63,6 +65,7 @@ class IotaAccountManagementHandler: NSObject {
         
             checkAddress()
             retrieveBalance()
+        
             Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.retrieveBalance), userInfo: nil, repeats: true)
             Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkAddress), userInfo: nil, repeats: true)
         
@@ -92,7 +95,7 @@ class IotaAccountManagementHandler: NSObject {
     //Check whether the Receipt Address is still valid
     @objc public func checkAddress() {
         
-        if savedAddress != nil {
+        if savedAddress?.count == 90 {
             iota.wereAddressesSpentFrom(addresses: [String(savedAddress!.prefix(81))],  { (success) in
       
                 if success.contains(true) {
@@ -184,10 +187,8 @@ class IotaAccountManagementHandler: NSObject {
                 
             } else {
                 
-                // print("Transfer no longer promotable - attempting re-attach")
-                //self.attemptReattach(tailHash: tailHash, bundleHash: bundleHash )
-                
-                print("Transfer no longer promotable - not attempting re-attach due to known bug")
+                print("Transfer no longer promotable - attempting re-attach")
+                self.attemptReattach(tailHash: tailHash, bundleHash: bundleHash )
  
             }
         }, { (error) in
@@ -200,7 +201,7 @@ class IotaAccountManagementHandler: NSObject {
     func attemptReattach(tailHash: String, bundleHash: String) {
         
         //Replay the bundle
-        iota.replayBundle(tx: tailHash, { (success) in
+        iota.replayBundle(tx: tailHash, depth: 3, { (success) in
             
             print("Reattach succeeded")
             
@@ -213,8 +214,11 @@ class IotaAccountManagementHandler: NSObject {
                 }
             }
             
+            //Promote The transfer immediately
+            self.promoteTransfer(tailHash: tailHash, bundleHash: bundleHash)
+            
         }, error: { (error) in
-            print("Unable to find Transactions - error is - \(error)")
+            print("Unable to Reattach Transactions - error is - \(error)")
         })
         
     }
@@ -241,15 +245,19 @@ class IotaAccountManagementHandler: NSObject {
         
     }
     
-    public func attemptTransfer(address: String, amount: UInt64, message: String, payeePeripheral: CBPeripheral, payeeReceiptChar: CBCharacteristic ) {
+    public func attemptTransfer(address: String, amount: UInt64, message: String ) {
         
+        //Pad message to 33 characters
+        var packedMessage = message
+        packedMessage.rightPad(count: 33, character: " ")
+    
         //Convert ASCII to Trytes
-        let messageTrytes = IotaConverter.trytes(fromAsciiString: message)
+        let messageTrytes = IotaConverter.trytes(fromAsciiString: packedMessage)! + savedImageHash! + IotaConverter.trytes(fromAsciiString: savedAvatarName!)!
         
         print("Message trytes are - \(String(describing: messageTrytes))")
         
-        //Set transfer details
-        let transfer = IotaTransfer(address: address, value: UInt64(amount), message: messageTrytes!, tag: "TAPS" )
+        //Set value transfer details
+        let transfer = IotaTransfer(address: address, value: UInt64(amount), message: messageTrytes, tag: "TAPS" )
         
         //Send the Transfer via the IOTA API
         iota.sendTransfers(seed: self.savedSeed!, depth: 3, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
@@ -259,47 +267,30 @@ class IotaAccountManagementHandler: NSObject {
             print("First hash is - \(success[0].hash)")
             print("Last -1 hash is - \(success[success.endIndex - 1].hash)")
             print("Bundle hash is - \(success[0].bundle)")
+            print("Timestamp is - \(success[0].attachmentTimestamp)")
             
             let bundleHash = success[0].bundle
             let tailHash = success[success.endIndex - 1].hash
+            let timestamp = Date(timeIntervalSince1970: TimeInterval(success[0].attachmentTimestamp) / 1000)
+            
+            print("Converted Timestamp is - \(timestamp)")
+            
             
             //Update the last payment record status to "Pending"
             DispatchQueue.main.async {
-                if CoreDataHandler.updatePendingPayment(bundleHash: bundleHash, tailHash: tailHash) {
+                if CoreDataHandler.updatePendingPayment(bundleHash: bundleHash, tailHash: tailHash, timestamp: timestamp) {
                     print("Updated status of payment to 'Pending' successfully")
                 } else {
                     print("Failed updating payment to 'Pending' status")
                 }
             }
             
+            //Promote The transfer immediately
+            self.promoteTransfer(tailHash: tailHash, bundleHash: bundleHash)
+            
             //Check to see whether the receipt address is still valid or has it just been used for this payment.
             //If it has then retrieve, store and update Centrals with new receipt address
             accountManagement.checkAddress()
-            
-            //Send Receipt to Payee
-            print("Attempting to write Receipt to Payee")
-            DispatchQueue.main.async {
-                
-                //Send BundleHash and Message and Amount in one Bluetooth message
-                var packedMessage: String = message
-                packedMessage.rightPad(count: 33, character: " ")
-                let imageHash = self.savedImageHash!
-                let payerNameLength = String(format: "%02d", (self.savedAvatarName?.count)!)
-                let amount = String(amount)
-                let payerName = self.savedAvatarName
-                let data = bundleHash + imageHash + payerNameLength + payerName! + packedMessage + amount
-                dataToWrite = (data).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!
-                writeCharacteristic = payeeReceiptChar
-                
-                //Set fragment length to default
-                NOTIFY_MTU = default_MTU
-                
-                // Reset the index
-                writeDataIndex = 0;
-                
-                // Start writing
-                centralManager.writeData(peripheral: payeePeripheral)
-            }
             
         }, error: { (error) in
             
@@ -335,6 +326,81 @@ class IotaAccountManagementHandler: NSObject {
             print("API call to send transfer failed with error - \(error)")
         })
         
+    }
+    
+    public func findReceipts() {
+        
+        if savedAddress?.count == 90 {
+            let addresses = [String(savedAddress!.prefix(81))]
+            iota.findTransactions(addresses: addresses, { (hashes) in
+                
+                self.iota.trytes(hashes: hashes, { (trytes) in
+                
+                    //ON SUCCESS
+                    
+                    for transaction in trytes {
+                        
+                        //Update the Core Date back on the main queue
+                        DispatchQueue.main.async {
+                            
+                            if !CoreDataHandler.findReceiptDetails(bundleHash: transaction.bundle) {
+                                
+                                let message = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 0, to: 66))
+                                let bundleHash = transaction.bundle
+                                let imageHash = transaction.signatureFragments.substring(from: 66, to: 147)
+                                let payerName = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 147, to: 207))
+                                let amount = transaction.value
+                                let timestamp = Date(timeIntervalSince1970: TimeInterval(transaction.attachmentTimestamp) / 1000)
+                                
+                                if imageHash != "999999999999999999999999999999999999999999999999999999999999999999999999999999999" {
+                                    self.iotaStorage.retrieve(bundleHash: imageHash, { (success) in
+                                        
+                                        let payeeAvatar:Data = UIImagePNGRepresentation(success)!
+                                        
+                                        //Update the Core Data back on the main queue
+                                        DispatchQueue.main.async {
+                                            
+                                            //Save the receipt details in Core Data
+                                            if CoreDataHandler.saveReceiptDetails(payerName: payerName!, payerAvatar: payeeAvatar, amount: Int64(amount), message: message!, status: "Pending", timestamp: timestamp,
+                                                                                  bundleHash: bundleHash, timeToConfirm: 0) {
+                                                print("Receipt data saved successfully")
+                                            } else {
+                                                print("Failed to save Receipt data")
+                                            }
+                                            
+                                            //Limit the payment data stored in Core Data to 10 rows.
+                                            if CoreDataHandler.limitStoredReceipts() {
+                                                print("Successfully limited number of saved receipts")
+                                            } else {
+                                                print("Failed to limit number of saved receipts")
+                                            }
+                                        }
+                    
+                                    }, error: { (error) in
+                                        print("Retrieve from Tangle failed with error - \(error)")
+                                    })
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                }, error: { (error) in
+                    
+                    //ON ERROR
+                    
+                    print("API call to find Trytes failed with error - \(error)")
+                    
+                })
+                
+            }, error: { (error) in
+                
+                //ON ERROR
+                
+                print("API call to find Receipts failed with error - \(error)")
+                
+            })
+        }
     }
     
 }

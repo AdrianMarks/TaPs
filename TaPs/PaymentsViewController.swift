@@ -48,6 +48,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     //Data
     var timer1: Timer? = nil
     var timer2: Timer? = nil
+    var promotionDelayCount: Int = 0
     
     //NSFetchedResults
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Payment> = {
@@ -87,6 +88,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        
+        promotionDelayCount = 0
         
         refreshTableView()
         updateBalance()
@@ -188,7 +191,14 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                                     print("Failed updating status of payment to 'Confirmed'")
                                 }
                             }
-                        } 
+                        } else {
+                            self.promotionDelayCount += 1
+                            print("PromotionDelayCount - \(self.promotionDelayCount)")
+                            if self.promotionDelayCount == 60 {
+                                accountManagement.attemptPromotion(tailHash: payment.tailHash!, bundleHash: payment.bundleHash!)
+                                self.promotionDelayCount = 0
+                            }
+                        }
                         
                         print("Inclusion Status - \(success)")
                         print("Payment BundleHash - \(payment.bundleHash!)")
@@ -209,6 +219,8 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
         } else if payment.status == "Pending" {
             cell.paymentStatus?.textColor = UIColor.blue
         } else if payment.status == "Promoted" {
+            cell.paymentStatus?.textColor = UIColor.blue
+        } else if payment.status == "Reattached" {
             cell.paymentStatus?.textColor = UIColor.blue
         } else if payment.status == "Submitted" {
             cell.paymentStatus?.textColor = UIColor.black

@@ -15,7 +15,6 @@ var characteristicASCIIValue = String()
 
 struct payee {
     var payeePeripheral: CBPeripheral? = nil
-    var payeeReceiptChar: CBCharacteristic? = nil
     var payeeName: String?  = ""
     var payeeAvatar: Data = Data()
     var payeeAddress: String? = nil
@@ -119,7 +118,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             
             //Set-up payee record in payees array and payeesBuild
             payeesBuild.append(payeeBuild(payeePeripheral: peripheral, payeeName: "", payeeImageHash: "", payeeAddress: "", timestamp: Date() ))
-            payeesBuilt.append(payee(payeePeripheral: peripheral, payeeReceiptChar: nil, payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
+            payeesBuilt.append(payee(payeePeripheral: peripheral, payeeName: "", payeeAvatar: Data(), payeeAddress: "", timestamp: Date() ))
             
             peripherals.append(peripheral)
             peripheral.delegate = self
@@ -134,8 +133,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
             connectToDevice(peripheral: peripheral)
             
         }
-        
-        print("Peripherals discovered so far - \(peripherals)")
         
     }
     
@@ -222,19 +219,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                 peripheral.setNotifyValue(true, for: characteristic)
             }
             
-            if (characteristic.uuid == receiptCharacteristic.uuid) {
-                
-                if let payeesIndex = payeesBuilt.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier}) {
-                    let tempPayeeReceiptChar = characteristic
-                    let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
-                    let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
-                    let tempPayeeName = payeesBuilt[payeesIndex].payeeName
-                    payeesBuilt.remove(at: payeesIndex)
-                    payeesBuilt.append(payee(payeePeripheral: peripheral, payeeReceiptChar: tempPayeeReceiptChar, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
-                }
-                
-            }
-            
         }
         
     }
@@ -272,10 +256,9 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                         let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
-                        let tempPayeeReceiptChar = payeesBuilt[payeesIndex].payeeReceiptChar
                         let tempPayeeName = payeesBuild[payeesBuildIndex!].payeeName
                         payeesBuilt.remove(at: payeesIndex)
-                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeReceiptChar: tempPayeeReceiptChar, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                         payeesBuild[payeesBuildIndex!].payeeName = ""
                     }
                     print("Payee Name End of Message found")
@@ -305,7 +288,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                         let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
                         let tempPayeeAddress = payeesBuilt[payeesIndex].payeeAddress
-                        let tempPayeeReceiptChar = payeesBuilt[payeesIndex].payeeReceiptChar
                         let tempPayeeImageHash = payeesBuild[payeesBuildIndex!].payeeImageHash
                         
                         let iotaStorage = IotaStorage()
@@ -326,7 +308,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                                 print("PAYEES INDEX - \(payeesIndex!)")
                                 
                                 payeesBuilt.remove(at: payeesIndex!)
-                                payeesBuilt.append(payee(payeePeripheral: peripheral, payeeReceiptChar: tempPayeeReceiptChar, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar , payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                                payeesBuilt.append(payee(payeePeripheral: peripheral, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar , payeeAddress: tempPayeeAddress, timestamp: Date() ))
                             }
                             
                         }, error: { (error) in
@@ -364,10 +346,9 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                         let payeesBuildIndex = payeesBuild.index(where: { $0.payeePeripheral?.identifier == peripheral.identifier})
                         let tempPayeeAvatar = payeesBuilt[payeesIndex].payeeAvatar
                         let tempPayeeName = payeesBuilt[payeesIndex].payeeName
-                        let tempPayeeReceiptChar = payeesBuilt[payeesIndex].payeeReceiptChar
                         let tempPayeeAddress = payeesBuild[payeesBuildIndex!].payeeAddress
                         payeesBuilt.remove(at: payeesIndex)
-                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeReceiptChar: tempPayeeReceiptChar, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
+                        payeesBuilt.append(payee(payeePeripheral: peripheral, payeeName: tempPayeeName, payeeAvatar: tempPayeeAvatar, payeeAddress: tempPayeeAddress, timestamp: Date() ))
                         payeesBuild[payeesBuildIndex!].payeeAddress = ""
                     }
                     print("Payee Address End of Message found")
@@ -383,62 +364,6 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
         //What does this do?
         NotificationCenter.default.post(name:NSNotification.Name(rawValue: "Notify"), object: nil)
-    }
-    
-    /** write the next amount of data to the selected peripheral
-     */
-    public func writeData(peripheral: CBPeripheral) {
-        
-        print("Write data started")
-        
-        doWrite = true
-        
-        while doWrite {
-            // Make the next chunk
-            
-            // Work out how big it should be
-            var amountToSend = dataToWrite!.count - writeDataIndex!;
-            
-            if (amountToSend > NOTIFY_MTU) {
-                amountToSend = NOTIFY_MTU;
-            }
-            
-            // Copy out the data we want
-            let chunk = dataToWrite!.withUnsafeBytes{(body: UnsafePointer<UInt8>) in
-                return Data(
-                    bytes: body + writeDataIndex!,
-                    count: amountToSend
-                )
-            }
-            
-            // Write it
-            print("Writing data chunk \(chunk)")
-            
-            peripheral.writeValue(
-                chunk as Data,
-                for: writeCharacteristic!,
-                type: CBCharacteristicWriteType.withoutResponse
-            )
-            
-            // Update our index
-            writeDataIndex! += amountToSend;
-            
-            // Was it the last one?
-            if (writeDataIndex! >= dataToWrite!.count) {
-                
-                print("Reached end of data to write")
-                // It was - write an EOM
-                
-                // Write it
-                peripheral.writeValue(
-                    "EOM".data(using: String.Encoding.utf8)!,
-                    for: writeCharacteristic!,
-                    type: CBCharacteristicWriteType.withoutResponse
-                )
-                
-                doWrite = false
-            }
-        }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {

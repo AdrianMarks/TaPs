@@ -119,6 +119,7 @@ class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableView
     
     //Reload the Payee Table
     @objc func refreshTableView() {
+        accountManagement.findReceipts()
         paidPayersTable.reloadData()
     }
     
@@ -127,6 +128,7 @@ class ReceiptsViewController: UIViewController, UITableViewDelegate, UITableView
         accountBalance.text = savedBalance
     }
     
+    //Table view functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let receipts = fetchedResultsController.fetchedObjects else {return 0}
         print ("No of rows required for receipts table = \(receipts.count)")

@@ -27,7 +27,6 @@ class CoreDataHandler: NSObject {
         let entity = NSEntityDescription.entity(forEntityName: "Payment", in: context )
         let managedObject = NSManagedObject(entity: entity!, insertInto: context)
     
-    
         managedObject.setValue(payeeName,       forKey: "payeeName")
         managedObject.setValue(payeeAvatar,     forKey: "payeeAvatar")
         managedObject.setValue(amount,          forKey: "amount")
@@ -121,7 +120,7 @@ class CoreDataHandler: NSObject {
         }
     }
     
-    class func updatePendingPayment(bundleHash: String, tailHash: String) -> Bool {
+    class func updatePendingPayment(bundleHash: String, tailHash: String, timestamp: Date ) -> Bool {
 
         let context = getContext()
         
@@ -133,6 +132,7 @@ class CoreDataHandler: NSObject {
             payment.setValue("Pending",        forKey: "status")
             payment.setValue(bundleHash,       forKey: "bundleHash")
             payment.setValue(tailHash,         forKey: "tailHash")
+            payment.setValue(timestamp,        forKey: "timestamp")
         }
         
         do {
@@ -189,6 +189,8 @@ class CoreDataHandler: NSObject {
         let context = getContext()
         
         let fetchRequest: NSFetchRequest<Payment> = Payment.fetchRequest()
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
         // create an NSPredicate to get the specific instance
         let predicate = NSPredicate(format: "bundleHash = %@", bundleHash)
         fetchRequest.predicate = predicate
@@ -213,6 +215,30 @@ class CoreDataHandler: NSObject {
     //********
     //RECEIPTS
     //********
+    
+    class func findReceiptDetails(bundleHash: String ) -> Bool {
+        
+        let context = getContext()
+        
+        let fetchRequest: NSFetchRequest<Receipt> = Receipt.fetchRequest()
+        // create an NSPredicate to get the specific instance
+        let predicate = NSPredicate(format: "bundleHash = %@", bundleHash)
+        fetchRequest.predicate = predicate
+        
+        if let result = try? context.fetch(fetchRequest) {
+            if result != [] {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        else {
+            print ("Failed to execute Find receipts request")
+            return false
+        }
+
+    }
     
     class func saveReceiptDetails(payerName: String, payerAvatar: Data, amount: Int64, message: String, status: String, timestamp: Date, bundleHash: String, timeToConfirm: Double ) -> Bool {
         
@@ -298,6 +324,8 @@ class CoreDataHandler: NSObject {
         let context = getContext()
         
         let fetchRequest: NSFetchRequest<Receipt> = Receipt.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+        
         // create an NSPredicate to get the specific instance
         let predicate = NSPredicate(format: "bundleHash = %@", bundleHash)
         fetchRequest.predicate = predicate
