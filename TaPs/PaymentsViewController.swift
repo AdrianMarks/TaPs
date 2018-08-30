@@ -177,16 +177,17 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                         if success.contains(true) {
                             DispatchQueue.main.async {
                                 
-                                //Update balance
-                                if self.savedBalance != nil {
-                                    let amount = amountFromSavedBalance(stringBalance: self.savedBalance!)
-                                    let newBalance = Int64(amount) - payment.amount
-                                    self.savedBalance = IotaUnitsConverter.iotaToString(amount: UInt64(newBalance))
-                                    self.accountBalance.text = self.savedBalance
-                                }
-                                
                                 if CoreDataHandler.updateConfirmedPayment(bundleHash: payment.bundleHash!) {
                                     print("Updated status of payment to 'Confirmed' successfully")
+                                    
+                                    //Update balance
+                                    if self.savedBalance != nil {
+                                        let amount = amountFromSavedBalance(stringBalance: self.savedBalance!)
+                                        let newBalance = Int64(amount) - payment.amount
+                                        self.savedBalance = IotaUnitsConverter.iotaToString(amount: UInt64(newBalance))
+                                        self.accountBalance.text = self.savedBalance
+                                    }
+                                    
                                 } else {
                                     print("Failed updating status of payment to 'Confirmed'")
                                 }
@@ -194,7 +195,7 @@ class PaymentsViewController: UIViewController, UITableViewDelegate, UITableView
                         } else {
                             self.promotionDelayCount += 1
                             print("PromotionDelayCount - \(self.promotionDelayCount)")
-                            if self.promotionDelayCount == 60 {
+                            if self.promotionDelayCount == 20 {
                                 accountManagement.attemptPromotion(tailHash: payment.tailHash!, bundleHash: payment.bundleHash!)
                                 self.promotionDelayCount = 0
                             }

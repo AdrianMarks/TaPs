@@ -226,16 +226,17 @@ class CoreDataHandler: NSObject {
         fetchRequest.predicate = predicate
         
         if let result = try? context.fetch(fetchRequest) {
-            if result != [] {
-                return true
+            
+            if result == [] {
+                return false
             }
             else {
-                return false
+                return true
             }
         }
         else {
             print ("Failed to execute Find receipts request")
-            return false
+            return true
         }
 
     }
@@ -331,12 +332,11 @@ class CoreDataHandler: NSObject {
         fetchRequest.predicate = predicate
         
         if let result = try? context.fetch(fetchRequest) {
-            let receipt = result[0]
-            
-            let timeToConfirm = Date().timeIntervalSince(receipt.timestamp!)
-            
-            receipt.setValue("Confirmed", forKey: "status")
-            receipt.setValue(timeToConfirm, forKey: "timeToConfirm")
+            for receipt in result {
+                let timeToConfirm = Date().timeIntervalSince(receipt.timestamp!)
+                receipt.setValue("Confirmed", forKey: "status")
+                receipt.setValue(timeToConfirm, forKey: "timeToConfirm")
+            }
         }
         
         do {

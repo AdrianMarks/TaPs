@@ -11,6 +11,7 @@ import CoreBluetooth
 import IotaKit
 import SwiftKeychainWrapper
 import CoreData
+import AudioToolbox
 
 class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDownDelegate {
     
@@ -21,6 +22,14 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         }
         set {
             KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kSeed)
+        }
+    }
+    fileprivate var savedBalance: String? {
+        get {
+            return KeychainWrapper.standard.string(forKey: TAPConstants.kBalance)
+        }
+        set {
+            KeychainWrapper.standard.set(newValue!, forKey: TAPConstants.kBalance)
         }
     }
 
@@ -38,6 +47,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
     let dropView = DropDownView()
     
     //Data
+    let iota = Iota(node: node)
     var amountInIota: Float = 0.0
     
     // These variables will hold the data being passed from the Payees View Controller
@@ -233,6 +243,7 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
                 
             self.present(alert, animated: true)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             
             return
         }
@@ -247,6 +258,22 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
             
             self.present(alert, animated: true)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+            return
+        }
+        
+        //Confirm sufficient funds exist
+        if amountInIota > amountFromSavedBalance(stringBalance: savedBalance!) {
+            let title = "Invalid Amount"
+            let alertMessage = "You have insufficient funds to make this tranasction."
+            print("Alert message is - \(alertMessage)")
+            let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             
             return
         }
@@ -261,38 +288,87 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
             
             self.present(alert, animated: true)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             
             return
         }
         
-        //Alert the user to what they are about to do
-        let title = "Payment Details"
-        let units = button.titleLabel?.text!
-        let alertMessage = "You are about to try to send \(amountToPay.text!) \(units!) to \(payeeLabel.text!). Are you sure you want to proceed?"
-        print("Alert message is - \(alertMessage)")
-        let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+        //Check Receipt Address is still valid
+        iota.wereAddressesSpentFrom(addresses: [String(receivedPayeeAddress.prefix(81))],  { (success) in
+            
+            if success.contains(true) {
+                
+                //Update the UI back on the main queue
+                DispatchQueue.main.async {
+                    
+                    print("Received Receipt address nolonger valid")
+                    
+                    //Send alert to screen
+                    let title = "Invalid Receipt Address"
+                    let alertMessage = "This Payee's Receipt Address appears to be nolonger valid."
+                    print("Alert message is - \(alertMessage)")
+                    let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+                    
+                    self.present(alert, animated: true)
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    
+                    return
+                }
+                
+            } else {
         
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-        
-            print("I selected 'Yes' to make payment")
-            
-            //Make the payment, store the payment details and send receipt to Payee
-            self.makePayment()
-            
-            //Transfer to the Payments View Controller
-            let selectedVC: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
-            UIApplication.shared.keyWindow?.rootViewController = selectedVC
-            selectedVC.selectedIndex = 1
-            self.present(selectedVC, animated: false, completion: nil)
-            
+                //Update the UI back on the main queue
+                DispatchQueue.main.async {
+                    
+                    //Alert the user to what they are about to do
+                    let title = "Payment Details"
+                    let units = self.button.titleLabel?.text!
+                    let alertMessage = "You are about to try to send \(self.amountToPay.text!) \(units!) to \(self.payeeLabel.text!). Are you sure you want to proceed?"
+                    print("Alert message is - \(alertMessage)")
+                    let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                    
+                        print("I selected 'Yes' to make payment")
+                        
+                        //Make the payment, store the payment details and send receipt to Payee
+                        self.makePayment()
+                        
+                        //Transfer to the Payments View Controller
+                        let selectedVC: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "tabBarController") as! UITabBarController
+                        UIApplication.shared.keyWindow?.rootViewController = selectedVC
+                        selectedVC.selectedIndex = 1
+                        self.present(selectedVC, animated: false, completion: nil)
+                        
+                        }
+                    ))
+                    alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
+                        print("I selected 'No' to make payment")
+                        }
+                    ))
+                    
+                    self.present(alert, animated: true)
+                }
             }
-        ))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
-            print("I selected 'No' to make payment")
-            }
-        ))
-        
-        self.present(alert, animated: true)
+            
+        }, { (error) in
+            print(error)
+            print("Failed to check whether receipt address was valid")
+            
+            //Send alert to screen with the returned error message
+            let title = "Payment Failed"
+            let alertMessage = "Unable to Submit the Payment - Please check whether the Internet is connected"
+            print("Alert message is - \(alertMessage)")
+            let alert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            
+            self.present(alert, animated: true)
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            
+        })
         
     }
     

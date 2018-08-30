@@ -95,6 +95,8 @@ class IotaStorage: NSObject {
     ///   - error: Error block.
     public func retrieve(bundleHash: String, _ success: @escaping (_ image: UIImage) -> Void, error: @escaping (Error) -> Void) {
         
+        var foundIndexes: [UInt] = []
+        
         //Use bundleHash to retrieve the transactions
         iota.findTransactions(bundles: [bundleHash], { (hashes) in
             
@@ -106,7 +108,12 @@ class IotaStorage: NSObject {
                 
                 for transaction in trytes.sorted(by: { $0.currentIndex < $1.currentIndex }) {
                     
-                    imageTrytes += transaction.signatureFragments
+                    //Check index to ensure we only accumulate a single bundle of transaction i.e. manage re-attached bundles
+                    if !foundIndexes.contains(transaction.currentIndex) {
+                        foundIndexes.append(transaction.currentIndex)
+                        imageTrytes += transaction.signatureFragments
+                    }
+                    
                 }
                 
                 print("Image Trytes count - \(imageTrytes.count)")

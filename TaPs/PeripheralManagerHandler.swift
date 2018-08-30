@@ -156,7 +156,7 @@ class PeripheralManagerHandler: NSObject, CBPeripheralManagerDelegate {
             // Work out how big it should be
             var amountToSend = dataToSend!.count - sendDataIndex!;
             
-            // Can't be longer than 20 bytes
+            // Can't be longer than 182 bytes
             if (amountToSend > NOTIFY_MTU) {
                 amountToSend = NOTIFY_MTU;
             }

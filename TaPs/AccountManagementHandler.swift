@@ -63,11 +63,11 @@ class IotaAccountManagementHandler: NSObject {
     
     public func initialise() {
         
-            checkAddress()
+            checkOwnReceiptAddress()
             retrieveBalance()
         
             Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(self.retrieveBalance), userInfo: nil, repeats: true)
-            Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkAddress), userInfo: nil, repeats: true)
+            Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.checkOwnReceiptAddress), userInfo: nil, repeats: true)
         
     }
     
@@ -92,12 +92,12 @@ class IotaAccountManagementHandler: NSObject {
         }
     }
     
-    //Check whether the Receipt Address is still valid
-    @objc public func checkAddress() {
+    //Check whether the Received Receipt Address is still valid
+    @objc public func checkOwnReceiptAddress() {
         
         if savedAddress?.count == 90 {
             iota.wereAddressesSpentFrom(addresses: [String(savedAddress!.prefix(81))],  { (success) in
-      
+                
                 if success.contains(true) {
                     print("Receipt address nolonger valid - retrieving a new address")
                     self.retrieveAddress()
@@ -118,6 +118,50 @@ class IotaAccountManagementHandler: NSObject {
                 self.savedAddress = IotaAPIUtils.newAddress(seed: self.savedSeed!, index: account.addresses.count, checksum: true)
                 print("The account is \(account)")
                 print("The new address is - \(String(describing: self.savedAddress))")
+                
+                //Attach the address to the tangle - so that it is not used as a remainder address in a subsequent payment
+               
+                //Pad message to 33 characters
+                var packedMessage = "TaPs Receipt Address"
+                packedMessage.rightPad(count: 33, character: " ")
+                
+                //Convert ASCII to Trytes
+                let messageTrytes = IotaConverter.trytes(fromAsciiString: packedMessage)
+                
+                //Setup 0 Value transfer
+                let transfer = IotaTransfer(address: self.savedAddress!, value: 0, message: messageTrytes!, tag: "TAPS" )
+                
+                //Send Transfer
+                self.iota.sendTransfers(seed: self.savedSeed!, depth: 3, transfers: [transfer], inputs: nil, remainderAddress: nil , { (success) in
+                    
+                    //ON SUCCESS
+                    
+                    print("API call to attach address to tangle succeeded")
+                    
+                }, error: { (error) in
+                    
+                    //ON ERROR
+                    
+                    //Send alert to screen with the returned error message
+                    var message = "\(error)"
+                    if message.count > 45 {
+                        //Use localized description if error message is long
+                        message = "\(error.localizedDescription)"
+                    }
+                    let alertController = UIAlertController(title: "TaPs Error Message", message:
+                        message , preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    
+                    var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                    
+                    if let tabBarController = rootViewController as? UITabBarController {
+                        rootViewController = tabBarController.selectedViewController
+                    }
+                    rootViewController?.present(alertController, animated: true, completion: nil)
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    
+                    print("API call to attach new Receipt Address to tangle failed with error - \(error)")
+                })
                 
                 dataToSend = ((self.savedAddress)?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!)
                 transferCharacteristic = addressCharacteristic
@@ -290,7 +334,7 @@ class IotaAccountManagementHandler: NSObject {
             
             //Check to see whether the receipt address is still valid or has it just been used for this payment.
             //If it has then retrieve, store and update Centrals with new receipt address
-            accountManagement.checkAddress()
+            accountManagement.checkOwnReceiptAddress()
             
         }, error: { (error) in
             
@@ -330,8 +374,11 @@ class IotaAccountManagementHandler: NSObject {
     
     public func findReceipts() {
         
+        var foundBundles: [String] = []
+        
         if savedAddress?.count == 90 {
             let addresses = [String(savedAddress!.prefix(81))]
+            
             iota.findTransactions(addresses: addresses, { (hashes) in
                 
                 self.iota.trytes(hashes: hashes, { (trytes) in
@@ -340,47 +387,61 @@ class IotaAccountManagementHandler: NSObject {
                     
                     for transaction in trytes {
                         
-                        //Update the Core Date back on the main queue
-                        DispatchQueue.main.async {
+                        if transaction.tag == "TAPS99999999999999999999999" {
+                        
+                            if !foundBundles.contains(transaction.bundle) {
+                                
+                                foundBundles.append(transaction.bundle)
                             
-                            if !CoreDataHandler.findReceiptDetails(bundleHash: transaction.bundle) {
+                                //Check the Core Data back on the main queue
+                                DispatchQueue.main.async {
                                 
-                                let message = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 0, to: 66))
-                                let bundleHash = transaction.bundle
-                                let imageHash = transaction.signatureFragments.substring(from: 66, to: 147)
-                                let payerName = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 147, to: 207))
-                                let amount = transaction.value
-                                let timestamp = Date(timeIntervalSince1970: TimeInterval(transaction.attachmentTimestamp) / 1000)
+                                    if !CoreDataHandler.findReceiptDetails(bundleHash: transaction.bundle) {
+                                        
+                                        print("I was ere! - \(transaction.signatureFragments.substring(from: 0, to: 66))")
                                 
-                                if imageHash != "999999999999999999999999999999999999999999999999999999999999999999999999999999999" {
-                                    self.iotaStorage.retrieve(bundleHash: imageHash, { (success) in
+                                        let message = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 0, to: 66))
                                         
-                                        let payeeAvatar:Data = UIImagePNGRepresentation(success)!
+                                        print("But was I ere! - \(String(describing: message))")
                                         
-                                        //Update the Core Data back on the main queue
-                                        DispatchQueue.main.async {
+                                        let bundleHash = transaction.bundle
+                                        let imageHash = transaction.signatureFragments.substring(from: 66, to: 147)
+                                        let payerName = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 147, to: 207))
+                                        let amount = transaction.value
+                                        let timestamp = Date(timeIntervalSince1970: TimeInterval(transaction.attachmentTimestamp) / 1000)
+                                        
+                                        //Fix to exclude transfers created before update made to the messageFragment so that it holds the imageHash
+                                        if imageHash != "999999999999999999999999999999999999999999999999999999999999999999999999999999999" {
                                             
-                                            //Save the receipt details in Core Data
-                                            if CoreDataHandler.saveReceiptDetails(payerName: payerName!, payerAvatar: payeeAvatar, amount: Int64(amount), message: message!, status: "Pending", timestamp: timestamp,
-                                                                                  bundleHash: bundleHash, timeToConfirm: 0) {
-                                                print("Receipt data saved successfully")
-                                            } else {
-                                                print("Failed to save Receipt data")
-                                            }
-                                            
-                                            //Limit the payment data stored in Core Data to 10 rows.
-                                            if CoreDataHandler.limitStoredReceipts() {
-                                                print("Successfully limited number of saved receipts")
-                                            } else {
-                                                print("Failed to limit number of saved receipts")
-                                            }
+                                            self.iotaStorage.retrieve(bundleHash: imageHash, { (success) in
+                                                
+                                                let payeeAvatar:Data = UIImagePNGRepresentation(success)!
+                                                
+                                                //Update the Core Data back on the main queue
+                                                DispatchQueue.main.async {
+                                                    
+                                                    //Save the receipt details in Core Data
+                                                    if CoreDataHandler.saveReceiptDetails(payerName: payerName!, payerAvatar: payeeAvatar, amount: Int64(amount), message: message!, status: "Pending", timestamp: timestamp,
+                                                                                          bundleHash: bundleHash, timeToConfirm: 0) {
+                                                        print("Receipt data saved successfully")
+                                                    } else {
+                                                        print("Failed to save Receipt data")
+                                                    }
+                                                    
+                                                    //Limit the payment data stored in Core Data to 10 rows.
+                                                    if CoreDataHandler.limitStoredReceipts() {
+                                                        print("Successfully limited number of saved receipts")
+                                                    } else {
+                                                        print("Failed to limit number of saved receipts")
+                                                    }
+                                                }
+                            
+                                            }, error: { (error) in
+                                                print("Retrieve from Tangle failed with error - \(error)")
+                                            })
                                         }
-                    
-                                    }, error: { (error) in
-                                        print("Retrieve from Tangle failed with error - \(error)")
-                                    })
+                                    }
                                 }
-                                
                             }
                         }
                     }
