@@ -82,6 +82,7 @@ class IotaAccountManagementHandler: NSObject {
 
                     //Update the UI back on the main queue
                     DispatchQueue.main.async {
+                        print("Balance retrieved successfully")
                         self.savedBalance = IotaUnitsConverter.iotaToString(amount: UInt64(account.balance))
                     }
                     
@@ -149,8 +150,8 @@ class IotaAccountManagementHandler: NSObject {
                         message = "\(error.localizedDescription)"
                     }
                     let alertController = UIAlertController(title: "TaPs Error Message", message:
-                        message , preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                        message , preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                     
                     var rootViewController = UIApplication.shared.keyWindow?.rootViewController
                     
@@ -185,8 +186,8 @@ class IotaAccountManagementHandler: NSObject {
                     message = "\(error.localizedDescription)"
                 }
                 let alertController1 = UIAlertController(title: "TaPs Error Message", message:
-                    message , preferredStyle: UIAlertControllerStyle.alert)
-                alertController1.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    message , preferredStyle: UIAlertController.Style.alert)
+                alertController1.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 
                 var rootViewController = UIApplication.shared.keyWindow?.rootViewController
                 
@@ -201,8 +202,8 @@ class IotaAccountManagementHandler: NSObject {
                 message = "Please check that you are connected to the Internet. If you have just updated your Seed, please also re-enter the Seed once re-connected to the Internet."
      
                 let alertController2 = UIAlertController(title: "TaPs Error Message", message:
-                    message , preferredStyle: UIAlertControllerStyle.alert)
-                alertController2.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                    message , preferredStyle: UIAlertController.Style.alert)
+                alertController2.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
                 
                 rootViewController = UIApplication.shared.keyWindow?.rootViewController
                 
@@ -347,8 +348,8 @@ class IotaAccountManagementHandler: NSObject {
                 message = "\(error.localizedDescription)"
             }
             let alertController = UIAlertController(title: "TaPs Error Message", message:
-                message , preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+                message , preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default,handler: nil))
             
             var rootViewController = UIApplication.shared.keyWindow?.rootViewController
             
@@ -397,12 +398,8 @@ class IotaAccountManagementHandler: NSObject {
                                 DispatchQueue.main.async {
                                 
                                     if !CoreDataHandler.findReceiptDetails(bundleHash: transaction.bundle) {
-                                        
-                                        print("I was ere! - \(transaction.signatureFragments.substring(from: 0, to: 66))")
                                 
                                         let message = IotaConverter.asciiString(fromTrytes: transaction.signatureFragments.substring(from: 0, to: 66))
-                                        
-                                        print("But was I ere! - \(String(describing: message))")
                                         
                                         let bundleHash = transaction.bundle
                                         let imageHash = transaction.signatureFragments.substring(from: 66, to: 147)
@@ -415,7 +412,7 @@ class IotaAccountManagementHandler: NSObject {
                                             
                                             self.iotaStorage.retrieve(bundleHash: imageHash, { (success) in
                                                 
-                                                let payeeAvatar:Data = UIImagePNGRepresentation(success)!
+                                                let payeeAvatar:Data = success.pngData()!
                                                 
                                                 //Update the Core Data back on the main queue
                                                 DispatchQueue.main.async {

@@ -40,7 +40,7 @@ class DropDownButton: UIButton, DropDownDelegate {
         //If statement is a bit of a botch - otherwise this function is called when returning from Make Payment viewConntroller
         if self.superview != nil {
             self.superview?.addSubview(dropView)
-            self.superview?.bringSubview(toFront: dropView)
+            self.superview?.bringSubviewToFront(dropView)
             dropView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
             dropView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
             dropView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true

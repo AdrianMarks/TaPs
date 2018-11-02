@@ -25,7 +25,7 @@ protocol IotaAPIServices {
 	static func findTransactions(nodeAddress: String, type: IotaFindTxType, query: [String], _ success: @escaping (_ hashes: [String]) -> Void, _ error: @escaping (Error) -> Void)
 	
 	static func trytes(nodeAddress: String, hashes: [String], _ success: @escaping (_ trytes: [IotaTransaction]) -> Void, _ error: @escaping (Error) -> Void)
-    
+	
 	static func attachToTangle(nodeAddress: String, trunkTx: String, branchTx: String, minWeightMagnitude: Int, trytes: [String], _ success: @escaping (_ trytes: [String]) -> Void, _ error: @escaping (Error) -> Void)
 	
 	static func transactionsToApprove(nodeAddress: String, depth: Int, reference: String?, _ success: @escaping (_ txs: (trunkTx: String, branchTx: String)) -> Void, _ error: @escaping (Error) -> Void)

@@ -6,7 +6,8 @@ target 'TaPs' do
   use_frameworks!
 
   # Pods for TaPs
-  pod 'IotaKit', '~> 0.7.1'
+  # pod 'IotaKit', '~> 0.7.1'
+  pod 'IotaKit', :git => 'https://github.com/pascalbros/IotaKit.git', :tag => 'v0.7.3'
   pod 'AvatarCapture'
   pod 'SwiftKeychainWrapper'
 end

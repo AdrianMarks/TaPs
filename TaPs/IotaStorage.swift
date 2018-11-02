@@ -49,7 +49,7 @@ class IotaStorage: NSObject {
     public func save(image: UIImage, _ success: @escaping (_ bundleHash: String) -> Void, error: @escaping (Error) -> Void) {
         
         //Convert the image to Trytes
-        let imageData:Data = UIImagePNGRepresentation(image)!
+        let imageData:Data = image.pngData()!
         let imageStrBase64 = imageData.base64EncodedString()
         
         let imageTrytes = IotaConverter.trytes(fromAsciiString: imageStrBase64)

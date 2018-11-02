@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0047CF7638F0EB9EE9E7DC2FE5173D84 /* IotaBundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B58FD57B2267996D6C9C67A1A14E03 /* IotaBundleExtension.swift */; };
 		009784E86BEC56AF31D5E3CA2F36150B /* FontAwesomeStateRequirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99148489185E1EBFC4CD8ADF5A16217E /* FontAwesomeStateRequirement.swift */; };
+		0155338B67DAC05301158F10A48D130D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */; };
 		031748810D91043FDF0DDF3D0116B854 /* FontAwesomeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103936161A13CCA9E11DA6F5F023E16C /* FontAwesomeImageView.swift */; };
 		03559DA4C7A6985B7761D804DA40BC44 /* FontAwesomeBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF24F611651014820056C0C1ECDFC592 /* FontAwesomeBarButtonItem.swift */; };
 		06904F41997466E3200AACDE4E6B3B2E /* pow.h in Headers */ = {isa = PBXBuildFile; fileRef = BB69E91D61071084F156AA22AEC60CDA /* pow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -20,7 +21,9 @@
 		11E4F6A171842E5C167175706B39108A /* IotaChecksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B4DC0E9B9DC7881CE3AFBFF6C98210 /* IotaChecksum.swift */; };
 		149DAAC4BC64C091F93DFFF3EEF7F0C8 /* trit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F653E68FBB32F3D7F2956D569A7AAB0 /* trit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		16C539081EF4B5921310312F3BB2AB27 /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = CFFAC8F71510B8BB3AAC1ABA85671FE5 /* hash.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		199467C56F962DE04F7F5BEC925DDBFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */; };
 		213CFC765CCBF5B933B39AC6E0BB039C /* curl_p_ptrit.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C6BDE0D71EA426B85BC444630A7ABD7 /* curl_p_ptrit.c */; };
+		252228E3EA2DB966A8B7E84F3E4488BA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */; };
 		2603F410DB7E96E538F56A3269923B29 /* SwiftKeychainWrapper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F30074B2A4559D25CE56C425978DD119 /* SwiftKeychainWrapper-dummy.m */; };
 		29B30CAB351928B67EBDB1AC7067B5C6 /* _pow.c in Sources */ = {isa = PBXBuildFile; fileRef = E42D55A43A2516E7E665D0711F16D8FC /* _pow.c */; };
 		2A997251AF21D85C6CD4A784E73D9713 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F38B36EC14170C8E3727FC3C61ABC1 /* KeychainWrapper.swift */; };
@@ -45,9 +48,13 @@
 		54F011156F3FCA29B5991A8B4719AFE3 /* AvatarCapture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C1640E4583D959BA12387AE5C98B4498 /* AvatarCapture.bundle */; };
 		5B8826DC048D18008F45201FCED941F6 /* Sha3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A605EDFB4BB2E7C4058966EB361E3E /* Sha3.swift */; };
 		5D98EEB6B010456CC6111838738B39D9 /* IotaAPIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C701983FD58FEE2A16F5161766DA96E /* IotaAPIServiceProtocol.swift */; };
+		5E57CF5D84F2B3DB240470C11A29214E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACBFFB48FB8F2A32F5E8897AA8A5F1AD /* CoreText.framework */; };
 		615009507F01B9B7BEDCAE52FDCA48E2 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0F0448DD482660B6C1E1F47F591DBDB3 /* FontAwesome.otf */; };
+		6342368EF71C0E57FAC6671025892B67 /* FontAwesome_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B780CCE01BEC56A97470E9FC46852F /* FontAwesome_swift.framework */; };
+		641120D0C61F1CF3CAC44577930B56E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */; };
 		694160AEA6255CADE89A165501C77830 /* ptrit_incr.h in Headers */ = {isa = PBXBuildFile; fileRef = 2017DD143C77DE4DE6A9F7B753200B1F /* ptrit_incr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		69EB3CDCB6F159E05357B7ECCCE5FF28 /* IotaMultisig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1641734DBFECDD190314FA4B03FFF00B /* IotaMultisig.swift */; };
+		6A3FA13C416EFE4C6BCECE0DAAEF2745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */; };
 		6D6F7A05374867278A228236A2F1295A /* indices.h in Headers */ = {isa = PBXBuildFile; fileRef = AC03B7081621ACADFAA6BD8EE32A5B6D /* indices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		70AF0DA9E0BEB79C299768770D480B3C /* FontAwesome.swift.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D388EB8F615A9775B4BF4448C1B038F7 /* FontAwesome.swift.bundle */; };
 		7293CD5582D1408E0520696E81C1E40B /* FontAwesomeTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1065753C31084BA40DF81D0A693CAE /* FontAwesomeTabBarItem.swift */; };
@@ -87,6 +94,7 @@
 		F026AE5F0F4E5660DB780B49081D515A /* pearl_diver.h in Headers */ = {isa = PBXBuildFile; fileRef = F54F0D72ECB86CFD18D0714CECE72C9C /* pearl_diver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0910E3100C7DF9B06C5D22A54AFB17A /* FontAwesomeTextRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0383875D38995FB2E9BB37032DD29814 /* FontAwesomeTextRepresentable.swift */; };
 		F3D0CE1C99DB12F169A00FC2C850E942 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C42E97F7E872B0E1A1675492CD8BD3 /* Assets.xcassets */; };
+		F5E01DA7F8BE103F3494B75837B707E8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B679EA273040E3713A3E25B5C923DF /* UIKit.framework */; };
 		F991D759506CFA591CF883F71812F181 /* IotaAPIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6403D21F31555E95EAB55C3D2D5BE2A6 /* IotaAPIUtils.swift */; };
 		FB0D35F97A8BBB4777A88F79BD9597D5 /* sha3.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4FB214E73D184D2F3D01CBF709FA03 /* sha3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -151,21 +159,23 @@
 		07C42E97F7E872B0E1A1675492CD8BD3 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = AvatarCapture/AvatarCapture/Assets.xcassets; sourceTree = "<group>"; };
 		085FA74956ABC0BA03C7149EA09529D6 /* AvatarCapture-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AvatarCapture-prefix.pch"; sourceTree = "<group>"; };
 		0E1423E6B8E5256946775968F506AFA9 /* FontAwesomeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeView.swift; path = FontAwesome/FontAwesomeView.swift; sourceTree = "<group>"; };
-		0F0448DD482660B6C1E1F47F591DBDB3 /* FontAwesome.otf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = FontAwesome.otf; path = FontAwesome/FontAwesome.otf; sourceTree = "<group>"; };
+		0F0448DD482660B6C1E1F47F591DBDB3 /* FontAwesome.otf */ = {isa = PBXFileReference; includeInIndex = 1; name = FontAwesome.otf; path = FontAwesome/FontAwesome.otf; sourceTree = "<group>"; };
 		0F653E68FBB32F3D7F2956D569A7AAB0 /* trit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = trit.h; path = Sources/cpow/include/trit.h; sourceTree = "<group>"; };
 		103936161A13CCA9E11DA6F5F023E16C /* FontAwesomeImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeImageView.swift; path = FontAwesome/FontAwesomeImageView.swift; sourceTree = "<group>"; };
+		10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		10BCD3B4384A48A24A0B77B2E7479172 /* IotaKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IotaKit-prefix.pch"; sourceTree = "<group>"; };
 		11304DD8B3A398F00351E6EA242154EF /* Kerl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Kerl.swift; path = Sources/IotaKit/Pow/Kerl.swift; sourceTree = "<group>"; };
 		122337CBD143387EEE9C8CD8F691FF8D /* PAWS.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PAWS.swift; path = Sources/IotaKit/Connectors/PAWS.swift; sourceTree = "<group>"; };
+		12B679EA273040E3713A3E25B5C923DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		16341F06B261787AE54DB11E7040E12D /* Curl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Curl.swift; path = Sources/IotaKit/Pow/Curl.swift; sourceTree = "<group>"; };
 		1641734DBFECDD190314FA4B03FFF00B /* IotaMultisig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaMultisig.swift; path = Sources/IotaKit/IotaMultisig.swift; sourceTree = "<group>"; };
 		2017DD143C77DE4DE6A9F7B753200B1F /* ptrit_incr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ptrit_incr.h; path = Sources/cpow/include/ptrit_incr.h; sourceTree = "<group>"; };
 		248F28AD8E6CF572EE7332EBFD76AF3E /* IotaNodeSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaNodeSelector.swift; path = Sources/IotaKit/IotaNodeSelector.swift; sourceTree = "<group>"; };
 		26252AA4C215AE9104EC070B32C25521 /* hashcash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hashcash.h; path = Sources/cpow/include/hashcash.h; sourceTree = "<group>"; };
-		2A7797991D453E634156D2DA51DFB1EE /* pow.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pow.c; path = Sources/cpow/pow.c; sourceTree = "<group>"; };
+		2A7797991D453E634156D2DA51DFB1EE /* pow.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pow.c; path = Sources/cpow/pow.c; sourceTree = "<group>"; };
 		2BC9BB77B47467DD6459683431B89594 /* WSUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WSUtils.swift; path = Sources/IotaKit/Utils/WSUtils.swift; sourceTree = "<group>"; };
 		2C927C72AC50139FEBB80C5E38215CA0 /* IotaKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "IotaKit-umbrella.h"; path = "Sources/IotaKit-umbrella.h"; sourceTree = "<group>"; };
-		2CA5ECD8F9417B1B4F5435F3FD9D3B75 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftKeychainWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CA5ECD8F9417B1B4F5435F3FD9D3B75 /* SwiftKeychainWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftKeychainWrapper.framework; path = SwiftKeychainWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D011E4FE431E65A39A9CCA4DCCF4DE0 /* IotaKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IotaKit-dummy.m"; sourceTree = "<group>"; };
 		2FA0184A53E6F8882222A0CA1A09A364 /* Pods-TaPs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TaPs.release.xcconfig"; sourceTree = "<group>"; };
 		34BCBD7B8B2C54E1993C5CC1111EFA86 /* SwiftKeychainWrapper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftKeychainWrapper-prefix.pch"; sourceTree = "<group>"; };
@@ -176,20 +186,20 @@
 		482E5E0809FFA54785902F714D81BDB3 /* Pods-TaPs-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TaPs-umbrella.h"; sourceTree = "<group>"; };
 		49B4DC0E9B9DC7881CE3AFBFF6C98210 /* IotaChecksum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaChecksum.swift; path = Sources/IotaKit/IotaChecksum.swift; sourceTree = "<group>"; };
 		4B2134815BEAB3EA958D9F116B533093 /* Pods-TaPs-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TaPs-acknowledgements.plist"; sourceTree = "<group>"; };
-		4B925F5D26AB35C2D07C18767A9A8A70 /* AvatarCapture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AvatarCapture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B925F5D26AB35C2D07C18767A9A8A70 /* AvatarCapture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AvatarCapture.framework; path = AvatarCapture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4F834BCD331C425A54A88BF08064B2 /* FontAwesome.swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FontAwesome.swift-dummy.m"; sourceTree = "<group>"; };
 		4F2AA3E3A2F0AD2CBF92D24CEEA47523 /* FontAwesomeImageRepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeImageRepresentable.swift; path = FontAwesome/FontAwesomeImageRepresentable.swift; sourceTree = "<group>"; };
 		53B58FD57B2267996D6C9C67A1A14E03 /* IotaBundleExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaBundleExtension.swift; path = Sources/IotaKit/ModelExtensions/IotaBundleExtension.swift; sourceTree = "<group>"; };
 		58A044995160D8DBDBC38D9236D4435E /* FontAwesome.swift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FontAwesome.swift.xcconfig; sourceTree = "<group>"; };
 		5B6463CAA736D9DBDE80A16BE12C1759 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5C6BDE0D71EA426B85BC444630A7ABD7 /* curl_p_ptrit.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = curl_p_ptrit.c; path = Sources/cpow/curl_p_ptrit.c; sourceTree = "<group>"; };
+		5C6BDE0D71EA426B85BC444630A7ABD7 /* curl_p_ptrit.c */ = {isa = PBXFileReference; includeInIndex = 1; name = curl_p_ptrit.c; path = Sources/cpow/curl_p_ptrit.c; sourceTree = "<group>"; };
 		6157F1E89F6A9626C8BC51D2C844320F /* Pods-TaPs-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TaPs-acknowledgements.markdown"; sourceTree = "<group>"; };
 		6403D21F31555E95EAB55C3D2D5BE2A6 /* IotaAPIUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaAPIUtils.swift; path = Sources/IotaKit/IotaAPIUtils.swift; sourceTree = "<group>"; };
 		66B1BA648D7F6559FC86E88C9B298DB0 /* IotaConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaConverter.swift; path = Sources/IotaKit/IotaConverter.swift; sourceTree = "<group>"; };
 		67BA91D6A3989991FB649FB7509C7478 /* Iota.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Iota.swift; path = Sources/IotaKit/Iota.swift; sourceTree = "<group>"; };
 		6AE5A7D8ED32DBCCA95CA6A346820068 /* Pods-TaPs.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TaPs.modulemap"; sourceTree = "<group>"; };
 		6B6907FAE49EA20EFC2A4F6767641E95 /* SwiftKeychainWrapper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftKeychainWrapper-umbrella.h"; sourceTree = "<group>"; };
-		6B8C663F9448C373A331BC03EA90DB47 /* pearl_diver.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = pearl_diver.c; path = Sources/cpow/pearl_diver.c; sourceTree = "<group>"; };
+		6B8C663F9448C373A331BC03EA90DB47 /* pearl_diver.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pearl_diver.c; path = Sources/cpow/pearl_diver.c; sourceTree = "<group>"; };
 		6C701983FD58FEE2A16F5161766DA96E /* IotaAPIServiceProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaAPIServiceProtocol.swift; path = Sources/IotaKit/Connectors/IotaAPIServiceProtocol.swift; sourceTree = "<group>"; };
 		6D5D3953655F46F814BF787076BFAFEC /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Sources/IotaKit/Utils/Utils.swift; sourceTree = "<group>"; };
 		72CCEDA5979A9444F027C9BB85E5BA7D /* FontAwesome.swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FontAwesome.swift-umbrella.h"; sourceTree = "<group>"; };
@@ -203,21 +213,22 @@
 		8E1EBE2F0805275D9AEB53D3673962B0 /* FontAwesomeSegmentedControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeSegmentedControl.swift; path = FontAwesome/FontAwesomeSegmentedControl.swift; sourceTree = "<group>"; };
 		8F83170C33EE5B97A5E48B3ED6B355C2 /* IotaKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = IotaKit.modulemap; sourceTree = "<group>"; };
 		90FB1776BD55B2E68F8131192FCBC1CE /* IotaAPIService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaAPIService.swift; path = Sources/IotaKit/IotaAPIService.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94EB43E765B29FECBEB3A70CA3311F32 /* AvatarCapture.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AvatarCapture.modulemap; sourceTree = "<group>"; };
 		966E2138E7555D39156C6D25A62E8DB7 /* AvatarCapture-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AvatarCapture-dummy.m"; sourceTree = "<group>"; };
 		99148489185E1EBFC4CD8ADF5A16217E /* FontAwesomeStateRequirement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeStateRequirement.swift; path = FontAwesome/FontAwesomeStateRequirement.swift; sourceTree = "<group>"; };
 		9C3B6EE7CCF362803178E260D5CC2950 /* ptrit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ptrit.h; path = Sources/cpow/include/ptrit.h; sourceTree = "<group>"; };
 		9D4FB214E73D184D2F3D01CBF709FA03 /* sha3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sha3.h; path = Sources/sha3/include/sha3.h; sourceTree = "<group>"; };
 		A09B3544FA24CD6413E5F3E97E709C3C /* tryte.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = tryte.h; path = Sources/cpow/include/tryte.h; sourceTree = "<group>"; };
-		A188AAF59AC9930673DE9D42D59BFB5C /* IotaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IotaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A188AAF59AC9930673DE9D42D59BFB5C /* IotaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IotaKit.framework; path = IotaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7893CB7A97B7C0555B5E51959CFCD14 /* CPow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CPow.swift; path = Sources/IotaKit/Pow/CPow.swift; sourceTree = "<group>"; };
 		A7DD3418B823CAC6AE9B4F6A409171A7 /* AvatarCapture-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AvatarCapture-umbrella.h"; sourceTree = "<group>"; };
 		A873C353AE9F9AA6CE42018C83D51870 /* IotaUnits.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaUnits.swift; path = Sources/IotaKit/IotaUnits.swift; sourceTree = "<group>"; };
 		AC03B7081621ACADFAA6BD8EE32A5B6D /* indices.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = indices.h; path = Sources/cpow/include/indices.h; sourceTree = "<group>"; };
 		AC6F15EAB82CFEFE6E7426AD2A08D962 /* IotaModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaModels.swift; path = Sources/IotaKit/IotaModels.swift; sourceTree = "<group>"; };
+		ACBFFB48FB8F2A32F5E8897AA8A5F1AD /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		AD7E69A3A755B2FD65181BCECCA812F9 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItemAccessibility.swift; path = SwiftKeychainWrapper/KeychainItemAccessibility.swift; sourceTree = "<group>"; };
-		ADF778B29F75921A947917B0B4CC0D12 /* ptrit_incr.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ptrit_incr.c; path = Sources/cpow/ptrit_incr.c; sourceTree = "<group>"; };
+		ADF778B29F75921A947917B0B4CC0D12 /* ptrit_incr.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ptrit_incr.c; path = Sources/cpow/ptrit_incr.c; sourceTree = "<group>"; };
 		AE723C850E93415DB7072AAB9EBD6F64 /* trits.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = trits.h; path = Sources/cpow/include/trits.h; sourceTree = "<group>"; };
 		B7CFA0CE56A6C5365DD6CBDE8F0278DD /* Pods-TaPs-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TaPs-frameworks.sh"; sourceTree = "<group>"; };
 		BA706B6CE60C6FE9B0FE89200CD24680 /* SwiftKeychainWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SwiftKeychainWrapper.h; path = SwiftKeychainWrapper/SwiftKeychainWrapper.h; sourceTree = "<group>"; };
@@ -226,36 +237,37 @@
 		BCE1567D73456D580C3AE8ABEAA1F8EF /* SwiftKeychainWrapper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftKeychainWrapper.modulemap; sourceTree = "<group>"; };
 		BD5BBC1386813C60BD9F7FC8C76AAFBA /* pcurl_ptrit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pcurl_ptrit.h; path = Sources/cpow/include/pcurl_ptrit.h; sourceTree = "<group>"; };
 		BF233A7979891284D4BBC4A8A95B8A50 /* Enum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Enum.swift; path = FontAwesome/Enum.swift; sourceTree = "<group>"; };
-		C1640E4583D959BA12387AE5C98B4498 /* AvatarCapture.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvatarCapture.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		C26665154606BB8BC7B232881DF58E00 /* FontAwesome_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FontAwesome_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1640E4583D959BA12387AE5C98B4498 /* AvatarCapture.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AvatarCapture.bundle; path = "AvatarCapture-AvatarCapture.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C26665154606BB8BC7B232881DF58E00 /* FontAwesome_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FontAwesome_swift.framework; path = FontAwesome.swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B780CCE01BEC56A97470E9FC46852F /* FontAwesome_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FontAwesome_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C375F3F0A2DC72073BD12493F39E673A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4DE2C61477B0AD6B8BF970E8E71CC31 /* constants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = constants.h; path = Sources/cpow/include/constants.h; sourceTree = "<group>"; };
 		C6FE1461D82DAE84BE32604082E57822 /* SwiftKeychainWrapper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftKeychainWrapper.xcconfig; sourceTree = "<group>"; };
-		C70CDD326457A277F321D6E0C97FE511 /* Pods_TaPs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaPs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C70CDD326457A277F321D6E0C97FE511 /* Pods_TaPs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TaPs.framework; path = "Pods-TaPs.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7E05BC115E6779797CF9B8038E3C852 /* search.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = search.h; path = Sources/cpow/include/search.h; sourceTree = "<group>"; };
-		CA6896DF68A01FC742B0E8542C9217B3 /* hashcash.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = hashcash.c; path = Sources/cpow/hashcash.c; sourceTree = "<group>"; };
+		CA6896DF68A01FC742B0E8542C9217B3 /* hashcash.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hashcash.c; path = Sources/cpow/hashcash.c; sourceTree = "<group>"; };
 		CFFAC8F71510B8BB3AAC1ABA85671FE5 /* hash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hash.h; path = Sources/cpow/include/hash.h; sourceTree = "<group>"; };
-		D3547E835C4539D1045A15E1CE1D0656 /* curl_p.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = curl_p.c; path = Sources/cpow/curl_p.c; sourceTree = "<group>"; };
-		D388EB8F615A9775B4BF4448C1B038F7 /* FontAwesome.swift.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FontAwesome.swift.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3547E835C4539D1045A15E1CE1D0656 /* curl_p.c */ = {isa = PBXFileReference; includeInIndex = 1; name = curl_p.c; path = Sources/cpow/curl_p.c; sourceTree = "<group>"; };
+		D388EB8F615A9775B4BF4448C1B038F7 /* FontAwesome.swift.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = FontAwesome.swift.bundle; path = "FontAwesome.swift-FontAwesome.swift.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4874A6D0C0933D1DEC2442720987132 /* IotaConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaConstants.swift; path = Sources/IotaKit/IotaConstants.swift; sourceTree = "<group>"; };
 		D52E32E077C28DE373D7925159414122 /* Pods-TaPs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TaPs.debug.xcconfig"; sourceTree = "<group>"; };
 		D8DFED25EBF740ADD92AFB9669C75784 /* FontAwesome.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FontAwesome.swift-prefix.pch"; sourceTree = "<group>"; };
 		DC5C8557FE81CD4AEA07E26CBEA5906A /* ResourceBundle-AvatarCapture-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-AvatarCapture-Info.plist"; sourceTree = "<group>"; };
 		DE56C4E377D95F0B779503A12FDE616B /* Pods-TaPs-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TaPs-dummy.m"; sourceTree = "<group>"; };
-		DE62A0DD037F8A64CFF39714F053B761 /* trit_tryte.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = trit_tryte.c; path = Sources/cpow/trit_tryte.c; sourceTree = "<group>"; };
+		DE62A0DD037F8A64CFF39714F053B761 /* trit_tryte.c */ = {isa = PBXFileReference; includeInIndex = 1; name = trit_tryte.c; path = Sources/cpow/trit_tryte.c; sourceTree = "<group>"; };
 		DF8E9197AEA74824A9E8806A989B9963 /* PearlDiverLocalPow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PearlDiverLocalPow.swift; path = Sources/IotaKit/Pow/PearlDiverLocalPow.swift; sourceTree = "<group>"; };
 		E119F2D22047FF7B29F5E13F43BA0601 /* FontAwesome.swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FontAwesome.swift.modulemap; sourceTree = "<group>"; };
 		E36668890E906EE21852C95BC20D9DDE /* AvatarCaptureController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AvatarCaptureController.swift; path = AvatarCapture/AvatarCapture/AvatarCaptureController.swift; sourceTree = "<group>"; };
-		E42D55A43A2516E7E665D0711F16D8FC /* _pow.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = _pow.c; path = Sources/cpow/_pow.c; sourceTree = "<group>"; };
+		E42D55A43A2516E7E665D0711F16D8FC /* _pow.c */ = {isa = PBXFileReference; includeInIndex = 1; name = _pow.c; path = Sources/cpow/_pow.c; sourceTree = "<group>"; };
 		E6B0E1A1FA93D3AABBD511327E6E27CD /* trit_ptrit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = trit_ptrit.h; path = Sources/cpow/include/trit_ptrit.h; sourceTree = "<group>"; };
 		EB1065753C31084BA40DF81D0A693CAE /* FontAwesomeTabBarItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeTabBarItem.swift; path = FontAwesome/FontAwesomeTabBarItem.swift; sourceTree = "<group>"; };
 		EBBB82A5F59BE5ED8F5A6A7CE3F0272E /* CurlSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CurlSource.swift; path = Sources/IotaKit/Pow/CurlSource.swift; sourceTree = "<group>"; };
-		ED6515C64805072EA01E1B89CB363D7C /* trit_ptrit.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = trit_ptrit.c; path = Sources/cpow/trit_ptrit.c; sourceTree = "<group>"; };
+		ED6515C64805072EA01E1B89CB363D7C /* trit_ptrit.c */ = {isa = PBXFileReference; includeInIndex = 1; name = trit_ptrit.c; path = Sources/cpow/trit_ptrit.c; sourceTree = "<group>"; };
 		EF24F611651014820056C0C1ECDFC592 /* FontAwesomeBarButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FontAwesomeBarButtonItem.swift; path = FontAwesome/FontAwesomeBarButtonItem.swift; sourceTree = "<group>"; };
 		F30074B2A4559D25CE56C425978DD119 /* SwiftKeychainWrapper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftKeychainWrapper-dummy.m"; sourceTree = "<group>"; };
 		F54F0D72ECB86CFD18D0714CECE72C9C /* pearl_diver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pearl_diver.h; path = Sources/cpow/include/pearl_diver.h; sourceTree = "<group>"; };
 		F593CD51F9A464AA5DA805A4FC6F973B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F6DF8BAFDB75FBCCCC1C90E306290DE7 /* sha3.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = sha3.c; path = Sources/sha3/sha3.c; sourceTree = "<group>"; };
+		F6DF8BAFDB75FBCCCC1C90E306290DE7 /* sha3.c */ = {isa = PBXFileReference; includeInIndex = 1; name = sha3.c; path = Sources/sha3/sha3.c; sourceTree = "<group>"; };
 		F9E33BF7457974ED50F856324966678A /* IotaTransactionExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IotaTransactionExtension.swift; path = Sources/IotaKit/ModelExtensions/IotaTransactionExtension.swift; sourceTree = "<group>"; };
 		FAD2D11C0D95F9F7CCD4E0EA7F93EF4E /* _pow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _pow.h; path = Sources/cpow/include/_pow.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -272,6 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0155338B67DAC05301158F10A48D130D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +299,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				199467C56F962DE04F7F5BEC925DDBFB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +307,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6342368EF71C0E57FAC6671025892B67 /* FontAwesome_swift.framework in Frameworks */,
+				6A3FA13C416EFE4C6BCECE0DAAEF2745 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +316,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				641120D0C61F1CF3CAC44577930B56E9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +324,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E57CF5D84F2B3DB240470C11A29214E /* CoreText.framework in Frameworks */,
+				252228E3EA2DB966A8B7E84F3E4488BA /* Foundation.framework in Frameworks */,
+				F5E01DA7F8BE103F3494B75837B707E8 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,12 +355,16 @@
 				BA706B6CE60C6FE9B0FE89200CD24680 /* SwiftKeychainWrapper.h */,
 				F74AF00E99D75E4627EE6D7CC373185A /* Support Files */,
 			);
+			name = SwiftKeychainWrapper;
 			path = SwiftKeychainWrapper;
 			sourceTree = "<group>";
 		};
 		6645DED62CD7633283A0F34723F78E79 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				ACBFFB48FB8F2A32F5E8897AA8A5F1AD /* CoreText.framework */,
+				10B4AF657DE670D9CE68093A0FE29AE1 /* Foundation.framework */,
+				12B679EA273040E3713A3E25B5C923DF /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -434,6 +458,7 @@
 		E41A75E80E4ECA8695A29A418A6455B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2B780CCE01BEC56A97470E9FC46852F /* FontAwesome_swift.framework */,
 				6645DED62CD7633283A0F34723F78E79 /* iOS */,
 			);
 			name = Frameworks;
@@ -459,6 +484,7 @@
 				769EE5AA8C5EF602E0101E323344EE9F /* Resources */,
 				8DF9DF87FFF93A5FECE2D8182FD47583 /* Support Files */,
 			);
+			name = AvatarCapture;
 			path = AvatarCapture;
 			sourceTree = "<group>";
 		};
@@ -478,6 +504,7 @@
 				FBBE6B19F8DCF4675C1EDE15445841E2 /* Resources */,
 				8B65E0722FF83D5EC1512C58AEB397A8 /* Support Files */,
 			);
+			name = FontAwesome.swift;
 			path = FontAwesome.swift;
 			sourceTree = "<group>";
 		};
@@ -541,6 +568,7 @@
 				2BC9BB77B47467DD6459683431B89594 /* WSUtils.swift */,
 				E6764514660AB423D41C72F535BBA19E /* Support Files */,
 			);
+			name = IotaKit;
 			path = IotaKit;
 			sourceTree = "<group>";
 		};
@@ -766,7 +794,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1010,39 +1038,6 @@
 			};
 			name = Release;
 		};
-		1E021E1E4A335CDC8AEF37364CF88887 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58A044995160D8DBDBC38D9236D4435E /* FontAwesome.swift.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FontAwesome.swift/FontAwesome.swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FontAwesome.swift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FontAwesome.swift/FontAwesome.swift.modulemap";
-				PRODUCT_MODULE_NAME = FontAwesome_swift;
-				PRODUCT_NAME = FontAwesome_swift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		553022A828EE1991F07D2D73F565AEF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1176,7 +1171,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -1197,9 +1191,9 @@
 			};
 			name = Debug;
 		};
-		7D4DB1B347F32399858ADB6E14C9E4F7 /* Debug */ = {
+		74F2DA20D448D3BCB4AC704121BAE669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 895E3AC3AEC9469E7D1A4F518B1B9001 /* IotaKit.xcconfig */;
+			baseConfigurationReference = C6FE1461D82DAE84BE32604082E57822 /* SwiftKeychainWrapper.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1210,19 +1204,52 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/IotaKit/IotaKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/IotaKit/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftKeychainWrapper/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/IotaKit/IotaKit.modulemap";
-				PRODUCT_MODULE_NAME = IotaKit;
-				PRODUCT_NAME = IotaKit;
+				MODULEMAP_FILE = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper.modulemap";
+				PRODUCT_MODULE_NAME = SwiftKeychainWrapper;
+				PRODUCT_NAME = SwiftKeychainWrapper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7855FA40A90B54AFA5BC1250ED0A67AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58A044995160D8DBDBC38D9236D4435E /* FontAwesome.swift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FontAwesome.swift/FontAwesome.swift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FontAwesome.swift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FontAwesome.swift/FontAwesome.swift.modulemap";
+				PRODUCT_MODULE_NAME = FontAwesome_swift;
+				PRODUCT_NAME = FontAwesome_swift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.1;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1298,39 +1325,7 @@
 			};
 			name = Release;
 		};
-		A8223EC592DFB296A0BD7DBB6031979E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58A044995160D8DBDBC38D9236D4435E /* FontAwesome.swift.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/FontAwesome.swift/FontAwesome.swift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FontAwesome.swift/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FontAwesome.swift/FontAwesome.swift.modulemap";
-				PRODUCT_MODULE_NAME = FontAwesome_swift;
-				PRODUCT_NAME = FontAwesome_swift;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		A90FD0FC6612FC82C292245B3B251ECE /* Release */ = {
+		A8FD42526C6C02E430E7C98FD29FAB21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 895E3AC3AEC9469E7D1A4F518B1B9001 /* IotaKit.xcconfig */;
 			buildSettings = {
@@ -1354,8 +1349,40 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B1ED6EB8DE53F5038822FB1F0C0CAD2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 58A044995160D8DBDBC38D9236D4435E /* FontAwesome.swift.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FontAwesome.swift/FontAwesome.swift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FontAwesome.swift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FontAwesome.swift/FontAwesome.swift.modulemap";
+				PRODUCT_MODULE_NAME = FontAwesome_swift;
+				PRODUCT_NAME = FontAwesome_swift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.1;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1399,6 +1426,38 @@
 			};
 			name = Debug;
 		};
+		C2FA40CC6841B4546E933DE316F33E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6FE1461D82DAE84BE32604082E57822 /* SwiftKeychainWrapper.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftKeychainWrapper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper.modulemap";
+				PRODUCT_MODULE_NAME = SwiftKeychainWrapper;
+				PRODUCT_NAME = SwiftKeychainWrapper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		C5B64F5D1463479D182ED7392F6FB9D5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 764FDC79EC11D1B3F4D473918AE7D287 /* AvatarCapture.xcconfig */;
@@ -1433,9 +1492,9 @@
 			};
 			name = Release;
 		};
-		C8B7E732F02FC9FF22537E6D109547B7 /* Release */ = {
+		DDBCE0FF04972753DDB213A02EE49BB7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6FE1461D82DAE84BE32604082E57822 /* SwiftKeychainWrapper.xcconfig */;
+			baseConfigurationReference = 895E3AC3AEC9469E7D1A4F518B1B9001 /* IotaKit.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1446,57 +1505,25 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftKeychainWrapper/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/IotaKit/IotaKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IotaKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper.modulemap";
-				PRODUCT_MODULE_NAME = SwiftKeychainWrapper;
-				PRODUCT_NAME = SwiftKeychainWrapper;
+				MODULEMAP_FILE = "Target Support Files/IotaKit/IotaKit.modulemap";
+				PRODUCT_MODULE_NAME = IotaKit;
+				PRODUCT_NAME = IotaKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		EEF3829E2BF3913A6FDEAA2889198EEF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6FE1461D82DAE84BE32604082E57822 /* SwiftKeychainWrapper.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftKeychainWrapper/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftKeychainWrapper/SwiftKeychainWrapper.modulemap";
-				PRODUCT_MODULE_NAME = SwiftKeychainWrapper;
-				PRODUCT_NAME = SwiftKeychainWrapper;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1531,8 +1558,8 @@
 		6FFD0611E01D7B64BFBE93A5C5D50B8A /* Build configuration list for PBXNativeTarget "IotaKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7D4DB1B347F32399858ADB6E14C9E4F7 /* Debug */,
-				A90FD0FC6612FC82C292245B3B251ECE /* Release */,
+				A8FD42526C6C02E430E7C98FD29FAB21 /* Debug */,
+				DDBCE0FF04972753DDB213A02EE49BB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1558,8 +1585,8 @@
 		AD3D083F78ABD7D2C211CF8693F85CB1 /* Build configuration list for PBXNativeTarget "FontAwesome.swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A8223EC592DFB296A0BD7DBB6031979E /* Debug */,
-				1E021E1E4A335CDC8AEF37364CF88887 /* Release */,
+				7855FA40A90B54AFA5BC1250ED0A67AD /* Debug */,
+				B1ED6EB8DE53F5038822FB1F0C0CAD2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1567,8 +1594,8 @@
 		F7385BCC6BE532F408F93F04373E40BA /* Build configuration list for PBXNativeTarget "SwiftKeychainWrapper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EEF3829E2BF3913A6FDEAA2889198EEF /* Debug */,
-				C8B7E732F02FC9FF22537E6D109547B7 /* Release */,
+				C2FA40CC6841B4546E933DE316F33E94 /* Debug */,
+				74F2DA20D448D3BCB4AC704121BAE669 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

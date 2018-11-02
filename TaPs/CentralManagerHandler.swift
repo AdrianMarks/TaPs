@@ -298,7 +298,7 @@ class CentralManagerHandler: NSObject, CBCentralManagerDelegate, CBPeripheralDel
                             
                             print("Retrieve was successful")
                             
-                            let tempPayeeAvatar:Data = UIImagePNGRepresentation(success)!
+                            let tempPayeeAvatar:Data = success.pngData()!
                             
                             //Update the UIImage View back on the main queue
                             DispatchQueue.main.async {

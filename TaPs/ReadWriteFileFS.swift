@@ -12,7 +12,7 @@ import UIKit
 class ReadWriteFileFS{
     
     func writeFile(_ image: UIImage, _ imgName: String) -> Bool{
-        let imageData = UIImageJPEGRepresentation(image, 1)
+        let imageData = image.jpegData(compressionQuality: 1)
         
         print("Image file size = \(String(describing: imageData))")
         

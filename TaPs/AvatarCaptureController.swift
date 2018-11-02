@@ -48,7 +48,7 @@ open class AvatarCaptureController: UIViewController {
         // initialize the avatar view
         avatarView = UIImageView.init(frame: view.frame)
         avatarView?.image = image
-        avatarView?.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleHeight.rawValue) | UInt8(UIViewAutoresizing.flexibleWidth.rawValue)))
+        avatarView?.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue) | UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue)))
         avatarView?.contentMode = .scaleAspectFill
         avatarView?.layer.masksToBounds = true
         avatarView?.layer.cornerRadius = view.bounds.width / 2
@@ -368,8 +368,11 @@ extension AvatarCaptureController: UIImagePickerControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        selectedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
         self.capturedImageView?.image = selectedImage
         
         dismiss(animated: true, completion: {() -> Void in
@@ -395,7 +398,7 @@ extension AvatarCaptureController: AVCapturePhotoCaptureDelegate {
             var capturedImage = UIImage.init(data: dataImage, scale:1)
             
             if isFrontFacing {
-                capturedImage = UIImage.init(cgImage: (capturedImage?.cgImage!)!, scale: (capturedImage?.scale)!, orientation: UIImageOrientation.leftMirrored)
+                capturedImage = UIImage.init(cgImage: (capturedImage?.cgImage!)!, scale: (capturedImage?.scale)!, orientation: UIImage.Orientation.leftMirrored)
             }
             
             isCapturingImage = false
@@ -412,3 +415,13 @@ extension AvatarCaptureController: AVCapturePhotoCaptureDelegate {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

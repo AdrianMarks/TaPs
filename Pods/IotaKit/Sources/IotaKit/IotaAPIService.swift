@@ -90,7 +90,7 @@ class IotaAPIService: IotaAPIServices {
 		}
 	}
 	
-    static func trytes(nodeAddress: String, hashes: [String], _ success: @escaping (_ trytes: [IotaTransaction]) -> Void, _ error: @escaping (Error) -> Void) {
+	static func trytes(nodeAddress: String, hashes: [String], _ success: @escaping (_ trytes: [IotaTransaction]) -> Void, _ error: @escaping (Error) -> Void) {
 		
 		var data = command(withString: "getTrytes")
 		data["hashes"] = hashes
@@ -257,12 +257,13 @@ class IotaAPIService: IotaAPIServices {
 				error(IotaAPIError(e))
 				return
 			}
-            if let state = dict["state"] as? Bool {
-                success(state)
-                return
-            }
 			if let state = dict["state"] as? Int {
 				success(state == 1 ? true : false)
+				return
+			}
+			
+			if let state = dict["state"] as? Bool {
+				success(state)
 				return
 			}
 			error(IotaAPIError("Malformed JSON"))

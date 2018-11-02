@@ -211,9 +211,9 @@ class AccountViewController: UIViewController, UITextFieldDelegate {
             bluetoothSwitch.isOn = false
         }
         
-        passcodeSwitch.addTarget(self, action: #selector(pinStateChanged), for: UIControlEvents.valueChanged)
+        passcodeSwitch.addTarget(self, action: #selector(pinStateChanged), for: UIControl.Event.valueChanged)
         
-        bluetoothSwitch.addTarget(self, action: #selector(blueStateChanged), for: UIControlEvents.valueChanged)
+        bluetoothSwitch.addTarget(self, action: #selector(blueStateChanged), for: UIControl.Event.valueChanged)
         
     }
     

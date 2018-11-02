@@ -124,11 +124,19 @@ class MakePaymentViewController: UIViewController, UITextFieldDelegate, DropDown
         
         print("The amount is - \(amount)")
         
+        //Remove all invalid characters
+        let string = "0123456789."
+        let substring = amountToPay.text!.suffix(1)
+        if !string.contains(substring) {
+            amountToPay.text = String((amountToPay.text?.dropLast())!)
+        }
+        
         let units = button.titleLabel?.text!
         var fromUnit: IotaUnits = IotaUnits.Mi
         
         switch units {
-            
+        
+        //Ensure there are no fractions of an Iota
         case "I":
             print("I")
             fromUnit = IotaUnits.i
