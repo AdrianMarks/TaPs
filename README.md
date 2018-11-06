@@ -25,7 +25,7 @@ SwiftKeychainWrapper
 
 ## Author
 
-TaPs is maintained by [Adrian Marks]
+TaPs is maintained by Adrian Marks
 
 ## Thanks
 
