@@ -10,7 +10,7 @@ TaPs is an iOS application written in Swift that demonstrates a simple and frict
 
 TaPs has been developed for iOS 10.0 and above.
 
-## APP Download from TestFlight
+## App download from TestFlight
 
 https://testflight.apple.com/join/Ej0Wgdum
 
