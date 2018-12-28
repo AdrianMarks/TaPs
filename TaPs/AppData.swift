@@ -18,7 +18,7 @@ public var sendShortDataIndex: Int?
 public var dataToWrite: Data?
 public var writeDataIndex: Int?
 public var writeShortDataIndex: Int?
-public var node = "https://redkite-iota.com:443"
+public var node = "https://pow4.iota.community:443"
 enum TAPConstants {
     static let kAvatar = "avatar"
     static let kSeed = "seed"
