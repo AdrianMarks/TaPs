@@ -4,7 +4,7 @@ Tips and Payments - IOTA POC Project
 
 TaPs is an iOS application written in Swift that demonstrates a simple and frictionless way to tip and pay people around you by using the ease of Bluetooth to share limited information: Avatar, Avatar Name, Payment Address and the power of IOTA to provide: fast, secure and feeless transactions.
 
-** N.B. Very much work in progress. **
+** N.B. A POC which is now very out of date with the developments of IOTA. **
 
 ## Compatibility
 
